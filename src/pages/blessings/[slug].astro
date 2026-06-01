@@ -3,7 +3,7 @@ import ArticleLayout from '@/layouts/ArticleLayout.astro';
 import TierBadge from '@/components/TierBadge.astro';
 import RarityBadge from '@/components/RarityBadge.astro';
 import SummaryTable from '@/components/SummaryTable.astro';
-import { getBlessings, getBlessingBySlug } from '@/lib/data';
+import { getBlessings, getBlessingBySlug, getWeapons, TIER_ORDER } from '@/lib/data';
 
 export function getStaticPaths() {
   const blessings = getBlessings();
@@ -11,6 +11,12 @@ export function getStaticPaths() {
 }
 
 const { blessing } = Astro.props;
+const allWeapons = getWeapons();
+
+// Find weapons that recommend this blessing
+const blessingWeapons = allWeapons.filter(w =>
+  w.recommendedBlessing.toLowerCase().includes(blessing.name.toLowerCase())
+);
 
 const title = `${blessing.name} Blessing - Broken Blade Blessing Guide`;
 const description = `${blessing.name} blessing guide for Broken Blade Roblox. Tier ${blessing.tier}, ${blessing.rarity} rarity, effects, best builds, and how to unlock.`;
@@ -22,9 +28,43 @@ const summaryRows = [
   { label: 'Best For', value: blessing.bestFor },
 ];
 
+const keepAdvice = blessing.tier === 'S' || blessing.tier === 'A'
+  ? `Keep ${blessing.name}. It is a ${blessing.tier}-tier blessing and worth holding onto for ${blessing.bestFor}. This is one of the stronger blessings in the game.`
+  : blessing.tier === 'B'
+  ? `${blessing.name} is a solid mid-tier blessing. It is usable for ${blessing.bestFor}, but if you have spare blessing rerolls and are committed to a specific build, you could aim higher.`
+  : `${blessing.name} is a ${blessing.tier}-tier blessing. It provides some benefit but is outclassed by higher-tier options. Reroll when you get the chance.`;
+
+const beginnerValue = blessing.tier === 'S' || blessing.tier === 'A'
+  ? `${blessing.name} is powerful even early on. Its effects provide a noticeable boost that makes progression smoother. If you roll this before level 1000, consider yourself lucky.`
+  : blessing.tier === 'B'
+  ? `${blessing.name} provides decent bonuses for early progression. It is a comfortable pick that helps with ${blessing.bestFor.toLowerCase()} while you work toward stronger options.`
+  : `${blessing.name} offers marginal bonuses. It will not hold you back early on, but it is not worth building around.`;
+
+const lateGameValue = blessing.tier === 'S'
+  ? `${blessing.name} is one of the best blessings for endgame content. Its massive damage and stat bonuses make it a cornerstone of the strongest Boss Rush and max-level builds.`
+  : blessing.tier === 'A'
+  ? `${blessing.name} remains strong into the late game. It is competitive with S-tier blessings in many situations and is a perfectly viable choice for endgame content.`
+  : blessing.tier === 'B'
+  ? `${blessing.name} works in late game but is noticeably weaker than S and A tier blessings. It can fill a role if it matches your build, but upgrading should be a priority.`
+  : `${blessing.name} is not recommended for serious endgame content. Its effects are too small to compete with the higher-tier blessing options.`;
+
+const bossRushAdvice = blessing.tier === 'S'
+  ? `${blessing.name} is an excellent choice for Boss Rush. Its high damage output and strong stat bonuses make it one of the best blessings for clearing waves quickly.`
+  : blessing.tier === 'A'
+  ? `${blessing.name} is viable for Boss Rush, especially if it aligns with your weapon and race. It may not top the charts, but it can hold its own.`
+  : `${blessing.name} can work in Boss Rush if you do not have better options, but you will notice a significant difference compared to S-tier blessings like Odin or Jormungandr.`;
+
+const commonMistakes = [
+  `Using ${blessing.name} with the wrong weapon type. Pair it with weapons that benefit from ${blessing.bestFor.toLowerCase()}.`,
+  blessing.tier === 'S' || blessing.tier === 'A'
+    ? `Rerolling away ${blessing.name} without a clear plan. This is a strong blessing — only reroll if you know exactly what you need for your specific build.`
+    : `Keeping ${blessing.name} for too long at endgame. Once you reach level 1000 and can farm Gelaros, start working toward an A or S tier blessing.`,
+  'Ignoring synergy between blessing effects and element/race bonuses. The best builds stack complementary bonuses.',
+];
+
 const faq = [
-  { question: `Should I keep ${blessing.name}?`, answer: blessing.tier === 'S' || blessing.tier === 'A' ? `Yes, ${blessing.name} is a ${blessing.tier}-tier blessing and worth keeping for ${blessing.bestFor}.` : `${blessing.name} is a ${blessing.tier}-tier blessing. Consider rerolling if you have a clear build direction, but it is usable for ${blessing.bestFor}.` },
-  { question: `How do I get ${blessing.name}?`, answer: `${blessing.name} can be obtained through blessing rerolls unlocked at level 1000. Defeat the Gelaros boss for reroll chances.` },
+  { question: `Should I keep ${blessing.name}?`, answer: keepAdvice },
+  { question: `How do I get ${blessing.name}?`, answer: `${blessing.name} can be obtained through blessing rerolls unlocked at level 1000. Defeat the Gelaros boss for reroll chances. ${blessing.name} is a ${blessing.rarity} blessing with a ${blessing.dropRate} drop rate.` },
   { question: `What builds work best with ${blessing.name}?`, answer: `${blessing.name} is best for ${blessing.bestFor}. Effects: ${blessing.effects.join(', ')}.` },
 ];
 
@@ -58,5 +98,80 @@ const relatedGuides = [
   <section class="mb-8">
     <h2 class="text-xl font-bold text-white mb-4">Notes</h2>
     <p class="text-gray-300">{blessing.notes}</p>
+  </section>
+
+  <!-- How to Get -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">How to Get {blessing.name}</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li>Reach <strong class="text-white">level 1000</strong> to unlock blessing rerolls.</li>
+        <li>Fight the <strong class="text-amber-400">Gelaros boss</strong> for Blessing Reroll items.</li>
+        <li>Use a Blessing Reroll from your inventory to roll a new blessing.</li>
+        <li>Each roll is random. {blessing.name} has a <strong class="text-amber-400">{blessing.dropRate}</strong> chance per roll as a {blessing.rarity} blessing.</li>
+      </ol>
+      <p class="mt-4 text-sm text-gray-400">Do not waste blessing rerolls before level 1000. Save them for when you have a clear build direction and can make the most of each roll.</p>
+    </div>
+  </section>
+
+  <!-- Best Build Pairings -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Best Build Pairings</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+        <h3 class="text-amber-400 font-semibold mb-2">Best Races</h3>
+        <p class="text-gray-200">Aesir (all-rounder), or match to your weapon: Vanir (Katana), Nether (Buster), Elf (Sword)</p>
+      </div>
+      <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+        <h3 class="text-amber-400 font-semibold mb-2">Best Element</h3>
+        <p class="text-gray-200">Thunder (crit synergy) or Fire (raw damage)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keep or Reroll -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Keep or Reroll?</h2>
+    <div class={`rounded-lg border p-6 ${blessing.tier === 'S' || blessing.tier === 'A' ? 'border-green-500/30 bg-green-500/5' : blessing.tier === 'B' ? 'border-yellow-500/30 bg-yellow-500/5' : 'border-red-500/30 bg-red-500/5'}`}>
+      <div class="flex items-center gap-2 mb-3">
+        <TierBadge tier={blessing.tier} />
+        <span class="text-gray-200 font-medium">{blessing.rarity}</span>
+      </div>
+      <p class="text-gray-300">{keepAdvice}</p>
+    </div>
+  </section>
+
+  <!-- Best for Boss Rush -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Best for Boss Rush?</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <p class="text-gray-300">{bossRushAdvice}</p>
+      <p class="mt-3 text-sm text-gray-400">See the <a href="/boss-rush-guide/" class="text-amber-400 hover:text-amber-300">Boss Rush Guide</a> for full build recommendations.</p>
+    </div>
+  </section>
+
+  <!-- Beginner Value -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Beginner Value</h2>
+    <p class="text-gray-300">{beginnerValue}</p>
+  </section>
+
+  <!-- Late-game Value -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Late-game Value</h2>
+    <p class="text-gray-300">{lateGameValue}</p>
+  </section>
+
+  <!-- Common Mistakes -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Common Mistakes</h2>
+    <ul class="space-y-3">
+      {commonMistakes.map((mistake) => (
+        <li class="flex items-start gap-3 text-gray-200">
+          <span class="text-red-400 mt-0.5">&#x2717;</span>
+          <span>{mistake}</span>
+        </li>
+      ))}
+    </ul>
   </section>
 </ArticleLayout>

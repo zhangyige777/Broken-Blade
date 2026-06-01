@@ -2,7 +2,7 @@
 import ArticleLayout from '@/layouts/ArticleLayout.astro';
 import TierBadge from '@/components/TierBadge.astro';
 import SummaryTable from '@/components/SummaryTable.astro';
-import { getBosses, getBossBySlug } from '@/lib/data';
+import { getBosses, getBossBySlug, getWeapons, getRaces, getElements, getBlessings, TIER_ORDER } from '@/lib/data';
 
 export function getStaticPaths() {
   const bosses = getBosses();
@@ -10,6 +10,14 @@ export function getStaticPaths() {
 }
 
 const { boss } = Astro.props;
+const allWeapons = getWeapons();
+const allRaces = getRaces();
+const allElements = getElements();
+const allBlessings = getBlessings();
+
+// Determine recommended build based on boss purpose
+const sTierWeapons = allWeapons.filter(w => w.tier === 'S').sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const sTierBlessings = allBlessings.filter(b => b.tier === 'S').sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
 
 const title = `${boss.name} Boss Guide - Broken Blade`;
 const description = `${boss.name} boss guide for Broken Blade Roblox. Level ${boss.levelRequirement} requirement, drops include ${boss.drops.join(', ')}, strategy and tips to defeat ${boss.name}.`;
@@ -19,6 +27,72 @@ const summaryRows = [
   { label: 'Tier', value: boss.tier },
   { label: 'Best For', value: boss.bestFor },
   { label: 'Drops', value: boss.drops.join(', ') },
+];
+
+// Strategy expansion based on boss type
+const strategyTips = boss.id === 'nivaron'
+  ? [
+    'Nivaron is your primary source of Race Rerolls. Farm this boss consistently once you hit level 500.',
+    'Use a stable, well-upgraded weapon. You do not need the highest DPS — consistency matters more.',
+    'Avoid spending all your rerolls at once. Decide on your weapon route before committing rerolls.',
+    'Nivaron has predictable attack patterns. Learn the timing of its heavy attacks and dodge accordingly.',
+    'Bring a sustain element (Life) or blessing (Tyr) if you are dying frequently. Survival matters more than speed while learning.',
+  ]
+  : boss.id === 'velik'
+  ? [
+    'Velik drops Element Rerolls and is the key boss for chasing Fire or Thunder.',
+    'Keep Life or Wind if your current build needs sustain or speed — do not reroll them away blindly.',
+    'Velik hits harder than Nivaron. Make sure your weapon is upgraded before extended farming sessions.',
+    'Element choice is build-defining. Have a plan for which element you want before using rerolls.',
+    'Thunder is the best element for crit builds. Fire is the most reliable all-round damage option.',
+  ]
+  : boss.id === 'gelaros'
+  ? [
+    'Gelaros is the most important boss for endgame optimization. It drops Blessing Rerolls.',
+    'Do not fight Gelaros before level 1000. Your time is better spent upgrading your weapon first.',
+    'Gelaros has a larger health pool and hits harder than Nivaron and Velik. Bring your best gear.',
+    'Focus on getting a weapon to reforge level before committing to Gelaros farming.',
+    'Blessing rerolls are the most valuable rerolls in the game. Do not waste them on low-tier blessings.',
+  ]
+  : boss.id === 'boss-rush'
+  ? [
+    'Boss Rush is the ultimate endgame activity. It requires a well-rounded build with both damage and sustain.',
+    'Start with a sustain-focused build while learning the patterns. Switch to damage once you can clear consistently.',
+    'Bring either damage reduction (Freyja blessing, Frost race) or lifesteal (Fenrir blessing, Tyr blessing, Life element).',
+    'Crit builds with Thunder element and Odin/Jormungandr blessing are the fastest clears once you have the gear.',
+    'Boss Rush drops materials, reroll resources, and endgame progression items. It is worth farming repeatedly.',
+  ]
+  : [
+    `Focus on learning ${boss.name}'s attack patterns before trying to optimize your clear time.`,
+    'Bring sustain if you are undergeared. You can always switch to a damage build later.',
+    `Defeat ${boss.name} consistently before moving on to harder content.`,
+  ];
+
+const whatToBring = [
+  `<strong class="text-white">Upgraded weapon</strong> — Your weapon should be at least fully forged, preferably reforged.`,
+  `<strong class="text-white">Sustain option</strong> — Either Life element, Tyr/Fenrir blessing, or a race with defensive bonuses.`,
+  `<strong class="text-white">Enough health potions</strong> — Stock up before the fight, especially while learning the boss.`,
+  boss.id === 'gelaros' || boss.id === 'boss-rush'
+    ? `<strong class="text-white">Best available blessing</strong> — Blessings make a huge difference in longer fights. Equip your strongest one.`
+    : `<strong class="text-white">Patience</strong> — ${boss.name} is farmable. Do not rush and risk wasting resources.`,
+];
+
+const rewardsWorthFarming = boss.drops.map(drop => {
+  if (drop.toLowerCase().includes('race reroll')) return { item: drop, worth: 'Essential for getting S and A tier races. Farm until you have the race you want.' };
+  if (drop.toLowerCase().includes('element reroll')) return { item: drop, worth: 'Needed for Thunder or Fire. These are the best elements for most builds.' };
+  if (drop.toLowerCase().includes('blessing reroll')) return { item: drop, worth: 'The most valuable reroll type. Save these for when you know exactly which blessing fits your build.' };
+  if (drop.toLowerCase().includes('material')) return { item: drop, worth: 'Used in forge and reforge upgrades. Always worth collecting.' };
+  return { item: drop, worth: `Used for ${boss.bestFor.toLowerCase()}.` };
+});
+
+const commonMistakes = [
+  `Fighting ${boss.name} undergeared. Make sure your weapon is upgraded to an appropriate level before attempting extended farming.`,
+  boss.id === 'gelaros'
+    ? 'Using blessing rerolls before having a clear build plan. These are too valuable to waste randomly.'
+    : boss.id === 'nivaron'
+    ? 'Rerolling your race before deciding on a weapon. Your race should complement your weapon choice.'
+    : 'Ignoring boss attack patterns. Every boss has telegraphed attacks that can be dodged with practice.',
+  'Giving up after a few failed attempts. Boss fights in Broken Blade are about learning patterns and optimizing your build over time.',
 ];
 
 const faq = [
@@ -60,6 +134,89 @@ const relatedGuides = [
   <!-- Strategy -->
   <section class="mb-8">
     <h2 class="text-xl font-bold text-white mb-4">Strategy</h2>
-    <p class="text-gray-300">{boss.strategy}</p>
+    <p class="text-gray-300 mb-4">{boss.strategy}</p>
+  </section>
+
+  <!-- Recommended Build -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Recommended Build for {boss.name}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+        <h3 class="text-amber-400 font-semibold mb-2">Weapon</h3>
+        {sTierWeapons.length > 0 ? (
+          <p class="text-gray-200"><a href={`/weapons/${sTierWeapons[0].slug}/`} class="hover:text-amber-400 transition-colors">{sTierWeapons[0].name}</a> ({sTierWeapons[0].tier}-tier)</p>
+        ) : (
+          <p class="text-gray-200">Any S-tier weapon</p>
+        )}
+      </div>
+      <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+        <h3 class="text-amber-400 font-semibold mb-2">Blessing</h3>
+        {sTierBlessings.length > 0 ? (
+          <p class="text-gray-200"><a href={`/blessings/${sTierBlessings[0].slug}/`} class="hover:text-amber-400 transition-colors">{sTierBlessings[0].name}</a> ({sTierBlessings[0].tier}-tier)</p>
+        ) : (
+          <p class="text-gray-200">Odin or Jormungandr</p>
+        )}
+      </div>
+      <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+        <h3 class="text-amber-400 font-semibold mb-2">Element</h3>
+        <p class="text-gray-200">Thunder (crit) or Fire (consistent damage)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategy Tips -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Strategy Tips</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ul class="space-y-3">
+        {strategyTips.map((tip) => (
+          <li class="flex items-start gap-3 text-gray-200">
+            <span class="text-amber-400 mt-0.5 font-bold">&#9733;</span>
+            <span>{tip}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Common Mistakes -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Common Mistakes</h2>
+    <ul class="space-y-3">
+      {commonMistakes.map((mistake) => (
+        <li class="flex items-start gap-3 text-gray-200">
+          <span class="text-red-400 mt-0.5">&#x2717;</span>
+          <span>{mistake}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- What to Bring -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">What to Bring</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ul class="space-y-3">
+        {whatToBring.map((item) => (
+          <li class="flex items-start gap-3 text-gray-200">
+            <span class="text-amber-400 mt-0.5">&#x2713;</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Rewards Worth Farming -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Rewards Worth Farming</h2>
+    <div class="space-y-3">
+      {rewardsWorthFarming.map(({ item, worth }) => (
+        <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+          <h3 class="font-semibold text-amber-400 mb-1">{item}</h3>
+          <p class="text-sm text-gray-300">{worth}</p>
+        </div>
+      ))}
+    </div>
   </section>
 </ArticleLayout>

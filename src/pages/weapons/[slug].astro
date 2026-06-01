@@ -2,7 +2,7 @@
 import ArticleLayout from '@/layouts/ArticleLayout.astro';
 import TierBadge from '@/components/TierBadge.astro';
 import SummaryTable from '@/components/SummaryTable.astro';
-import { getWeapons, getWeaponBySlug } from '@/lib/data';
+import { getWeapons, getWeaponBySlug, getRaces, getElements, getBlessings, TIER_ORDER } from '@/lib/data';
 
 export function getStaticPaths() {
   const weapons = getWeapons();
@@ -10,6 +10,14 @@ export function getStaticPaths() {
 }
 
 const { weapon } = Astro.props;
+const allRaces = getRaces();
+const allElements = getElements();
+const allBlessings = getBlessings();
+
+// Find the matching race, element, blessing by name
+const bestRace = allRaces.find(r => weapon.recommendedRace.toLowerCase().includes(r.name.toLowerCase())) || allRaces.find(r => r.id === 'aesir');
+const bestElement = allElements.find(e => weapon.recommendedElement.toLowerCase().includes(e.name.toLowerCase())) || allElements.find(e => e.id === 'fire');
+const recBlessings = allBlessings.filter(b => weapon.recommendedBlessing.toLowerCase().includes(b.name.toLowerCase()));
 
 const title = `${weapon.name} - Broken Blade Weapon Guide`;
 const description = `${weapon.name} weapon guide for Broken Blade Roblox. Tier ${weapon.tier}, ${weapon.type} type, how to obtain, recommended race, element, and blessing pairings.`;
@@ -22,6 +30,44 @@ const summaryRows = [
   { label: 'Recommended Race', value: weapon.recommendedRace },
   { label: 'Recommended Element', value: weapon.recommendedElement },
   { label: 'Recommended Blessing', value: weapon.recommendedBlessing },
+];
+
+const obtainSteps = weapon.type === 'Sword' && weapon.id === 'sword'
+  ? [
+    'Start the game — the basic Sword is available from the beginning.',
+    'Use the <strong class="text-white">Forge</strong> to upgrade as you collect materials.',
+    'Follow the Sword progression path through intermediate swords.',
+  ]
+  : weapon.type === 'Katana'
+  ? [
+    'Start with a basic weapon and progress through the <strong class="text-white">Forge</strong>.',
+    'Craft the Katana once you have the required materials from boss drops.',
+    'Continue upgrading through the Katana forge route.',
+  ]
+  : weapon.type === 'Buster'
+  ? [
+    'Progress through the <strong class="text-white">Forge</strong> using materials from boss fights.',
+    'Craft the Buster weapon once you have enough materials.',
+    'For Dragon Slayer, follow the Eclipse/reforge event route.',
+  ]
+  : [
+    `Obtain via: ${weapon.obtainMethod}.`,
+    'Upgrade through the forge and reforge systems as you gather materials.',
+  ];
+
+const bossRushAdvice = weapon.tier === 'S'
+  ? `${weapon.name} is one of the best weapons for Boss Rush. Its high damage output and strong stat profile make it ideal for clearing waves quickly. Pair it with an S-tier blessing like Odin for maximum effect.`
+  : weapon.tier === 'A'
+  ? `${weapon.name} is a solid pick for Boss Rush. It may not match the raw power of S-tier weapons, but it is reliable and effective. With the right race and blessing, it can handle all Boss Rush content.`
+  : `${weapon.name} can work in Boss Rush but will struggle compared to higher-tier weapons. Upgrade to an S or A tier weapon when possible.`;
+
+const commonMistakes = [
+  `Not upgrading ${weapon.name} through the forge. An unupgraded weapon falls behind quickly, even at high tier.`,
+  'Mixing mismatched pairings. Stick with the recommended race, element, and blessing for the best synergy.',
+  weapon.tier === 'S' || weapon.tier === 'A'
+    ? `Abandoning ${weapon.name} too early. This is a strong weapon — invest in upgrades before considering a switch.`
+    : `Investing too heavily in ${weapon.name}. If it is not your endgame weapon, save your best materials for when you craft something stronger.`,
+  'Skipping the reforge route. Reforging is where weapons gain their biggest power spikes.',
 ];
 
 const faq = [
@@ -70,5 +116,127 @@ const relatedGuides = [
   <section class="mb-8">
     <h2 class="text-xl font-bold text-white mb-4">Notes</h2>
     <p class="text-gray-300">{weapon.notes}</p>
+  </section>
+
+  <!-- How to Obtain -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">How to Obtain {weapon.name}</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        {obtainSteps.map((step) => (
+          <li>{step}</li>
+        ))}
+      </ol>
+      <p class="mt-4 text-sm text-gray-400">Check the <a href="/forge-guide/" class="text-amber-400 hover:text-amber-300">Forge Guide</a> for detailed material requirements and upgrade paths.</p>
+    </div>
+  </section>
+
+  <!-- Best Race -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Best Race for {weapon.name}</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      {bestRace ? (
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <a href={`/races/${bestRace.slug}/`} class="text-lg font-bold text-gray-100 hover:text-amber-400 transition-colors">{bestRace.name}</a>
+            <TierBadge tier={bestRace.tier} />
+            <span class="text-sm text-gray-400">{bestRace.rarity}</span>
+          </div>
+          <p class="text-gray-300">{bestRace.bestFor}</p>
+          <ul class="mt-2 text-sm text-gray-400">
+            {bestRace.effects.map(e => <li class="inline mr-3">+ {e}</li>)}
+          </ul>
+        </div>
+      ) : (
+        <p class="text-gray-300">{weapon.recommendedRace}</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Best Element -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Best Element for {weapon.name}</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      {bestElement ? (
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <a href={`/elements/${bestElement.slug}/`} class="text-lg font-bold text-gray-100 hover:text-amber-400 transition-colors">{bestElement.name}</a>
+            <TierBadge tier={bestElement.tier} />
+            <span class="text-sm text-gray-400">{bestElement.rarity}</span>
+          </div>
+          <p class="text-gray-300">{bestElement.bestFor}</p>
+          <ul class="mt-2 text-sm text-gray-400">
+            {bestElement.effects.map(e => <li class="inline mr-3">+ {e}</li>)}
+          </ul>
+        </div>
+      ) : (
+        <p class="text-gray-300">{weapon.recommendedElement}</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Best Blessing -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Best Blessing for {weapon.name}</h2>
+    {recBlessings.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {recBlessings.map(b => (
+          <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <a href={`/blessings/${b.slug}/`} class="font-bold text-gray-100 hover:text-amber-400 transition-colors">{b.name}</a>
+              <TierBadge tier={b.tier} />
+              <span class="text-xs text-gray-400">{b.rarity}</span>
+            </div>
+            <p class="text-sm text-gray-300">{b.bestFor}</p>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <p class="text-gray-300">{weapon.recommendedBlessing}</p>
+      </div>
+    )}
+  </section>
+
+  <!-- Upgrade Path -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Upgrade Path</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li><strong class="text-white">Forge</strong> — Craft the base weapon using materials from boss fights and progression.</li>
+        <li><strong class="text-white">Upgrade</strong> — Improve the weapon through the forge system with additional materials.</li>
+        <li><strong class="text-amber-400">Reforge</strong> — At higher levels, reforge the weapon for significant power increases. This is the main power spike.</li>
+        <li><strong class="text-white">Maximize</strong> — Continue upgrading until the weapon reaches its full potential. Late-game reforges are the biggest DPS increases.</li>
+      </ol>
+      <p class="mt-4 text-sm text-gray-400">
+        {weapon.id === 'dragon-slayer' && 'Dragon Slayer has a specific reforge route. See the '}
+        {weapon.id === 'dragon-slayer' && <a href="/dragon-slayer-reforge/" class="text-amber-400 hover:text-amber-300">Dragon Slayer Reforge Guide</a>}
+        {weapon.id === 'dragon-slayer' && ' for details.'}
+        {weapon.id !== 'dragon-slayer' && 'See the '}
+        {weapon.id !== 'dragon-slayer' && <a href="/forge-guide/" class="text-amber-400 hover:text-amber-300">Forge Guide</a>}
+        {weapon.id !== 'dragon-slayer' && ' for detailed material requirements.'}
+      </p>
+    </div>
+  </section>
+
+  <!-- Best for Boss Rush -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Best for Boss Rush?</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <p class="text-gray-300">{bossRushAdvice}</p>
+    </div>
+  </section>
+
+  <!-- Common Mistakes -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Common Mistakes</h2>
+    <ul class="space-y-3">
+      {commonMistakes.map((mistake) => (
+        <li class="flex items-start gap-3 text-gray-200">
+          <span class="text-red-400 mt-0.5">&#x2717;</span>
+          <span>{mistake}</span>
+        </li>
+      ))}
+    </ul>
   </section>
 </ArticleLayout>

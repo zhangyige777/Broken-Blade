@@ -154,6 +154,8 @@ const faqs = faqsData as { global: FAQ[]; pages: Record<string, FAQ[]> };
 
 export const getGameConfig = () => config;
 
+export const getCodesLastChecked = () => (codesData as { lastChecked: string }).lastChecked;
+
 export const getActiveCodes = () => codes.filter(c => c.status === 'active' || c.status === 'limited');
 
 export const getExpiredCodes = () => codes.filter(c => c.status === 'expired');
@@ -162,17 +164,23 @@ export const getAllCodes = () => codes;
 
 export const getRaces = () => races;
 
+export const getRacesLastChecked = () => (racesData as { lastChecked: string }).lastChecked;
+
 export const getRaceBySlug = (slug: string) => races.find(r => r.slug === slug);
 
 export const getRacesByTier = (tier: string) => races.filter(r => r.tier === tier);
 
 export const getElements = () => elements;
 
+export const getElementsLastChecked = () => (elementsData as { lastChecked: string }).lastChecked;
+
 export const getElementBySlug = (slug: string) => elements.find(e => e.slug === slug);
 
 export const getElementsByTier = (tier: string) => elements.filter(e => e.tier === tier);
 
 export const getBlessings = () => blessings;
+
+export const getBlessingsLastChecked = () => (blessingsData as { lastChecked: string }).lastChecked;
 
 export const getBlessingBySlug = (slug: string) => blessings.find(b => b.slug === slug);
 

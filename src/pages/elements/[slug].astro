@@ -3,7 +3,7 @@ import ArticleLayout from '@/layouts/ArticleLayout.astro';
 import TierBadge from '@/components/TierBadge.astro';
 import RarityBadge from '@/components/RarityBadge.astro';
 import SummaryTable from '@/components/SummaryTable.astro';
-import { getElements, getElementBySlug } from '@/lib/data';
+import { getElements, getElementBySlug, getWeapons, TIER_ORDER } from '@/lib/data';
 
 export function getStaticPaths() {
   const elements = getElements();
@@ -11,6 +11,12 @@ export function getStaticPaths() {
 }
 
 const { element } = Astro.props;
+const allWeapons = getWeapons();
+
+// Find weapons that pair well with this element
+const elementWeapons = allWeapons.filter(w =>
+  w.recommendedElement.toLowerCase().includes(element.name.toLowerCase())
+);
 
 const title = `${element.name} Element - Broken Blade Element Guide`;
 const description = `${element.name} element guide for Broken Blade Roblox. Tier ${element.tier}, ${element.rarity} rarity, effects, and best builds.`;
@@ -22,9 +28,29 @@ const summaryRows = [
   { label: 'Best For', value: element.bestFor },
 ];
 
+const keepAdvice = element.tier === 'S' || element.tier === 'A'
+  ? `Keep ${element.name}. It is a ${element.tier}-tier element and a top choice for ${element.bestFor}. Rerolling away from it is rarely worth the risk.`
+  : element.tier === 'B'
+  ? `${element.name} is a usable element that provides ${element.bestFor.toLowerCase()}. It is fine for general play, but if you are chasing optimal damage, consider rerolling for Fire or Thunder.`
+  : `${element.name} is a ${element.tier}-tier element. It provides ${element.bestFor.toLowerCase()}, which has limited value in the late game. Reroll for a stronger element when you can.`;
+
+const beginnerValue = element.tier === 'S' || element.tier === 'A'
+  ? `${element.name} is excellent right from the start. Its damage bonuses make early leveling faster and boss fights smoother. You can comfortably invest in builds around it.`
+  : element.tier === 'B'
+  ? `${element.name} is a decent starting element. It provides enough of a boost to carry you through early and mid content without issues.`
+  : `${element.name} offers a small quality-of-life bonus. It will not hurt your early progression, but you should not build your strategy around it.`;
+
+const lateGameValue = element.tier === 'S'
+  ? `${element.name} is the best element for endgame content. Its stat bonuses scale extremely well with max-level gear and are a core part of the highest DPS builds.`
+  : element.tier === 'A'
+  ? `${element.name} stays competitive into the late game. It may be slightly behind Thunder in raw crit damage, but it is a reliable and strong choice for all endgame content.`
+  : element.tier === 'B'
+  ? `${element.name} holds up reasonably well in the late game if you do not have access to better options. Its bonuses are not dramatic but provide useful utility.`
+  : `${element.name} does not scale well into the late game. The bonuses are too small compared to what Fire or Thunder provide. Plan to reroll before investing in endgame builds.`;
+
 const faq = [
   { question: `Is ${element.name} a good element?`, answer: `${element.name} is a ${element.tier}-tier ${element.rarity} element, best for ${element.bestFor}. ${element.notes}` },
-  { question: `How do I get ${element.name}?`, answer: `${element.name} can be obtained through element rerolls unlocked at level 500. Defeat the Velik boss for reroll chances.` },
+  { question: `How do I get ${element.name}?`, answer: `${element.name} can be obtained through element rerolls unlocked at level 500. Defeat the Velik boss for reroll chances. ${element.name} has a ${element.dropRate} drop rate.` },
 ];
 
 const relatedGuides = [
@@ -57,5 +83,80 @@ const relatedGuides = [
   <section class="mb-8">
     <h2 class="text-xl font-bold text-white mb-4">Notes</h2>
     <p class="text-gray-300">{element.notes}</p>
+  </section>
+
+  <!-- How to Get -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">How to Get {element.name}</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li>Reach <strong class="text-white">level 500</strong> to unlock element rerolls.</li>
+        <li>Fight the <strong class="text-amber-400">Velik boss</strong> for Element Reroll items.</li>
+        <li>Use an Element Reroll from your inventory to roll a new element.</li>
+        <li>Each roll is random. {element.name} has a <strong class="text-amber-400">{element.dropRate}</strong> chance per roll as a {element.rarity} element.</li>
+      </ol>
+      <p class="mt-4 text-sm text-gray-400">You can also obtain element rerolls through trading with other players.</p>
+    </div>
+  </section>
+
+  <!-- Best Build Pairings -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Best Build Pairings</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+        <h3 class="text-amber-400 font-semibold mb-2">Best Races</h3>
+        <p class="text-gray-200">Aesir (all-rounder), or race matching your weapon type (Vanir for Katana, Nether for Buster, Elf for Sword)</p>
+      </div>
+      <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+        <h3 class="text-amber-400 font-semibold mb-2">Best Blessings</h3>
+        <p class="text-gray-200">Odin (raw damage), Jormungandr (damage + defense), or Tyr (lifesteal)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keep or Reroll -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Keep or Reroll?</h2>
+    <div class={`rounded-lg border p-6 ${element.tier === 'S' || element.tier === 'A' ? 'border-green-500/30 bg-green-500/5' : element.tier === 'B' ? 'border-yellow-500/30 bg-yellow-500/5' : 'border-red-500/30 bg-red-500/5'}`}>
+      <div class="flex items-center gap-2 mb-3">
+        <TierBadge tier={element.tier} />
+        <span class="text-gray-200 font-medium">{element.rarity}</span>
+      </div>
+      <p class="text-gray-300">{keepAdvice}</p>
+    </div>
+  </section>
+
+  <!-- Best Weapons -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Best Weapons for {element.name}</h2>
+    {elementWeapons.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {elementWeapons.map(w => (
+          <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+            <div class="flex items-center gap-2 mb-1">
+              <a href={`/weapons/${w.slug}/`} class="font-medium text-gray-100 hover:text-amber-400 transition-colors">{w.name}</a>
+              <TierBadge tier={w.tier} />
+            </div>
+            <p class="text-sm text-gray-400">{w.bestFor}</p>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <p class="text-gray-300">{element.name} works with any weapon type. For best results, pair it with an S or A tier weapon like Dragon Slayer, Excalibur, or Broken Blade. Check the <a href="/best-swords/" class="text-amber-400 hover:text-amber-300">Best Swords</a> page for full weapon rankings.</p>
+      </div>
+    )}
+  </section>
+
+  <!-- Beginner Value -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Beginner Value</h2>
+    <p class="text-gray-300">{beginnerValue}</p>
+  </section>
+
+  <!-- Late-game Value -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Late-game Value</h2>
+    <p class="text-gray-300">{lateGameValue}</p>
   </section>
 </ArticleLayout>

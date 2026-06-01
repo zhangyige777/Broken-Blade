@@ -6,6 +6,7 @@ import {
   getExpiredCodes,
   getGlobalFAQs,
   getPageFAQs,
+  getCodesLastChecked,
   generateItemListSchema,
 } from '@/lib/data';
 
@@ -13,6 +14,14 @@ const activeCodes = getActiveCodes();
 const expiredCodes = getExpiredCodes();
 const globalFAQ = getGlobalFAQs();
 const pageFAQ = getPageFAQs('codes');
+const codesLastChecked = getCodesLastChecked();
+
+// Format the date nicely
+const lastCheckedDate = new Date(codesLastChecked).toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
 
 const faq = [
   ...pageFAQ,
@@ -27,7 +36,7 @@ const codesSchema = generateItemListSchema(
   }))
 );
 
-const title = 'Broken Blade Codes - Latest Working Codes (June 2026)';
+const title = 'Broken Blade Codes - Working Codes (June 2026)';
 const description = 'All working Broken Blade Roblox codes for free rewards. Active codes, expired codes, and how to redeem.';
 
 const breadcrumbItems = [
@@ -38,8 +47,8 @@ const breadcrumbItems = [
 const relatedGuides = [
   { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons in Broken Blade.' },
   { title: 'Beginner Guide', url: '/beginner-guide/', description: 'Everything new players need to know.' },
-  { title: 'Discord', url: 'https://discord.gg/brokenblade', description: 'Join the official Broken Blade Discord for new codes.' },
-  { title: 'Wiki', url: '/', description: 'Complete Broken Blade wiki and guides.' },
+  { title: 'Discord', url: '/discord/', description: 'Join the official Broken Blade Discord for new codes.' },
+  { title: 'Wiki', url: '/wiki/', description: 'Complete Broken Blade wiki and guides.' },
 ];
 ---
 
@@ -52,14 +61,36 @@ const relatedGuides = [
   faq={faq}
   relatedGuides={relatedGuides}
 >
+  <!-- Last Checked Banner -->
+  <div class="mb-6 flex items-center gap-2 rounded-lg border border-amber-500/20 bg-gray-800/50 px-4 py-3">
+    <span class="text-amber-400 text-sm">&#128270;</span>
+    <p class="text-sm text-gray-300">Codes last checked: <strong class="text-gray-200">{lastCheckedDate}</strong>. We verify all codes regularly to keep this list accurate.</p>
+  </div>
+
   <!-- Active Codes -->
   <section class="mb-10">
     <h2 class="text-2xl font-bold mb-4 text-white">Active Codes</h2>
     {activeCodes.length > 0 ? (
-      <CodeTable codes={activeCodes} showStatus={true} />
+      <>
+        <CodeTable codes={activeCodes} showStatus={true} />
+        <!-- Code details with source and date -->
+        <div class="mt-4 space-y-2">
+          {activeCodes.map(c => (
+            <div class="rounded-lg border border-gray-700/50 bg-gray-800/30 p-3">
+              <div class="flex flex-wrap items-center gap-2 mb-1">
+                <span class="font-mono font-bold text-amber-400 text-sm">{c.code}</span>
+                <span class={`text-xs px-2 py-0.5 rounded ${c.status === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'}`}>{c.status === 'active' ? 'Active' : 'Limited'}</span>
+                {c.addedDate && <span class="text-xs text-gray-500">Added: {c.addedDate}</span>}
+              </div>
+              <p class="text-xs text-gray-400">Source: {c.source}</p>
+              {c.notes && <p class="text-xs text-gray-500 mt-0.5">{c.notes}</p>}
+            </div>
+          ))}
+        </div>
+      </>
     ) : (
       <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6 text-center">
-        <p class="text-gray-400">No active codes at the moment. Check back soon or join the <a href="https://discord.gg/brokenblade" class="text-amber-400 hover:text-amber-300">official Discord</a> for updates.</p>
+        <p class="text-gray-400">No active codes at the moment. Check back soon or join the <a href="/discord/" class="text-amber-400 hover:text-amber-300">official Discord</a> for updates.</p>
       </div>
     )}
   </section>

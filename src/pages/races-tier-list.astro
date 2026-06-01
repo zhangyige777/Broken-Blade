@@ -4,6 +4,7 @@ import TierTable from '@/components/TierTable.astro';
 import TierBadge from '@/components/TierBadge.astro';
 import {
   getRaces,
+  getRacesLastChecked,
   getGlobalFAQs,
   getPageFAQs,
   TIER_ORDER,
@@ -15,9 +16,19 @@ const sortedRaces = [...allRaces].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TI
 const globalFAQ = getGlobalFAQs();
 const pageFAQ = getPageFAQs('races-tier-list');
 
+const racesLastChecked = getRacesLastChecked();
+const lastCheckedFormatted = new Date(racesLastChecked).toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+
 const bestRace = sortedRaces[0];
 const bestForKatana = sortedRaces.find(r => r.bestFor.toLowerCase().includes('katana') || r.bestFor.toLowerCase().includes('speed')) || sortedRaces[0];
 const bestForBuster = sortedRaces.find(r => r.bestFor.toLowerCase().includes('buster') || r.bestFor.toLowerCase().includes('damage')) || sortedRaces[0];
+
+const sTierRaces = sortedRaces.filter(r => r.tier === 'S');
+const aTierRaces = sortedRaces.filter(r => r.tier === 'A');
 
 const faq = [
   ...pageFAQ,
@@ -33,10 +44,22 @@ const faq = [
     question: 'Does race affect weapon damage?',
     answer: 'Yes, each race provides different stat bonuses that affect weapon performance. Some races are better suited for specific weapon types like Buster or Katana.',
   },
+  {
+    question: 'How do race drop rates work?',
+    answer: 'Each race has a set drop rate that determines how likely you are to roll it. S-tier races have the lowest drop rates and are the hardest to obtain, while lower-tier races are more common.',
+  },
+  {
+    question: 'Should I keep an A-tier race or reroll for S-tier?',
+    answer: 'If your A-tier race synergizes well with your weapon and element, it is usually better to keep it and invest those resources elsewhere. Only chase S-tier rerolls if you have spare resources and your current build is otherwise optimized.',
+  },
+  {
+    question: 'Can I preview race bonuses before rolling?',
+    answer: 'Race bonuses are listed in the tier table above. Use this information to decide which races align with your weapon type and build strategy before committing to rerolls.',
+  },
 ].filter(item => !pageFAQ.some(p => p.question === item.question));
 
-const title = 'Broken Blade Races Tier List - Best Race for Every Build';
-const description = 'Complete Broken Blade races tier list. Best race for Katana, Buster, Boss Rush, and general progression.';
+const title = 'Broken Blade Races Tier List';
+const description = 'All Broken Blade races ranked. Best race for Katana, Buster, Boss Rush, and general progression.';
 
 const breadcrumbItems = [
   { name: 'Home', url: '/' },
@@ -59,6 +82,43 @@ const relatedGuides = [
   faq={faq}
   relatedGuides={relatedGuides}
 >
+  <!-- Last Checked Banner -->
+  <div class="mb-6 flex items-center gap-2 rounded-lg border border-amber-500/20 bg-gray-800/50 px-4 py-3">
+    <span class="text-amber-400 text-sm">&#128270;</span>
+    <p class="text-sm text-gray-300">Data last checked: <strong class="text-gray-200">{lastCheckedFormatted}</strong>. Race rankings are reviewed after every major update.</p>
+  </div>
+
+  <!-- How Races Work -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">How Races Work in Broken Blade</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Races are one of the three core character attributes in Broken Blade, alongside elements and blessings. When you start the game or use a reroll item, you are assigned a random race from the available pool. Each race provides unique stat bonuses that affect your overall damage output, survivability, and build synergy.
+    </p>
+    <p class="text-gray-300 mb-4 leading-relaxed">
+      Race bonuses are passive, meaning they are always active and do not require any manual activation. These bonuses can include increased base damage, higher critical hit rates, improved defense, or specialized effects that enhance specific weapon types. Understanding which race works best with your chosen weapon and element is critical for maximizing your character potential.
+    </p>
+    <p class="text-gray-300 leading-relaxed">
+      Races are divided into rarity tiers just like elements and blessings. Rarer races tend to offer stronger bonuses but are harder to obtain. The race system encourages players to think strategically about whether to invest resources in rerolling or to build around what they already have.
+    </p>
+  </section>
+
+  <!-- Race Synergies -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Race Synergies with Weapons</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Race bonuses interact directly with weapon performance. Choosing a race that amplifies your weapon type is one of the most impactful decisions you can make for your build. A mismatched race can cost you significant damage output compared to a synergistic one.
+    </p>
+    <p class="text-gray-300 mb-4 leading-relaxed">
+      <strong class="text-white">Buster weapon users</strong> should look for races that provide raw damage bonuses or attack power boosts. Since Buster weapons excel at burst damage, races that multiply this damage further create the most efficient clearing setup for both Boss Rush and general farming.
+    </p>
+    <p class="text-gray-300 mb-4 leading-relaxed">
+      <strong class="text-white">Katana weapon users</strong> benefit most from races that boost speed, crit rate, or crit damage. The fast attack speed of Katanas means that even small crit bonuses compound rapidly over time, making crit-focused races extremely valuable for sustained DPS.
+    </p>
+    <p class="text-gray-300 leading-relaxed">
+      The best builds in Broken Blade combine race bonuses with matching element effects and blessing buffs. When all three systems align toward the same goal, whether that is raw burst damage or sustained crit output, the result is significantly more powerful than any individual component alone.
+    </p>
+  </section>
+
   <!-- Race Tier Table -->
   <section class="mb-10">
     <h2 class="text-2xl font-bold mb-4 text-white">Race Tier List</h2>
@@ -70,6 +130,53 @@ const relatedGuides = [
       slug: r.slug,
       slugPrefix: 'races',
     }))} />
+  </section>
+
+  <!-- S-Tier Races -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">S-Tier Races - The Best Picks</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      S-tier races offer the most powerful bonuses in the game. They are the top targets when rerolling and provide the strongest foundation for any endgame build. If you roll an S-tier race, it is almost always worth building around it.
+    </p>
+    <div class="space-y-3">
+      {sTierRaces.map(race => (
+        <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4">
+          <div class="flex items-center gap-3 mb-2">
+            <h3 class="font-bold text-white">{race.name}</h3>
+            <TierBadge tier={race.tier} />
+            <span class="text-sm text-gray-400">({race.rarity})</span>
+          </div>
+          <p class="text-gray-300 text-sm">{race.bestFor}</p>
+          <p class="text-gray-400 text-xs mt-1">Drop Rate: {race.dropRate}</p>
+          {race.effects && race.effects.length > 0 && (
+            <ul class="list-disc list-inside text-xs text-gray-400 mt-1">
+              {race.effects.map(e => <li>{e}</li>)}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- A-Tier Races -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">A-Tier Races - Strong and Reliable</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      A-tier races provide excellent bonuses that are competitive with S-tier in many situations. They are more common and easier to obtain, making them a practical choice for players who want a strong build without burning through reroll resources.
+    </p>
+    <div class="space-y-3">
+      {aTierRaces.map(race => (
+        <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+          <div class="flex items-center gap-3 mb-2">
+            <h3 class="font-bold text-white">{race.name}</h3>
+            <TierBadge tier={race.tier} />
+            <span class="text-sm text-gray-400">({race.rarity})</span>
+          </div>
+          <p class="text-gray-300 text-sm">{race.bestFor}</p>
+          <p class="text-gray-400 text-xs mt-1">Drop Rate: {race.dropRate}</p>
+        </div>
+      ))}
+    </div>
   </section>
 
   <!-- Best Race Overall -->
@@ -127,6 +234,51 @@ const relatedGuides = [
         </ul>
       )}
     </div>
+  </section>
+
+  <!-- Race Reroll Strategy -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Race Reroll Strategy</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Deciding when to reroll your race is one of the most important resource management decisions in Broken Blade. Reroll items cost premium currency, so you want to spend them wisely rather than chasing the perfect roll blindly.
+    </p>
+    <div class="space-y-3 mb-4">
+      <div class="rounded-lg border border-green-500/30 bg-green-500/5 p-4">
+        <h3 class="font-bold text-green-400 mb-1">Reroll When:</h3>
+        <ul class="list-disc list-inside text-gray-300 text-sm space-y-1">
+          <li>You have a C-tier or lower race that does not match your weapon type</li>
+          <li>Your race bonuses actively conflict with your build strategy</li>
+          <li>You have surplus reroll items and your weapon and element are already optimized</li>
+          <li>You are building specifically for competitive Boss Rush and need every edge</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <h3 class="font-bold text-red-400 mb-1">Keep Your Race When:</h3>
+        <ul class="list-disc list-inside text-gray-300 text-sm space-y-1">
+          <li>You have an A-tier or S-tier race already</li>
+          <li>Your race bonuses complement your current weapon type</li>
+          <li>You are in early or mid game and resources are limited</li>
+          <li>Your race is a reasonable match even if it is not the theoretical best</li>
+        </ul>
+      </div>
+    </div>
+    <p class="text-gray-300 leading-relaxed">
+      The general rule is to only reroll when your race is actively holding back an otherwise strong build. A B-tier race that matches your weapon type is often better than an A-tier race that does not, so consider synergy before tier ranking alone.
+    </p>
+  </section>
+
+  <!-- Race Drop Rates -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Race Drop Rates Explained</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Race drop rates follow a rarity-weighted distribution. Each time you roll for a race, the game randomly selects from the full pool with weighted probabilities. Higher-rarity races have significantly lower chances of appearing.
+    </p>
+    <p class="text-gray-300 mb-4 leading-relaxed">
+      Common races typically have drop rates in the 25-35% range, making them the most frequently encountered. Uncommon races appear in the 15-25% range. Rare races drop at rates around 5-15%. The most powerful races, often those in the S-tier, can have drop rates below 5%, meaning you could go through many rerolls before seeing one.
+    </p>
+    <p class="text-gray-300 leading-relaxed">
+      Understanding drop rates helps set realistic expectations. If you are aiming for a specific S-tier race with a 2% drop rate, you should expect to use roughly 50 reroll items on average to get it. Plan your resource spending accordingly and avoid going all-in on race rerolls if it would leave you unable to upgrade other parts of your build.
+    </p>
   </section>
 
   <!-- How to Reroll -->

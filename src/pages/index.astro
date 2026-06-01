@@ -38,8 +38,8 @@ const breadcrumbSchema = generateBreadcrumbSchema([{ name: 'Home', url: '/' }]);
 const videoGameSchema = generateVideoGameSchema();
 const faqSchema = generateFAQSchema(globalFAQ);
 
-const title = 'Broken Blade Wiki: Codes, Best Swords, Races, Blessings, Elements & Progression';
-const description = config.seo.siteDescription;
+const title = 'Broken Blade Wiki: Codes, Best Swords & Tier Lists';
+const description = 'Broken Blade Roblox wiki with working codes, best swords, races, elements, blessings, Boss Rush builds, forge tips, and progression routes.';
 ---
 
 <BaseLayout title={title} description={description}>
@@ -125,7 +125,7 @@ const description = config.seo.siteDescription;
       <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
         <div class="flex items-center justify-between mb-4">
           <h3 class="font-bold text-white">Races</h3>
-          <a href="/races-tier-list/" class="text-xs text-amber-400 hover:text-amber-300">Full list &rarr;</a>
+          <a href="/races-tier-list/" class="text-xs text-amber-400 hover:text-amber-300">View Broken Blade Races Tier List &rarr;</a>
         </div>
         <div class="flex flex-col gap-2">
           {races.slice(0, 5).map((race) => (
@@ -140,7 +140,7 @@ const description = config.seo.siteDescription;
       <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
         <div class="flex items-center justify-between mb-4">
           <h3 class="font-bold text-white">Elements</h3>
-          <a href="/elements-tier-list/" class="text-xs text-amber-400 hover:text-amber-300">Full list &rarr;</a>
+          <a href="/elements-tier-list/" class="text-xs text-amber-400 hover:text-amber-300">View Broken Blade Elements Tier List &rarr;</a>
         </div>
         <div class="flex flex-col gap-2">
           {elements.slice(0, 5).map((el) => (
@@ -155,7 +155,7 @@ const description = config.seo.siteDescription;
       <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
         <div class="flex items-center justify-between mb-4">
           <h3 class="font-bold text-white">Blessings</h3>
-          <a href="/blessings-tier-list/" class="text-xs text-amber-400 hover:text-amber-300">Full list &rarr;</a>
+          <a href="/blessings-tier-list/" class="text-xs text-amber-400 hover:text-amber-300">View Broken Blade Blessings Tier List &rarr;</a>
         </div>
         <div class="flex flex-col gap-2">
           {blessings.slice(0, 5).map((bl) => (
@@ -207,7 +207,7 @@ const description = config.seo.siteDescription;
   <section class="max-w-6xl mx-auto px-4 py-8">
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-2xl font-bold text-white">Latest Updates</h2>
-      <a href="/updates/" class="text-sm text-amber-400 hover:text-amber-300 transition-colors">All updates &rarr;</a>
+      <a href="/updates/" class="text-sm text-amber-400 hover:text-amber-300 transition-colors">View Broken Blade Updates &rarr;</a>
     </div>
     <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
       <p class="text-sm text-gray-400">Current Update</p>

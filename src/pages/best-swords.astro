@@ -24,6 +24,10 @@ const bestBuster = busterWeapons.sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIE
 const bestKatana = katanaWeapons.sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier))[0];
 const bestForBossRush = builds.find(b => b.useCase.toLowerCase().includes('boss rush')) || builds[0];
 
+const sTierWeapons = sortedWeapons.filter(w => w.tier === 'S');
+const aTierWeapons = sortedWeapons.filter(w => w.tier === 'A');
+const bTierWeapons = sortedWeapons.filter(w => w.tier === 'B');
+
 const faq = [
   ...pageFAQ,
   {
@@ -38,10 +42,22 @@ const faq = [
     question: 'Should I reforge my sword?',
     answer: 'Reforge is worth it for top-tier weapons. See our <a href="/dragon-slayer-reforge/" class="text-amber-400">Dragon Slayer Reforge guide</a> for details on whether reforging is right for your weapon.',
   },
+  {
+    question: 'How do I get better weapons in Broken Blade?',
+    answer: 'Weapons are obtained through boss drops, forging, events, and the shop. Focus on farming bosses that drop the weapon type you want. Higher-level bosses drop better weapons, so progression is key.',
+  },
+  {
+    question: 'Are Katana or Buster weapons better?',
+    answer: 'Neither weapon type is strictly better. Katanas tend to favor speed and crit builds, while Buster weapons favor raw damage and burst. The best choice depends on your race, element, and blessing combination.',
+  },
+  {
+    question: 'When should I stop upgrading a weapon?',
+    answer: 'Stop investing resources into a weapon once you obtain one that is a full tier higher. Upgrading a B-tier weapon past mid-level is usually a waste if you can reasonably obtain an A or S-tier alternative.',
+  },
 ].filter(item => !pageFAQ.some(p => p.question === item.question));
 
-const title = 'Broken Blade Best Swords Tier List - Best Weapons & Builds';
-const description = 'Find the best swords in Broken Blade Roblox, including the best weapons for Boss Rush, Dragon Slayer Reforge, beginners, Buster builds, and Katana builds.';
+const title = 'Broken Blade Best Swords Tier List';
+const description = 'Best swords in Broken Blade ranked. Top weapons for Boss Rush, beginners, Buster, and Katana builds.';
 
 const breadcrumbItems = [
   { name: 'Home', url: '/' },
@@ -64,6 +80,23 @@ const relatedGuides = [
   faq={faq}
   relatedGuides={relatedGuides}
 >
+  <!-- How We Rank Weapons -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">How We Rank Weapons</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Every weapon in Broken Blade is evaluated across multiple criteria to produce a fair and accurate tier ranking. Our scoring system looks at several key factors that determine how well a weapon performs in practice, not just on paper. We update these rankings each time the game receives a balance patch or new content drop.
+    </p>
+    <p class="text-gray-300 mb-4 leading-relaxed">
+      The primary factors in our tier scoring include <strong class="text-amber-400">base damage output</strong>, which measures raw DPS in a controlled environment; <strong class="text-amber-400">skill scaling</strong>, how well the weapon benefits from upgrades and reforges; <strong class="text-amber-400">versatility</strong>, meaning how effective the weapon is across different game modes like Boss Rush, general grinding, and PvP; and <strong class="text-amber-400">accessibility</strong>, factoring in how difficult the weapon is to obtain and how early players can realistically get it.
+    </p>
+    <p class="text-gray-300 mb-4 leading-relaxed">
+      S-tier weapons excel in nearly all categories. They offer top-end damage, strong scaling, and perform well in every game mode. A-tier weapons are excellent but may have a slight weakness in one area, such as being harder to obtain or slightly less effective in a specific mode. B-tier weapons are solid picks that serve well during progression but fall off at the highest levels of play. C-tier and below are generally outclassed and only recommended if you have no other options.
+    </p>
+    <p class="text-gray-300 leading-relaxed">
+      We also consider community consensus, testing data from high-level players, and synergy potential with the best races, elements, and blessings. A weapon that pairs exceptionally well with an S-tier element or race may score higher than one with slightly better raw stats but poor synergy.
+    </p>
+  </section>
+
   <!-- All Weapons Tier Table -->
   <section class="mb-10">
     <h2 class="text-2xl font-bold mb-4 text-white">All Weapons Tier List</h2>
@@ -75,6 +108,125 @@ const relatedGuides = [
       slug: w.slug,
       slugPrefix: 'weapons',
     }))} />
+  </section>
+
+  <!-- S-Tier Weapons Breakdown -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">S-Tier Weapons - The Best of the Best</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      S-tier weapons represent the absolute peak of the current meta in Broken Blade. These are the weapons that top players use in Boss Rush, the ones that clear content fastest, and the ones that every player should aspire to obtain. If you pull an S-tier weapon, it is almost always worth investing your resources into upgrading it immediately.
+    </p>
+    <div class="space-y-3 mb-4">
+      {sTierWeapons.map(weapon => (
+        <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4">
+          <div class="flex items-center gap-3 mb-2">
+            <h3 class="font-bold text-white">{weapon.name}</h3>
+            <TierBadge tier={weapon.tier} />
+            <span class="text-sm text-gray-400">({weapon.type})</span>
+          </div>
+          <p class="text-gray-300 text-sm">{weapon.bestFor}</p>
+          <p class="text-gray-400 text-xs mt-1">Obtain: {weapon.obtainMethod}</p>
+        </div>
+      ))}
+    </div>
+    <p class="text-gray-300 leading-relaxed">
+      These weapons maintain their dominance across multiple builds and game modes. Their high base damage combined with excellent scaling means they remain relevant even as new content is released. For players serious about endgame progression, obtaining and maxing at least one S-tier weapon should be a top priority.
+    </p>
+  </section>
+
+  <!-- A-Tier Weapons -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">A-Tier Weapons - Strong and Reliable</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      A-tier weapons are powerful options that perform extremely well in most situations. They may lack the raw dominance of S-tier weapons, but they are often easier to obtain and can rival S-tier performance when paired with the right build. Many A-tier weapons are actually the best choice for specific niches, such as crit-focused Katana builds or sustained-damage Buster setups.
+    </p>
+    <div class="space-y-3 mb-4">
+      {aTierWeapons.map(weapon => (
+        <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+          <div class="flex items-center gap-3 mb-2">
+            <h3 class="font-bold text-white">{weapon.name}</h3>
+            <TierBadge tier={weapon.tier} />
+            <span class="text-sm text-gray-400">({weapon.type})</span>
+          </div>
+          <p class="text-gray-300 text-sm">{weapon.bestFor}</p>
+          <p class="text-gray-400 text-xs mt-1">Obtain: {weapon.obtainMethod}</p>
+        </div>
+      ))}
+    </div>
+    <p class="text-gray-300 leading-relaxed">
+      If an A-tier weapon drops for you early in your progression, it is absolutely worth upgrading. In some cases, a fully upgraded A-tier weapon with optimal race, element, and blessing synergy can outperform a poorly built S-tier weapon. Focus on building around what you have rather than waiting indefinitely for the perfect drop.
+    </p>
+  </section>
+
+  <!-- Best Weapon for Each Stage -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Weapon for Each Stage of the Game</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Not every weapon is ideal at every stage of progression. What works at level 50 may not be the best choice at level 500. Here is a general breakdown of what to aim for as you progress through Broken Blade.
+    </p>
+    <div class="space-y-4">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-bold text-white mb-2">Early Game (Level 1 - 100)</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Focus on any B-tier or higher weapon you can obtain from early bosses. Do not spend resources on reforging or heavy upgrades at this stage. Your goal is to progress quickly to unlock higher-level content where better weapons drop. Any weapon that lets you farm efficiently is the right choice here. Save your premium currency for later.
+        </p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-bold text-white mb-2">Mid Game (Level 100 - 300)</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Start targeting specific A-tier weapons that match your preferred playstyle. This is where your build starts to matter, so choose a weapon type (Buster or Katana) and invest in matching race and element synergies. Begin forging upgrades and consider reforging if you have a strong A-tier weapon with good rolls. Boss Rush becomes accessible, so prepare a build for that as well.
+        </p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-bold text-white mb-2">Late Game (Level 300 - Max)</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          This is where S-tier weapons become essential for competitive Boss Rush clears and efficient farming. If you have not obtained an S-tier weapon yet, focus on maximizing your A-tier build with optimal race, element, and blessing combinations. At this stage, every small optimization counts, including reforges, blessing choices, and element synergy.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Weapon Upgrade Priority -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Weapon Upgrade Priority</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Resources in Broken Blade are limited, so knowing which weapons to invest in matters. Follow this priority order when deciding where to spend your forge materials and upgrade currency.
+    </p>
+    <ol class="list-decimal list-inside space-y-3 text-gray-200 mb-4">
+      <li><strong class="text-white">S-tier weapon you currently own</strong> - Always upgrade these first. They have the highest ceiling and best return on investment.</li>
+      <li><strong class="text-white">A-tier weapon that matches your build</strong> - If you have a cohesive build with matching race and element, upgrading an A-tier weapon is a strong choice.</li>
+      <li><strong class="text-white">A-tier weapon for Boss Rush</strong> - Boss Rush rewards are significant, so having a weapon dedicated to this mode is worthwhile.</li>
+      <li><strong class="text-white">B-tier weapon only if no better option is available</strong> - Upgrade only enough to progress. Do not fully max a B-tier weapon.</li>
+    </ol>
+    <p class="text-gray-300 leading-relaxed">
+      Never invest heavily in C-tier or lower weapons. The resources you spend on them will be wasted once you obtain something better. It is better to save your materials and push forward with a weaker weapon than to sink everything into a weapon you will replace.
+    </p>
+  </section>
+
+  <!-- Common Mistakes -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Common Mistakes When Choosing Weapons</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Many players make avoidable mistakes when selecting and upgrading their weapons. Learning from these common errors can save you significant time and resources.
+    </p>
+    <div class="space-y-3">
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <h3 class="font-bold text-red-400 mb-1">Mistake: Upgrading the first weapon you get</h3>
+        <p class="text-gray-300 text-sm">Many new players pour all their resources into their first weapon drop. Save your upgrade materials until you have at least an A-tier weapon. Early-game progression does not require heavy investment.</p>
+      </div>
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <h3 class="font-bold text-red-400 mb-1">Mistake: Ignoring weapon type synergy</h3>
+        <p class="text-gray-300 text-sm">Using a Katana with a Buster-focused race and element wastes potential. Always match your weapon type with corresponding race bonuses and element effects for maximum output.</p>
+      </div>
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <h3 class="font-bold text-red-400 mb-1">Mistake: Skipping the forge</h3>
+        <p class="text-gray-300 text-sm">The forge is one of the most important upgrade systems in the game. Players who ignore it fall behind quickly. Check our <a href="/forge-guide/" class="text-amber-400 hover:text-amber-300">Forge Guide</a> for the full breakdown.</p>
+      </div>
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <h3 class="font-bold text-red-400 mb-1">Mistake: Holding out for the perfect drop</h3>
+        <p class="text-gray-300 text-sm">While S-tier weapons are the goal, refusing to upgrade anything else leaves you underpowered. Build around what you have and upgrade when something significantly better comes along.</p>
+      </div>
+    </div>
   </section>
 
   <!-- Best Sword for Beginners -->

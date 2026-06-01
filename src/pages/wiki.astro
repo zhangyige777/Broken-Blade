@@ -30,6 +30,14 @@ const faq = [
     question: 'Is this the official Broken Blade wiki?',
     answer: 'No. This is a fan-made community wiki. It is not affiliated with or endorsed by the Broken Blade development team.',
   },
+  {
+    question: 'How often is this wiki updated?',
+    answer: 'We update this wiki after every game update, balance patch, or new content release. Data is verified against in-game values to ensure accuracy.',
+  },
+  {
+    question: 'Can I contribute to this wiki?',
+    answer: 'This wiki is maintained by a dedicated team of Broken Blade players. If you notice inaccurate data, you can reach out through our community channels to report it.',
+  },
 ];
 
 const relatedGuides = [
@@ -58,7 +66,48 @@ const wikiCategories = [
   relatedGuides={relatedGuides}
   showDisclaimer={false}
 >
-  <section class="mb-8">
+  <!-- What is Broken Blade -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">What is Broken Blade?</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Broken Blade is a popular action RPG on the Roblox platform where players collect and upgrade powerful weapons, roll for rare races and elements, and challenge increasingly difficult bosses. The game combines gacha-style character building with action combat, creating a loop of farming, upgrading, and testing your build against challenging content.
+    </p>
+    <p class="text-gray-300 mb-4 leading-relaxed">
+      Players progress through the game by defeating bosses to earn drops, forging weapons to increase their power, and optimizing their character through the race, element, and blessing systems. The endgame revolves around Boss Rush mode, where players compete to clear waves of bosses as quickly as possible with fully optimized builds. The meta constantly evolves as new updates introduce balance changes, new weapons, and additional content.
+    </p>
+    <p class="text-gray-300 leading-relaxed">
+      Whether you are a new player just starting out or a veteran pushing for the fastest Boss Rush clear times, this wiki has everything you need to make informed decisions about your build and progression path.
+    </p>
+  </section>
+
+  <!-- Game Mechanics -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Core Game Mechanics</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Broken Blade has several interconnected systems that define your character's power. Understanding how these systems work together is essential for building an effective character.
+    </p>
+    <div class="space-y-4">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-bold text-amber-400 mb-2">The Forge</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">The forge is your primary weapon upgrade system. By investing resources into the forge, you can increase your weapon's base stats and unlock additional power tiers. Higher forge levels require more materials but provide significant damage increases. For a complete breakdown, visit the <a href="/forge-guide/" class="text-amber-400 hover:text-amber-300">Forge Guide</a>.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-bold text-amber-400 mb-2">Reroll System</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">Races, elements, and blessings can all be rerolled using special items purchased from the in-game shop. Rerolling assigns you a random new attribute from the available pool. Higher-rarity rolls are less common, making the reroll system a key resource management decision throughout your playtime.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-bold text-amber-400 mb-2">Boss Rush</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">Boss Rush is the premier endgame mode where you face waves of bosses under time pressure. Your clear time depends heavily on how well your weapon, race, element, and blessing work together. See the <a href="/boss-rush-guide/" class="text-amber-400 hover:text-amber-300">Boss Rush Guide</a> for optimal strategies.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-bold text-amber-400 mb-2">Blessings</h3>
+        <p class="text-gray-300 text-sm leading-relaxed">Blessings provide powerful passive bonuses that stack with your race and element effects. They are unlocked through gameplay milestones and boss drops. Higher-rarity blessings offer stronger effects but are harder to obtain. Visit the <a href="/blessings-tier-list/" class="text-amber-400 hover:text-amber-300">Blessings Tier List</a> for rankings.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wiki Categories -->
+  <section class="mb-10">
     <h2 class="text-2xl font-bold text-white mb-6">Wiki Categories</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {wikiCategories.map((cat) => (
@@ -74,8 +123,12 @@ const wikiCategories = [
     </div>
   </section>
 
-  <section class="mb-8">
-    <h2 class="text-2xl font-bold text-white mb-4">Game Overview</h2>
+  <!-- Quick Stats -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold text-white mb-4">Quick Stats</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Here are the key game statistics at a glance. These numbers are updated regularly to reflect the current state of the game.
+    </p>
     <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
         <div>
@@ -111,6 +164,32 @@ const wikiCategories = [
           <p class="text-gray-100 font-medium">{config.stats.likeRatio}</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Popular Guides -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold text-white mb-4">Popular Guides</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      New to Broken Blade or looking to optimize your build? These are the most visited guides on our wiki. Each one provides detailed, data-driven recommendations to help you make the most of your playtime.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <a href="/best-swords/" class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block">
+        <h3 class="font-semibold text-amber-400 mb-1">Best Swords Tier List</h3>
+        <p class="text-sm text-gray-400">Every weapon ranked by damage, versatility, and accessibility. Find the best sword for your build.</p>
+      </a>
+      <a href="/boss-rush-guide/" class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block">
+        <h3 class="font-semibold text-amber-400 mb-1">Boss Rush Guide</h3>
+        <p class="text-sm text-gray-400">Complete strategies for Boss Rush mode including recommended builds, weapons, and element picks.</p>
+      </a>
+      <a href="/progression-guide/" class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block">
+        <h3 class="font-semibold text-amber-400 mb-1">Progression Guide</h3>
+        <p class="text-sm text-gray-400">Step-by-step walkthrough from beginner to endgame. Know exactly what to focus on at each stage.</p>
+      </a>
+      <a href="/codes/" class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block">
+        <h3 class="font-semibold text-amber-400 mb-1">All Codes</h3>
+        <p class="text-sm text-gray-400">Every active and expired code for Broken Blade. Claim free rewards before they expire.</p>
+      </a>
     </div>
   </section>
 </ArticleLayout>

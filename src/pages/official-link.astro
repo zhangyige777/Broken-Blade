@@ -1,0 +1,145 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import { getGameConfig } from '@/lib/data';
+
+const config = getGameConfig();
+
+const title = 'Broken Blade Official Roblox Link';
+const description = 'Official Broken Blade Roblox game link. Avoid fake Broken Blade games and find the correct game page.';
+const quickAnswer = `The official Broken Blade Roblox game can be found at: ${config.game.officialRobloxUrl}. Make sure the developer is "${config.game.developer}" and the game title includes "Broken Blade".`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Official Link', url: '/official-link/' },
+];
+
+const faq = [
+  {
+    question: 'What is the official Broken Blade Roblox link?',
+    answer: `The official Broken Blade Roblox game is at <strong>${config.game.officialRobloxUrl}</strong>. The developer is listed as "${config.game.developer}".`,
+  },
+  {
+    question: 'How do I know if I am playing the real Broken Blade?',
+    answer: `Check that the developer name is "${config.game.developer}", the game has a high like ratio (${config.stats.likeRatio}), and the Place ID matches ${config.game.robloxPlaceId}. Fake copies often have fewer visits and missing social links.`,
+  },
+  {
+    question: 'Are there fake Broken Blade games on Roblox?',
+    answer: 'Yes. Popular Roblox games frequently get copied by scammers using similar names and thumbnails. Always verify the developer name and use the official link before playing.',
+  },
+  {
+    question: 'Where else can I find official Broken Blade links?',
+    answer: `You can find the official links on the Broken Blade Discord server and through the developer's social media. The Discord server is at: ${config.game.officialDiscord}`,
+  },
+];
+
+const relatedGuides = [
+  { title: 'Discord', url: '/discord/', description: 'Official Broken Blade Discord server link.' },
+  { title: 'Trello', url: '/trello/', description: 'Broken Blade Trello board for updates and roadmap.' },
+  { title: 'Wiki', url: '/wiki/', description: 'Complete Broken Blade wiki and guides.' },
+  { title: 'Codes', url: '/codes/', description: 'All active and expired Broken Blade codes.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+  showDisclaimer={false}
+>
+  <!-- Official Link Box -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold text-white mb-4">Official Roblox Game Link</h2>
+    <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-6 text-center">
+      <p class="text-gray-200 mb-2">Play the real Broken Blade on Roblox:</p>
+      <a
+        href={config.game.officialRobloxUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-lg bg-green-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-green-500 mb-4"
+      >
+        Play Broken Blade on Roblox
+      </a>
+      <div class="mt-4 text-sm text-gray-400 space-y-1">
+        <p>Developer: <strong class="text-gray-200">{config.game.developer}</strong></p>
+        <p>Place ID: <strong class="text-gray-200">{config.game.robloxPlaceId}</strong></p>
+        <p>Like Ratio: <strong class="text-gray-200">{config.stats.likeRatio}</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Verify -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold text-white mb-4">How to Verify the Correct Game</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <p class="text-gray-300 mb-4">Before playing, confirm you are on the real Broken Blade page by checking these details:</p>
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li><strong class="text-white">Developer name</strong> — The creator should be listed as <strong class="text-amber-400">{config.game.developer}</strong>. If the developer name looks different or misspelled, it is a fake.</li>
+        <li><strong class="text-white">Visit count</strong> — The real game has a high number of visits. Fake copies usually have very few visits in comparison.</li>
+        <li><strong class="text-white">Like ratio</strong> — The official game has a like ratio of {config.stats.likeRatio}. A suspiciously different ratio is a red flag.</li>
+        <li><strong class="text-white">Social links</strong> — The official game page links to the real Discord server and other official channels. Fake games rarely have working social links.</li>
+        <li><strong class="text-white">Place ID</strong> — The URL should contain the Place ID <strong class="text-amber-400">{config.game.robloxPlaceId}</strong>. Any other ID is a different game.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Common Fake Game Signs -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold text-white mb-4">Common Fake Game Signs</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ul class="space-y-3 text-gray-200">
+        <li class="flex items-start gap-3">
+          <span class="text-red-400 mt-1 font-bold">&#x2717;</span>
+          <span><strong class="text-white">Wrong developer name</strong> — Scammers copy the game title and thumbnail but cannot copy the verified developer account.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-red-400 mt-1 font-bold">&#x2717;</span>
+          <span><strong class="text-white">Typos in the title</strong> — Look for extra spaces, special characters, or slightly misspelled names like "BrokenBlade" or "Broken Blade!"</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-red-400 mt-1 font-bold">&#x2717;</span>
+          <span><strong class="text-white">Low visit count</strong> — A recently uploaded fake will have far fewer visits than the original.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-red-400 mt-1 font-bold">&#x2717;</span>
+          <span><strong class="text-white">Asking for Robux upfront</strong> — The real Broken Blade is free to play. Fake copies may require paid access.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-red-400 mt-1 font-bold">&#x2717;</span>
+          <span><strong class="text-white">Missing or broken social links</strong> — The official game has a working Discord link. Fakes often have none or link to unrelated servers.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Official Links -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold text-white mb-4">Official Links</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-semibold text-amber-400 mb-2">Roblox Game</h3>
+        <a
+          href={config.game.officialRobloxUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-gray-200 hover:text-amber-400 transition-colors break-all text-sm"
+        >
+          {config.game.officialRobloxUrl}
+        </a>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-semibold text-amber-400 mb-2">Discord Server</h3>
+        <a
+          href={config.game.officialDiscord}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-gray-200 hover:text-amber-400 transition-colors break-all text-sm"
+        >
+          {config.game.officialDiscord}
+        </a>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

@@ -3,7 +3,7 @@ import ArticleLayout from '@/layouts/ArticleLayout.astro';
 import TierBadge from '@/components/TierBadge.astro';
 import RarityBadge from '@/components/RarityBadge.astro';
 import SummaryTable from '@/components/SummaryTable.astro';
-import { getRaces, getRaceBySlug } from '@/lib/data';
+import { getRaces, getRaceBySlug, getWeapons, TIER_ORDER } from '@/lib/data';
 
 export function getStaticPaths() {
   const races = getRaces();
@@ -11,6 +11,13 @@ export function getStaticPaths() {
 }
 
 const { race } = Astro.props;
+const allWeapons = getWeapons();
+
+// Find recommended weapon(s) for this race
+const recommendedWeapons = allWeapons.filter(w =>
+  w.recommendedRace.toLowerCase().includes(race.name.toLowerCase()) ||
+  (race.id === 'aesir' && w.recommendedRace.toLowerCase().includes('aesir'))
+);
 
 const title = `${race.name} - Broken Blade Race Guide`;
 const description = `${race.name} race guide for Broken Blade Roblox. Tier ${race.tier}, ${race.rarity} rarity, effects, best builds, and whether to keep or reroll.`;
@@ -22,9 +29,38 @@ const summaryRows = [
   { label: 'Best For', value: race.bestFor },
 ];
 
+// Tier-based advice
+const keepAdvice = race.tier === 'S' || race.tier === 'A'
+  ? `Keep ${race.name}. It is a ${race.tier}-tier race and one of the stronger options for ${race.bestFor}. Rerolling away from it risks getting something worse.`
+  : race.tier === 'B'
+  ? `${race.name} is a solid mid-tier race. It is fine to keep for progression, but if you have spare rerolls and a clear build direction, aiming for an S or A tier race is reasonable.`
+  : `${race.name} is a ${race.tier}-tier race. It will carry you through early content, but you should plan to reroll once you unlock race rerolls at level 500. Target Aesir, Vanir, Nether, or Elf for a meaningful upgrade.`;
+
+const beginnerValue = race.tier === 'S' || race.tier === 'A'
+  ? `${race.name} is strong from the very start. Its effects provide immediate benefits that speed up leveling and boss fights. If you roll this early, you are in great shape.`
+  : race.tier === 'B'
+  ? `${race.name} provides good defensive or sustain stats that help newer players survive boss encounters. It is a comfortable pick while you learn the game mechanics.`
+  : `${race.name} offers minimal bonuses. It works fine for the tutorial and early zones, but do not invest heavily in optimizing around it. Treat it as a placeholder.`;
+
+const lateGameValue = race.tier === 'S'
+  ? `${race.name} is one of the best races for endgame content. Its stat bonuses scale exceptionally well with max-level gear and are highly valued in Boss Rush.`
+  : race.tier === 'A'
+  ? `${race.name} remains strong into the late game. It may not be the absolute best for every situation, but it holds up well in Boss Rush and max-level boss fights.`
+  : race.tier === 'B'
+  ? `${race.name} falls off somewhat in the late game. Its defensive or sustain bonuses become less impactful once you have strong blessings and gear. Consider rerolling for an A or S tier race at endgame.`
+  : `${race.name} is not viable for serious endgame content. The stat bonuses are too small to compete with Legendary and Mythical race options. Reroll before investing in late-game builds.`;
+
+const commonMistakes = [
+  'Assuming all races are equal — higher rarity races provide significantly stronger effects.',
+  race.tier === 'S' || race.tier === 'A'
+    ? `Rerolling away ${race.name} because you want a different one. This is already a strong race — only reroll if you have a very specific build plan.`
+    : `Keeping a ${race.tier}-tier race for too long. Once you hit level 500 and can farm Nivaron, start rerolling for a better option.`,
+  'Ignoring race-weapon synergy. Pairing ${race.name} with the right weapon type maximizes its effects.',
+];
+
 const faq = [
-  { question: `Should I keep ${race.name}?`, answer: race.tier === 'S' || race.tier === 'A' ? `Yes, ${race.name} is a ${race.tier}-tier race and worth keeping for ${race.bestFor}.` : `${race.name} is a ${race.tier}-tier race. Consider rerolling if you have a clear build direction, but it is usable for ${race.bestFor}.` },
-  { question: `How do I get ${race.name}?`, answer: `${race.name} can be obtained through race rerolls unlocked at level 500. Defeat the Nivaron boss for reroll chances.` },
+  { question: `Should I keep ${race.name}?`, answer: keepAdvice },
+  { question: `How do I get ${race.name}?`, answer: `${race.name} can be obtained through race rerolls unlocked at level 500. Defeat the Nivaron boss for reroll chances. ${race.name} is a ${race.rarity} race with a ${race.dropRate} drop rate.` },
   { question: `What builds work best with ${race.name}?`, answer: `${race.name} is best for ${race.bestFor}. Effects: ${race.effects.join(', ')}.` },
 ];
 
@@ -60,5 +96,104 @@ const relatedGuides = [
   <section class="mb-8">
     <h2 class="text-xl font-bold text-white mb-4">Notes</h2>
     <p class="text-gray-300">{race.notes}</p>
+  </section>
+
+  <!-- How to Get -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">How to Get {race.name}</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li>Reach <strong class="text-white">level 500</strong> to unlock race rerolls.</li>
+        <li>Fight the <strong class="text-amber-400">Nivaron boss</strong> for Race Reroll items.</li>
+        <li>Use a Race Reroll from your inventory to roll a new race.</li>
+        <li>Each roll is random from the full race pool. ${race.name} has a <strong class="text-amber-400">{race.dropRate}</strong> chance per roll.</li>
+      </ol>
+      <p class="mt-4 text-sm text-gray-400">You can also trade with other players for specific race rerolls if trading is available.</p>
+    </div>
+  </section>
+
+  <!-- Best Build Pairings -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Best Build Pairings</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {recommendedWeapons.length > 0 ? (
+        <>
+          <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <h3 class="text-amber-400 font-semibold mb-2">Best Weapon{recommendedWeapons.length > 1 ? 's' : ''}</h3>
+            {recommendedWeapons.map(w => (
+              <p class="text-gray-200"><a href={`/weapons/${w.slug}/`} class="hover:text-amber-400 transition-colors">{w.name}</a></p>
+            ))}
+          </div>
+          <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <h3 class="text-amber-400 font-semibold mb-2">Recommended Element</h3>
+            {recommendedWeapons.length > 0 ? (
+              <p class="text-gray-200">{recommendedWeapons[0].recommendedElement}</p>
+            ) : (
+              <p class="text-gray-200">Fire or Thunder</p>
+            )}
+          </div>
+          <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <h3 class="text-amber-400 font-semibold mb-2">Recommended Blessing</h3>
+            {recommendedWeapons.length > 0 ? (
+              <p class="text-gray-200">{recommendedWeapons[0].recommendedBlessing}</p>
+            ) : (
+              <p class="text-gray-200">Odin or Jormungandr</p>
+            )}
+          </div>
+        </>
+      ) : (
+        <>
+          <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <h3 class="text-amber-400 font-semibold mb-2">Best Weapon</h3>
+            <p class="text-gray-200">Any S/A tier weapon</p>
+          </div>
+          <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <h3 class="text-amber-400 font-semibold mb-2">Recommended Element</h3>
+            <p class="text-gray-200">Fire or Thunder</p>
+          </div>
+          <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+            <h3 class="text-amber-400 font-semibold mb-2">Recommended Blessing</h3>
+            <p class="text-gray-200">Odin or Jormungandr</p>
+          </div>
+        </>
+      )}
+    </div>
+  </section>
+
+  <!-- Keep or Reroll -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Keep or Reroll?</h2>
+    <div class={`rounded-lg border p-6 ${race.tier === 'S' || race.tier === 'A' ? 'border-green-500/30 bg-green-500/5' : race.tier === 'B' ? 'border-yellow-500/30 bg-yellow-500/5' : 'border-red-500/30 bg-red-500/5'}`}>
+      <div class="flex items-center gap-2 mb-3">
+        <TierBadge tier={race.tier} />
+        <span class="text-gray-200 font-medium">{race.rarity}</span>
+      </div>
+      <p class="text-gray-300">{keepAdvice}</p>
+    </div>
+  </section>
+
+  <!-- Beginner Value -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Beginner Value</h2>
+    <p class="text-gray-300">{beginnerValue}</p>
+  </section>
+
+  <!-- Late-game Value -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Late-game Value</h2>
+    <p class="text-gray-300">{lateGameValue}</p>
+  </section>
+
+  <!-- Common Mistakes -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Common Mistakes</h2>
+    <ul class="space-y-3">
+      {commonMistakes.map((mistake) => (
+        <li class="flex items-start gap-3 text-gray-200">
+          <span class="text-red-400 mt-0.5">&#x2717;</span>
+          <span>{mistake}</span>
+        </li>
+      ))}
+    </ul>
   </section>
 </ArticleLayout>

@@ -31,6 +31,14 @@ const faq = [
     question: 'What was added in the latest update?',
     answer: updates.length > 0 ? `The latest update ("${updates[0].title}") added: ${updates[0].changes.join(', ')}.` : 'Check the update log below for the latest changes.',
   },
+  {
+    question: 'Do updates reset my progress?',
+    answer: 'No, updates do not reset player progress. Your weapons, race, element, blessing, and level are preserved across all updates. However, balance changes may affect the relative strength of certain items.',
+  },
+  {
+    question: 'How do I know if my build was affected by an update?',
+    answer: 'Check the "Affected Pages" links under each update entry below. We tag every update with the guide pages that may need adjustment due to balance changes.',
+  },
 ];
 
 const relatedGuides = [
@@ -50,8 +58,40 @@ const relatedGuides = [
   relatedGuides={relatedGuides}
   showDisclaimer={false}
 >
-  <section class="mb-8">
-    <h2 class="text-2xl font-bold text-white mb-6">Current Update</h2>
+  <!-- Current Game Status -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Current Game Status</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Broken Blade is actively maintained and receives regular updates from the development team. The game continues to grow its player base and receive new content. Below is a snapshot of the current game state.
+    </p>
+    <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-5">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+        <div>
+          <p class="text-gray-400">Current Version</p>
+          <p class="text-amber-400 font-bold">{config.game.currentUpdate}</p>
+        </div>
+        <div>
+          <p class="text-gray-400">Last Reviewed</p>
+          <p class="text-gray-100 font-medium">{config.game.lastManualDataReview}</p>
+        </div>
+        <div>
+          <p class="text-gray-400">Online Now</p>
+          <p class="text-gray-100 font-medium">{config.stats.playing}</p>
+        </div>
+        <div>
+          <p class="text-gray-400">Max Level</p>
+          <p class="text-gray-100 font-medium">{config.game.maxLevel.toLocaleString()}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Update Details -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Latest Update Details</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Stay on top of the latest changes to Broken Blade. Each update can introduce new weapons, adjust balance, add events, or change how existing systems work. Understanding what changed helps you adapt your build and take advantage of new opportunities.
+    </p>
     <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-5">
       <div class="flex items-center gap-3 mb-2">
         <span class="rounded bg-amber-500 px-2 py-0.5 text-xs font-bold text-gray-900">CURRENT</span>
@@ -61,8 +101,38 @@ const relatedGuides = [
     </div>
   </section>
 
-  <section class="mb-8">
+  <!-- What Changed for Players -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">What Changed for Players</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Game updates in Broken Blade can affect your gameplay in several ways. Here is what to look out for after each update and how to adapt quickly.
+    </p>
+    <div class="space-y-3">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-amber-400 mb-1">New Weapons and Gear</h3>
+        <p class="text-gray-300 text-sm">Updates often add new weapons that can shift the meta. Check the <a href="/best-swords/" class="text-amber-400 hover:text-amber-300">Best Swords</a> tier list after each update to see how new weapons rank against existing ones.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-amber-400 mb-1">Balance Changes</h3>
+        <p class="text-gray-300 text-sm">Existing weapons, races, elements, or blessings may be buffed or nerfed. If your build was affected, review our updated tier lists to see if adjustments to your build are needed.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-amber-400 mb-1">New Codes</h3>
+        <p class="text-gray-300 text-sm">Updates frequently come with new redeemable codes that provide free rewards. Check the <a href="/codes/" class="text-amber-400 hover:text-amber-300">Codes page</a> for the latest active codes and claim them before they expire.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-amber-400 mb-1">Events and Limited Content</h3>
+        <p class="text-gray-300 text-sm">Some updates introduce time-limited events with exclusive rewards. These events are usually announced on the <a href="/discord/" class="text-amber-400 hover:text-amber-300">official Discord</a> first, so joining is the best way to stay informed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Update History -->
+  <section class="mb-10">
     <h2 class="text-2xl font-bold text-white mb-6">Update History</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Below is the complete update timeline for Broken Blade. Each entry includes the patch notes, key changes, and links to any guide pages that were affected by the update.
+    </p>
     <div class="space-y-4">
       {updates.map((update) => (
         <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
@@ -91,6 +161,32 @@ const relatedGuides = [
           )}
         </div>
       ))}
+    </div>
+  </section>
+
+  <!-- Affected Guides -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold text-white mb-4">Stay Updated</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      After each Broken Blade update, we review and update all relevant guide pages to reflect any changes. If your go-to build was affected, check the guides below for the latest recommendations.
+    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <a href="/best-swords/" class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block">
+        <h3 class="font-semibold text-amber-400 mb-1">Weapon Tier List</h3>
+        <p class="text-sm text-gray-400">Updated rankings after balance changes and new weapon additions.</p>
+      </a>
+      <a href="/boss-rush-guide/" class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block">
+        <h3 class="font-semibold text-amber-400 mb-1">Boss Rush Guide</h3>
+        <p class="text-sm text-gray-400">Updated build recommendations for the current meta.</p>
+      </a>
+      <a href="/codes/" class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block">
+        <h3 class="font-semibold text-amber-400 mb-1">Active Codes</h3>
+        <p class="text-sm text-gray-400">New codes from the latest update, plus any expired codes removed.</p>
+      </a>
+      <a href="/discord/" class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block">
+        <h3 class="font-semibold text-amber-400 mb-1">Discord Server</h3>
+        <p class="text-sm text-gray-400">Get real-time update notifications and discuss changes with other players.</p>
+      </a>
     </div>
   </section>
 </ArticleLayout>

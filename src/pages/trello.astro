@@ -30,6 +30,14 @@ const faq = [
     question: 'What alternatives to Trello exist for Broken Blade?',
     answer: 'The Discord server is the primary alternative for real-time information. This wiki covers all game data including tier lists, builds, codes, and progression guides.',
   },
+  {
+    question: 'Will Broken Blade get a Trello in the future?',
+    answer: 'There is no announced plan for a Trello board. The development team currently communicates through Discord, which serves as the primary information hub.',
+  },
+  {
+    question: 'Where do I find new Broken Blade codes?',
+    answer: 'Codes are announced on the Discord server first, then tracked on our <a href="/codes/" class="text-amber-400">Codes page</a>. Check both regularly to never miss a free reward.',
+  },
 ];
 
 const relatedGuides = [
@@ -49,38 +57,44 @@ const relatedGuides = [
   relatedGuides={relatedGuides}
   showDisclaimer={false}
 >
+  <!-- No Official Trello Board -->
   <section class="mb-8">
     <h2 class="text-2xl font-bold text-white mb-4">No Official Trello Board</h2>
-    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
-      <p class="text-gray-200 leading-relaxed">
-        Broken Blade does not have an official Trello board. Unlike some other Roblox games that use Trello for roadmaps and update tracking, Broken Blade's development team primarily communicates through their Discord server.
-      </p>
-    </div>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Broken Blade does not have an official Trello board. Unlike some other Roblox games that use Trello for roadmaps and update tracking, Broken Blade's development team primarily communicates through their Discord server. If you came here looking for a Trello link, you will not find one, but there are better alternatives available.
+    </p>
+    <p class="text-gray-300 leading-relaxed">
+      Many Roblox games use Trello to organize their development pipeline and share upcoming features with players. Broken Blade has chosen a different approach, using Discord as the central communication platform. While this means there is no visual roadmap to browse, it also means information reaches players faster through real-time announcements.
+    </p>
   </section>
 
+  <!-- Where to Find Information -->
   <section class="mb-8">
-    <h2 class="text-2xl font-bold text-white mb-4">Where to Find Information</h2>
+    <h2 class="text-2xl font-bold text-white mb-4">Where to Find Broken Blade Information</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Even without a Trello board, there are multiple reliable sources for Broken Blade game information. Here are the best places to find what you need, whether you are looking for updates, builds, codes, or general game data.
+    </p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <a
         href="/discord/"
         class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
       >
         <h3 class="font-semibold text-amber-400 mb-2">Official Discord</h3>
-        <p class="text-sm text-gray-300">Real-time updates, code drops, announcements, and community discussion. The fastest way to get game news.</p>
+        <p class="text-sm text-gray-300">Real-time updates, code drops, announcements, and community discussion. The fastest way to get game news straight from the developers.</p>
       </a>
       <a
         href="/wiki/"
         class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
       >
         <h3 class="font-semibold text-amber-400 mb-2">This Wiki</h3>
-        <p class="text-sm text-gray-300">Comprehensive game database with tier lists, builds, codes, boss strategies, and progression guides.</p>
+        <p class="text-sm text-gray-300">Comprehensive game database with tier lists, builds, codes, boss strategies, and progression guides. Updated after every game patch.</p>
       </a>
       <a
         href="/updates/"
         class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
       >
         <h3 class="font-semibold text-amber-400 mb-2">Update Log</h3>
-        <p class="text-sm text-gray-300">Track every game update with detailed change logs and affected content.</p>
+        <p class="text-sm text-gray-300">Track every game update with detailed change logs, affected content, and links to updated guide pages.</p>
       </a>
       <a
         href={config.game.officialRobloxUrl}
@@ -89,8 +103,66 @@ const relatedGuides = [
         class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
       >
         <h3 class="font-semibold text-amber-400 mb-2">Roblox Game Page</h3>
-        <p class="text-sm text-gray-300">Official Roblox page with game description, social links, and update notes.</p>
+        <p class="text-sm text-gray-300">Official Roblox page with game description, social links, and update notes. The canonical source for the game.</p>
       </a>
     </div>
+  </section>
+
+  <!-- Official Sources -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Official Sources</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      When looking for Broken Blade information, it is important to distinguish between official sources and community-created content. Official sources are managed by the development team and provide the most accurate and up-to-date information.
+    </p>
+    <div class="space-y-3">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-amber-400 mb-1">Discord Server</h3>
+        <p class="text-gray-300 text-sm">The primary communication channel for the Broken Blade dev team. All official announcements, update notes, and code drops happen here first. This is the closest equivalent to a Trello board for tracking what is happening with the game.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-amber-400 mb-1">Roblox Game Page</h3>
+        <p class="text-gray-300 text-sm">The official game listing on Roblox contains the game description, update notes, and links to social media. It is the authoritative source for the game URL and should be used to verify you are playing the correct game.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Resources -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Community Resources</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Beyond official sources, the Broken Blade community has built several resources that complement the information available from the developers. This wiki is one of those resources, providing detailed analysis and tier rankings that go beyond what official channels offer.
+    </p>
+    <div class="space-y-3">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-white mb-1">This Wiki</h3>
+        <p class="text-gray-300 text-sm">We maintain the most comprehensive Broken Blade database with tier lists for <a href="/best-swords/" class="text-amber-400 hover:text-amber-300">weapons</a>, <a href="/races-tier-list/" class="text-amber-400 hover:text-amber-300">races</a>, <a href="/elements-tier-list/" class="text-amber-400 hover:text-amber-300">elements</a>, and <a href="/blessings-tier-list/" class="text-amber-400 hover:text-amber-300">blessings</a>. All data is verified against in-game values and updated after each patch.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-white mb-1">Discord Community Channels</h3>
+        <p class="text-gray-300 text-sm">The community channels on Discord are filled with experienced players sharing build guides, boss strategies, and farming tips. These player-generated insights are invaluable for optimizing your character.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What to Do Instead of Checking Trello -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">What to Do Instead of Checking Trello</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      If you were looking for a Trello board to track game development progress, upcoming features, or patch notes, here is how to get that same information through the available channels.
+    </p>
+    <ol class="space-y-3">
+      <li class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-white mb-1">1. Join the <a href="/discord/" class="text-amber-400 hover:text-amber-300">Discord server</a></h3>
+        <p class="text-gray-300 text-sm">Enable notifications for the announcements channel. This is where the devs share upcoming features and changes before they go live.</p>
+      </li>
+      <li class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-white mb-1">2. Check our <a href="/updates/" class="text-amber-400 hover:text-amber-300">Update Log</a></h3>
+        <p class="text-gray-300 text-sm">We track every update with detailed change notes, so you can see exactly what was added, changed, or fixed in each patch.</p>
+      </li>
+      <li class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-white mb-1">3. Browse the <a href="/wiki/" class="text-amber-400 hover:text-amber-300">Wiki</a></h3>
+        <p class="text-gray-300 text-sm">Our wiki covers all current game content with detailed data. If something was added to the game, you will find it documented here with full stats and analysis.</p>
+      </li>
+    </ol>
   </section>
 </ArticleLayout>

@@ -1,0 +1,206 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierTable from '@/components/TierTable.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import {
+  getRaces,
+  getElements,
+  getBlessings,
+  getWeapons,
+  TIER_ORDER,
+} from '@/lib/data';
+
+const allRaces = getRaces();
+const allElements = getElements();
+const allBlessings = getBlessings();
+const allWeapons = getWeapons();
+
+const sortedRaces = [...allRaces].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const sortedElements = [...allElements].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const sortedBlessings = [...allBlessings].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const sortedWeapons = [...allWeapons].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+
+const bestRace = sortedRaces[0];
+const bestElement = sortedElements[0];
+const bestBlessing = sortedBlessings[0];
+const bestWeapon = sortedWeapons[0];
+
+const title = 'Broken Blade Tier List - All Rankings';
+const description = 'Complete Broken Blade tier list covering races, elements, blessings, and weapons. Best picks for every build.';
+const quickAnswer = `Our Broken Blade tier list ranks every race, element, blessing, and weapon from S to D tier. The best overall setup combines ${bestRace?.name} (race), ${bestElement?.name} (element), ${bestBlessing?.name} (blessing), and ${bestWeapon?.name} (weapon).`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Tier List', url: '/tier-list/' },
+];
+
+const faq = [
+  {
+    question: 'What is the best overall build in Broken Blade?',
+    answer: `The best overall build uses <strong>${bestRace?.name}</strong> race, <strong>${bestElement?.name}</strong> element, <strong>${bestBlessing?.name}</strong> blessing, and <strong>${bestWeapon?.name}</strong> weapon. This combination maximizes damage and crit potential.`,
+  },
+  {
+    question: 'How often is the tier list updated?',
+    answer: 'We review tier rankings after every major Broken Blade update. Each section shows a "Data last checked" date so you know how current the rankings are.',
+  },
+  {
+    question: 'Are lower-tier items unusable?',
+    answer: 'No. Every item in Broken Blade is usable. Lower-tier items are weaker than their higher-tier alternatives, but they can still be effective, especially for beginners who have not unlocked rerolls yet.',
+  },
+  {
+    question: 'Should I reroll everything right away?',
+    answer: 'No. Rerolls are limited. Focus on getting your weapon first, then reroll your element and race. Blessings unlock later at level 1000, so save those rerolls for when you reach that milestone.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'Detailed race rankings and analysis.' },
+  { title: 'Elements Tier List', url: '/elements-tier-list/', description: 'Element rankings for damage and crit.' },
+  { title: 'Blessings Tier List', url: '/blessings-tier-list/', description: 'Best blessings for every build.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Weapon tier list and rankings.' },
+  { title: 'Builds', url: '/builds/', description: 'Recommended builds for every playstyle.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- Races Tier List -->
+  <section class="mb-10">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-2xl font-bold text-white">Race Tier List</h2>
+      <a href="/races-tier-list/" class="text-sm text-amber-400 hover:text-amber-300 transition-colors">View full list &rarr;</a>
+    </div>
+    <TierTable items={sortedRaces.map(r => ({
+      name: r.name,
+      tier: r.tier,
+      rarity: r.rarity,
+      description: r.bestFor,
+      slug: r.slug,
+      slugPrefix: 'races',
+    }))} />
+  </section>
+
+  <!-- Elements Tier List -->
+  <section class="mb-10">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-2xl font-bold text-white">Element Tier List</h2>
+      <a href="/elements-tier-list/" class="text-sm text-amber-400 hover:text-amber-300 transition-colors">View full list &rarr;</a>
+    </div>
+    <TierTable items={sortedElements.map(e => ({
+      name: e.name,
+      tier: e.tier,
+      rarity: e.rarity,
+      description: e.bestFor,
+      slug: e.slug,
+      slugPrefix: 'elements',
+    }))} />
+  </section>
+
+  <!-- Blessings Tier List -->
+  <section class="mb-10">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-2xl font-bold text-white">Blessing Tier List</h2>
+      <a href="/blessings-tier-list/" class="text-sm text-amber-400 hover:text-amber-300 transition-colors">View full list &rarr;</a>
+    </div>
+    <TierTable items={sortedBlessings.map(b => ({
+      name: b.name,
+      tier: b.tier,
+      rarity: b.rarity,
+      description: b.bestFor,
+      slug: b.slug,
+      slugPrefix: 'blessings',
+    }))} />
+  </section>
+
+  <!-- Weapons Tier List -->
+  <section class="mb-10">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-2xl font-bold text-white">Weapon Tier List</h2>
+      <a href="/best-swords/" class="text-sm text-amber-400 hover:text-amber-300 transition-colors">View full list &rarr;</a>
+    </div>
+    <TierTable
+      items={sortedWeapons.map(w => ({
+        name: w.name,
+        tier: w.tier,
+        description: w.bestFor,
+        slug: w.slug,
+        slugPrefix: 'weapons',
+      }))}
+      showRarity={false}
+    />
+  </section>
+
+  <!-- How We Rank -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold text-white mb-4">How We Rank</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <p class="text-gray-300 mb-4">Our tier rankings are based on several factors:</p>
+      <ul class="space-y-3 text-gray-200">
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 mt-0.5 font-bold">&#9733;</span>
+          <span><strong class="text-white">Raw damage output</strong> — How much DPS does the item contribute in boss fights and Boss Rush?</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 mt-0.5 font-bold">&#9733;</span>
+          <span><strong class="text-white">Synergy with top builds</strong> — How well does the item pair with S-tier weapons, races, and blessings?</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 mt-0.5 font-bold">&#9733;</span>
+          <span><strong class="text-white">Accessibility</strong> — How hard is it to obtain? Items that are extremely rare but not much stronger than common alternatives may rank lower.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 mt-0.5 font-bold">&#9733;</span>
+          <span><strong class="text-white">Late-game viability</strong> — Does the item remain strong at max level and in the hardest content?</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Best Overall Setup -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold text-white mb-4">Best Overall Setup</h2>
+    <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="rounded-lg bg-gray-800/60 p-4 border border-gray-700">
+          <p class="text-xs text-gray-400 mb-1">Race</p>
+          <div class="flex items-center gap-2">
+            <p class="font-bold text-white">{bestRace?.name}</p>
+            <TierBadge tier={bestRace?.tier || 'S'} />
+          </div>
+          <p class="text-xs text-gray-400 mt-1">{bestRace?.bestFor}</p>
+        </div>
+        <div class="rounded-lg bg-gray-800/60 p-4 border border-gray-700">
+          <p class="text-xs text-gray-400 mb-1">Element</p>
+          <div class="flex items-center gap-2">
+            <p class="font-bold text-white">{bestElement?.name}</p>
+            <TierBadge tier={bestElement?.tier || 'S'} />
+          </div>
+          <p class="text-xs text-gray-400 mt-1">{bestElement?.bestFor}</p>
+        </div>
+        <div class="rounded-lg bg-gray-800/60 p-4 border border-gray-700">
+          <p class="text-xs text-gray-400 mb-1">Blessing</p>
+          <div class="flex items-center gap-2">
+            <p class="font-bold text-white">{bestBlessing?.name}</p>
+            <TierBadge tier={bestBlessing?.tier || 'S'} />
+          </div>
+          <p class="text-xs text-gray-400 mt-1">{bestBlessing?.bestFor}</p>
+        </div>
+        <div class="rounded-lg bg-gray-800/60 p-4 border border-gray-700">
+          <p class="text-xs text-gray-400 mb-1">Weapon</p>
+          <div class="flex items-center gap-2">
+            <p class="font-bold text-white">{bestWeapon?.name}</p>
+            <TierBadge tier={bestWeapon?.tier || 'S'} />
+          </div>
+          <p class="text-xs text-gray-400 mt-1">{bestWeapon?.bestFor}</p>
+        </div>
+      </div>
+      <p class="mt-4 text-sm text-gray-400">Note: This is the theoretical best setup. Getting all four S-tier items requires significant grinding and luck with rerolls. See our <a href="/builds/" class="text-amber-400 hover:text-amber-300">builds page</a> for more practical alternatives.</p>
+    </div>
+  </section>
+</ArticleLayout>

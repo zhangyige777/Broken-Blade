@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://brokenbladeguide.com/sitemap-index.xml
+Sitemap: https://broken-blade-bqr.pages.dev/sitemap-index.xml

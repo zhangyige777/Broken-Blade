@@ -30,6 +30,14 @@ const faq = [
     question: 'Do Broken Blade codes get announced on Discord first?',
     answer: 'Yes. New codes are often announced on the Discord server before anywhere else. It is the fastest way to get notified about new codes, especially during milestone celebrations.',
   },
+  {
+    question: 'Is the Discord server free to join?',
+    answer: 'Yes, the Discord server is completely free. You only need a Discord account, which is also free to create. There are no paywalls for accessing server content.',
+  },
+  {
+    question: 'Can I ask for build advice on Discord?',
+    answer: 'Absolutely. The community channels are active with experienced players who are happy to help with build optimization, race and element choices, and general progression questions.',
+  },
 ];
 
 const relatedGuides = [
@@ -49,8 +57,12 @@ const relatedGuides = [
   relatedGuides={relatedGuides}
   showDisclaimer={false}
 >
+  <!-- Official Discord Server -->
   <section class="mb-8">
     <h2 class="text-2xl font-bold text-white mb-4">Official Discord Server</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      The Broken Blade Discord server is the central hub for the game's community. It is where the development team posts announcements, where new codes are shared first, and where players gather to discuss builds, strategies, and game updates. If you play Broken Blade regularly, joining the Discord is highly recommended.
+    </p>
     <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-6 text-center">
       <p class="text-gray-200 mb-4">Join the official Broken Blade Discord server for updates, codes, and community discussions.</p>
       <a
@@ -64,25 +76,88 @@ const relatedGuides = [
     </div>
   </section>
 
+  <!-- What You'll Find -->
   <section class="mb-8">
-    <h2 class="text-2xl font-bold text-white mb-4">What You Find on Discord</h2>
+    <h2 class="text-2xl font-bold text-white mb-4">What You Will Find on the Discord</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      The Broken Blade Discord server is organized into several channels, each serving a specific purpose. Whether you are looking for the latest news, want to share your build, or need help with a game mechanic, there is a channel for it.
+    </p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
         <h3 class="font-semibold text-amber-400 mb-2">Announcements</h3>
-        <p class="text-sm text-gray-300">Official game updates, patch notes, and event announcements from the developers.</p>
+        <p class="text-sm text-gray-300">Official game updates, patch notes, and event announcements from the developers. This is the first place new content and changes are posted.</p>
       </div>
       <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
         <h3 class="font-semibold text-amber-400 mb-2">Codes</h3>
-        <p class="text-sm text-gray-300">New code drops, often announced on Discord before any other platform.</p>
+        <p class="text-sm text-gray-300">New code drops, often announced on Discord before any other platform. Codes are frequently posted during milestones and events.</p>
       </div>
       <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
         <h3 class="font-semibold text-amber-400 mb-2">Community Builds</h3>
-        <p class="text-sm text-gray-300">Share and discuss build setups, race rolls, and blessing combinations with other players.</p>
+        <p class="text-sm text-gray-300">Share and discuss build setups, race rolls, and blessing combinations with other players. Get feedback on your build from experienced community members.</p>
       </div>
       <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
         <h3 class="font-semibold text-amber-400 mb-2">Bug Reports</h3>
-        <p class="text-sm text-gray-300">Report bugs and see known issues directly to the development team.</p>
+        <p class="text-sm text-gray-300">Report bugs and see known issues directly to the development team. The devs actively monitor this channel and push fixes in upcoming patches.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- Official vs Fake -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Official vs Fake Discord Servers</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      As Broken Blade grows in popularity, fake Discord servers have appeared that impersonate the official one. These servers may contain malicious links, phishing attempts, or misinformation about the game. It is important to make sure you are joining the real server.
+    </p>
+    <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-5">
+      <h3 class="font-bold text-red-400 mb-2">How to Verify the Official Server</h3>
+      <ul class="list-disc list-inside text-gray-300 text-sm space-y-2">
+        <li>Only use the Discord link from the <a href={config.game.officialRobloxUrl} target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:text-amber-300">official Roblox game page</a> social links</li>
+        <li>The official server is linked directly on this page at the top</li>
+        <li>Do not trust Discord links from comments, random YouTube videos, or unofficial sources</li>
+        <li>The real server will have verified developer roles and a large member count</li>
+      </ul>
+    </div>
+    <p class="text-gray-300 mt-3 text-sm leading-relaxed">
+      For other official links, visit our <a href="/official-link/" class="text-amber-400 hover:text-amber-300">Official Links</a> page. You can also find the developer's Trello board linked from our <a href="/trello/" class="text-amber-400 hover:text-amber-300">Trello page</a>.
+    </p>
+  </section>
+
+  <!-- Discord Channels Worth Checking -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Discord Channels Worth Checking</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Once you join the Broken Blade Discord, here are the channels that provide the most value for players looking to improve their gameplay.
+    </p>
+    <div class="space-y-3">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-white mb-1">#announcements</h3>
+        <p class="text-gray-300 text-sm">Pin this channel to get notified about every update, event, and important change. This is the single most important channel to follow.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-white mb-1">#codes-and-rewards</h3>
+        <p class="text-gray-300 text-sm">New codes appear here first. Turn on notifications for this channel so you never miss a free reward. Check our <a href="/codes/" class="text-amber-400 hover:text-amber-300">Codes page</a> for a full list.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-bold text-white mb-1">#build-discussion</h3>
+        <p class="text-gray-300 text-sm">The best place to get advice on weapon choices, race and element synergy, and blessing optimization. Many top players share their setups here.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Join -->
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">How to Join</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Joining the Broken Blade Discord is straightforward and free. Follow these steps to get connected with the community.
+    </p>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li>If you do not have one, create a free <strong class="text-white">Discord account</strong> at discord.com.</li>
+        <li>Click the <strong class="text-amber-400">Join Official Discord</strong> button above, or use the invite link from the Roblox game page.</li>
+        <li>Accept the server invite and complete any verification steps the server requires.</li>
+        <li>Read the server rules in the #rules channel before posting.</li>
+        <li>Start browsing channels like #announcements and #build-discussion to get oriented.</li>
+      </ol>
     </div>
   </section>
 </ArticleLayout>

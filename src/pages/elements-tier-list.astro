@@ -4,6 +4,7 @@ import TierTable from '@/components/TierTable.astro';
 import TierBadge from '@/components/TierBadge.astro';
 import {
   getElements,
+  getElementsLastChecked,
   getGlobalFAQs,
   getPageFAQs,
   TIER_ORDER,
@@ -14,10 +15,20 @@ const sortedElements = [...allElements].sort((a, b) => TIER_ORDER.indexOf(a.tier
 const globalFAQ = getGlobalFAQs();
 const pageFAQ = getPageFAQs('elements-tier-list');
 
+const elementsLastChecked = getElementsLastChecked();
+const lastCheckedFormatted = new Date(elementsLastChecked).toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
+
 const bestElement = sortedElements[0];
 const bestForDamage = sortedElements.find(e => e.bestFor.toLowerCase().includes('damage') || e.bestFor.toLowerCase().includes('attack')) || sortedElements[0];
 const bestForCrit = sortedElements.find(e => e.bestFor.toLowerCase().includes('crit') || e.bestFor.toLowerCase().includes('critical')) || sortedElements[0];
 const bestForBeginners = sortedElements.find(e => e.bestFor.toLowerCase().includes('beginner') || e.bestFor.toLowerCase().includes('general')) || sortedElements.find(e => e.tier === 'A') || sortedElements[0];
+
+const sTierElements = sortedElements.filter(e => e.tier === 'S');
+const aTierElements = sortedElements.filter(e => e.tier === 'A');
 
 const faq = [
   ...pageFAQ,
@@ -33,10 +44,22 @@ const faq = [
     question: 'Does element affect Boss Rush performance?',
     answer: 'Yes, your element choice significantly impacts Boss Rush damage output. See our <a href="/boss-rush-guide/" class="text-amber-400">Boss Rush Guide</a> for recommended element picks.',
   },
+  {
+    question: 'How do element drop rates work?',
+    answer: 'Each element has a specific drop rate that determines how likely you are to roll it. Higher-tier elements like S-tier ones have lower drop rates, making them rarer and more desirable.',
+  },
+  {
+    question: 'Should I reroll my element if I get an A-tier?',
+    answer: 'It depends on your build. If the A-tier element synergizes well with your weapon and race, it can be worth keeping. Only reroll if you have the resources to spare and are aiming for a specific S-tier element.',
+  },
+  {
+    question: 'Can I use multiple elements at once?',
+    answer: 'No, you can only have one active element at a time. Choose the element that best complements your current weapon type and build strategy.',
+  },
 ].filter(item => !pageFAQ.some(p => p.question === item.question));
 
-const title = 'Broken Blade Element Tier List - Best Element for Damage & Crit';
-const description = 'Complete Broken Blade element tier list. Best element for damage, crit, beginners, and every build.';
+const title = 'Broken Blade Elements Tier List';
+const description = 'All Broken Blade elements ranked. Best element for damage, crit, beginners, and every build.';
 
 const breadcrumbItems = [
   { name: 'Home', url: '/' },
@@ -59,6 +82,43 @@ const relatedGuides = [
   faq={faq}
   relatedGuides={relatedGuides}
 >
+  <!-- Last Checked Banner -->
+  <div class="mb-6 flex items-center gap-2 rounded-lg border border-amber-500/20 bg-gray-800/50 px-4 py-3">
+    <span class="text-amber-400 text-sm">&#128270;</span>
+    <p class="text-sm text-gray-300">Data last checked: <strong class="text-gray-200">{lastCheckedFormatted}</strong>. Element rankings are reviewed after every major update.</p>
+  </div>
+
+  <!-- How Elements Work -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">How Elements Work in Broken Blade</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Elements are a core character attribute in Broken Blade that provide passive bonuses to your damage, critical hit rate, and special effects. When you create your character or reroll, you are assigned a random element from the available pool. Each element has unique properties that interact with your weapon type, race bonuses, and blessing effects.
+    </p>
+    <p class="text-gray-300 mb-4 leading-relaxed">
+      Your element determines part of your overall damage formula. Elements that boost raw damage output are generally preferred for Boss Rush and high-end content, while elements that enhance crit rate or provide utility effects can be strong for sustained farming and general progression. The element system is designed so that no single element is universally best for every situation, though some clearly outperform others in the current meta.
+    </p>
+    <p class="text-gray-300 leading-relaxed">
+      Elements also have a rarity system. More powerful elements are rarer and harder to roll, which is why understanding drop rates and reroll strategy is important for optimizing your character. Each element can synergize differently with Buster versus Katana weapon types, and certain races amplify specific element effects more than others.
+    </p>
+  </section>
+
+  <!-- Element Synergies -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Element Synergies with Weapons and Races</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Elements do not exist in a vacuum. Their effectiveness depends heavily on the weapon type you use and the race you have. Understanding these synergies is key to building an optimized character.
+    </p>
+    <p class="text-gray-300 mb-4 leading-relaxed">
+      <strong class="text-white">Buster weapons</strong> benefit most from elements that provide raw damage multipliers. Since Buster weapons already have high base damage, stacking additional damage amplification through your element creates a multiplicative effect that significantly increases your DPS. If you are running a Buster build, prioritize damage-focused elements.
+    </p>
+    <p class="text-gray-300 mb-4 leading-relaxed">
+      <strong class="text-white">Katana weapons</strong> tend to scale better with crit-focused elements. Katana builds rely on frequent critical hits to maximize their damage output, so elements that boost crit rate or crit damage are ideal. Speed-oriented race bonuses also pair naturally with crit elements, creating a fast-hitting, high-crit build.
+    </p>
+    <p class="text-gray-300 leading-relaxed">
+      Race-element synergy is the third pillar of a strong build. Some races have innate bonuses that amplify specific element effects. When all three components align, your character performs significantly better than when one piece is mismatched. Always consider your full build before deciding whether to reroll an element.
+    </p>
+  </section>
+
   <!-- Element Tier Table -->
   <section class="mb-10">
     <h2 class="text-2xl font-bold mb-4 text-white">Element Tier List</h2>
@@ -70,6 +130,53 @@ const relatedGuides = [
       slug: e.slug,
       slugPrefix: 'elements',
     }))} />
+  </section>
+
+  <!-- S-Tier Elements -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">S-Tier Elements - Top Picks</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      S-tier elements are the most sought-after in the game. They provide the strongest bonuses and are the primary target when rerolling. These elements perform well across virtually all game modes and weapon types, making them universally valuable.
+    </p>
+    <div class="space-y-3">
+      {sTierElements.map(element => (
+        <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-4">
+          <div class="flex items-center gap-3 mb-2">
+            <h3 class="font-bold text-white">{element.name}</h3>
+            <TierBadge tier={element.tier} />
+            <span class="text-sm text-gray-400">({element.rarity})</span>
+          </div>
+          <p class="text-gray-300 text-sm">{element.bestFor}</p>
+          <p class="text-gray-400 text-xs mt-1">Drop Rate: {element.dropRate}</p>
+          {element.effects && element.effects.length > 0 && (
+            <ul class="list-disc list-inside text-xs text-gray-400 mt-1">
+              {element.effects.map(e => <li>{e}</li>)}
+            </ul>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- A-Tier Elements -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">A-Tier Elements - Strong Alternatives</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      A-tier elements are strong and viable for all content. While they may not match the raw output of S-tier elements, they are often easier to obtain and can still perform exceptionally well in the right build. Do not dismiss an A-tier element if it synergizes with your weapon and race.
+    </p>
+    <div class="space-y-3">
+      {aTierElements.map(element => (
+        <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+          <div class="flex items-center gap-3 mb-2">
+            <h3 class="font-bold text-white">{element.name}</h3>
+            <TierBadge tier={element.tier} />
+            <span class="text-sm text-gray-400">({element.rarity})</span>
+          </div>
+          <p class="text-gray-300 text-sm">{element.bestFor}</p>
+          <p class="text-gray-400 text-xs mt-1">Drop Rate: {element.dropRate}</p>
+        </div>
+      ))}
+    </div>
   </section>
 
   <!-- Best Element for Damage -->
@@ -127,6 +234,48 @@ const relatedGuides = [
         </ul>
       )}
     </div>
+  </section>
+
+  <!-- When to Reroll Elements -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">When to Reroll Your Element</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Rerolling your element costs resources, so it is important to know when it is worth the investment and when you should save your currency for other upgrades.
+    </p>
+    <div class="space-y-3 mb-4">
+      <div class="rounded-lg border border-green-500/30 bg-green-500/5 p-4">
+        <h3 class="font-bold text-green-400 mb-1">Reroll When:</h3>
+        <ul class="list-disc list-inside text-gray-300 text-sm space-y-1">
+          <li>You have a C-tier or lower element and resources to spare</li>
+          <li>Your element does not synergize with your weapon type at all</li>
+          <li>You are preparing for endgame Boss Rush and need optimal DPS</li>
+          <li>You have already optimized your weapon, race, and blessing, and element is the weak link</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <h3 class="font-bold text-red-400 mb-1">Keep Your Element When:</h3>
+        <ul class="list-disc list-inside text-gray-300 text-sm space-y-1">
+          <li>You already have an A-tier or S-tier element</li>
+          <li>Your element synergizes well with your current weapon and race</li>
+          <li>You are early in progression and resources are scarce</li>
+          <li>The element works fine for general farming even if it is not meta</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Element Drop Rates -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Element Drop Rates Explained</h2>
+    <p class="text-gray-200 mb-4 leading-relaxed">
+      Element drop rates determine the probability of rolling each element when you first receive one or when you use a reroll item. The system follows a rarity-based distribution where stronger elements are intentionally harder to obtain.
+    </p>
+    <p class="text-gray-300 mb-4 leading-relaxed">
+      Common elements have the highest drop rates, often appearing in 20-30% of rolls. Rare elements appear less frequently, typically in the 10-20% range. Epic elements are considerably rarer, with drop rates often below 10%. Legendary or mythic-tier elements, which tend to be the S-tier picks, can have drop rates as low as 1-5%, making them extremely rare and highly valued.
+    </p>
+    <p class="text-gray-300 leading-relaxed">
+      Because of the low drop rates for top-tier elements, it is important to manage expectations when rerolling. Going through 10 or more rerolls without hitting an S-tier element is normal. Budget your resources accordingly and do not spend everything chasing a single element if it leaves you unable to upgrade other aspects of your build.
+    </p>
   </section>
 
   <!-- How to Reroll -->
