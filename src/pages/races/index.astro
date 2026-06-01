@@ -31,6 +31,18 @@ const faq = [
     question: 'How do race drop rates work?',
     answer: 'Each race has a specific drop rate. Common races like Human have a 47.60% chance, while Mythical races like Aesir have only a 0.03% chance. Legendary races come from the Legendary pool.',
   },
+  {
+    question: 'What race should I pick for my weapon?',
+    answer: 'Pick the race that boosts your weapon type. Vanir for Katana (+25% Katana Damage), Nether for Buster (+25% Buster Damage), Elf for Sword (+25% Sword Damage). Aesir works with any weapon.',
+  },
+  {
+    question: 'How long does it take to get a Legendary race?',
+    answer: 'Legendary races (Vanir, Nether, Elf) come from a shared Legendary pool. The exact rates are not public, but expect to spend a significant number of rerolls. Farm Nivaron consistently and trade when possible to speed up the process.',
+  },
+  {
+    question: 'Is Frost or Flame worth keeping?',
+    answer: 'Yes, both are solid mid-tier races. Frost (+50% Damage, +20% Damage Reduction) is great for safer progression. Flame (+50% Damage, +50% Health) is good for general leveling. Keep either until you roll a Legendary or Mythical.',
+  },
 ];
 
 const relatedGuides = [
@@ -49,6 +61,74 @@ const relatedGuides = [
   faq={faq}
   relatedGuides={relatedGuides}
 >
+  <!-- Race System Overview -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Race System Overview</h2>
+    <p class="text-gray-300 mb-3">Races are a major build component in Broken Blade that provide passive stat bonuses. Unlike elements which give a single effect, races often provide multiple bonuses at once &mdash; combining damage, defense, health, crit, and weapon-specific buffs into one package. A strong race can be the difference between struggling on a boss and clearing it comfortably.</p>
+    <p class="text-gray-300 mb-3">Races unlock at <strong class="text-white">level 500</strong>, the same milestone where element rerolls become available. Your initial race is assigned randomly, but you can reroll it by defeating the <a href="/bosses/nivaron/" class="text-amber-400 hover:text-amber-300">Nivaron boss</a> or through trading with other players. Race rerolls pull from the full race pool, with drop rates varying dramatically by rarity.</p>
+    <p class="text-gray-300">Your race should complement your weapon type. Each Legendary race provides a +25% damage bonus for a specific weapon (Vanir for Katana, Nether for Buster, Elf for Sword). Picking the right race for your weapon is one of the most impactful build decisions you can make.</p>
+  </section>
+
+  <!-- Race Rarity Tiers -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Race Rarity Tiers</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="rounded-lg border border-purple-500/30 bg-purple-500/5 p-4">
+        <h3 class="text-amber-400 font-semibold mb-2">Mythical</h3>
+        <p class="text-sm text-gray-300 mb-1"><strong class="text-white">Aesir</strong> &mdash; 0.03% drop rate</p>
+        <p class="text-sm text-gray-400">The ultimate race. Four powerful effects including +75% Damage and crit bonuses. Works with every weapon type. Extremely rare.</p>
+      </div>
+      <div class="rounded-lg border border-orange-500/30 bg-orange-500/5 p-4">
+        <h3 class="text-amber-400 font-semibold mb-2">Legendary</h3>
+        <p class="text-sm text-gray-300 mb-1"><strong class="text-white">Vanir, Nether, Elf</strong> &mdash; Legendary pool</p>
+        <p class="text-sm text-gray-400">Weapon-specific races with +75% Damage and +25% weapon damage. These are the practical target for most players.</p>
+      </div>
+      <div class="rounded-lg border border-pink-500/30 bg-pink-500/5 p-4">
+        <h3 class="text-amber-400 font-semibold mb-2">Epic</h3>
+        <p class="text-sm text-gray-300 mb-1"><strong class="text-white">Frost, Flame</strong> &mdash; Epic pool</p>
+        <p class="text-sm text-gray-400">Strong mid-tier races. Frost offers damage reduction for safer play. Flame gives bonus health for general leveling.</p>
+      </div>
+      <div class="rounded-lg border border-blue-500/30 bg-blue-500/5 p-4">
+        <h3 class="text-amber-400 font-semibold mb-2">Rare</h3>
+        <p class="text-sm text-gray-300 mb-1"><strong class="text-white">Giant</strong> &mdash; 15.87% drop rate</p>
+        <p class="text-sm text-gray-400">Provides defense and life steal. Useful while learning boss patterns but should be rerolled later.</p>
+      </div>
+      <div class="rounded-lg border border-green-500/30 bg-green-500/5 p-4">
+        <h3 class="text-amber-400 font-semibold mb-2">Uncommon</h3>
+        <p class="text-sm text-gray-300 mb-1"><strong class="text-white">Dwarves</strong> &mdash; 15.87% drop rate</p>
+        <p class="text-sm text-gray-400">Only +30% Health. Replace as soon as you unlock race rerolls at level 500.</p>
+      </div>
+      <div class="rounded-lg border border-gray-500/30 bg-gray-500/5 p-4">
+        <h3 class="text-amber-400 font-semibold mb-2">Common</h3>
+        <p class="text-sm text-gray-300 mb-1"><strong class="text-white">Human</strong> &mdash; 47.60% drop rate</p>
+        <p class="text-sm text-gray-400">Starter race with only +10% Health. Reroll immediately when you unlock Nivaron.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Race Guide -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Quick Race Guide: Keep or Reroll</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ul class="space-y-3 text-gray-200">
+        <li class="flex items-start gap-2"><span class="text-green-400 mt-1">&#x2713;</span> <span><strong class="text-white">Aesir</strong> &mdash; Keep. Best race in the game. Works with any weapon and any build.</span></li>
+        <li class="flex items-start gap-2"><span class="text-green-400 mt-1">&#x2713;</span> <span><strong class="text-white">Vanir / Nether / Elf</strong> &mdash; Keep if it matches your weapon type. Reroll only if it does not match and you have spare rerolls.</span></li>
+        <li class="flex items-start gap-2"><span class="text-yellow-400 mt-1">&#x25CB;</span> <span><strong class="text-white">Frost / Flame</strong> &mdash; Keep for general play. Reroll once you commit to a weapon type and want the matching Legendary race.</span></li>
+        <li class="flex items-start gap-2"><span class="text-yellow-400 mt-1">&#x25CB;</span> <span><strong class="text-white">Giant</strong> &mdash; Keep while learning boss patterns for the defense and sustain. Reroll for an Epic or higher race.</span></li>
+        <li class="flex items-start gap-2"><span class="text-red-400 mt-1">&#x2717;</span> <span><strong class="text-white">Dwarves / Human</strong> &mdash; Reroll as soon as possible. These provide minimal value beyond the earliest game content.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Race Drop Rates -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Understanding Race Drop Rates</h2>
+    <p class="text-gray-300 mb-3">Race drop rates vary enormously. <strong class="text-white">Human</strong> appears on roughly 47.6% of rerolls, while <strong class="text-white">Aesir</strong> has only a 0.03% chance per roll. The Legendary and Epic races draw from shared pools rather than having individual rates, which means your odds of getting any Legendary race are better than the 0.03% Aesir rate suggests.</p>
+    <p class="text-gray-300 mb-3">For practical farming, this means you should expect to spend many rerolls before landing a Legendary or Mythical race. Farm <a href="/bosses/nivaron/" class="text-amber-400 hover:text-amber-300">Nivaron</a> consistently and trade with other players when possible. Do not settle for a Common or Uncommon race &mdash; the stat difference between tiers is too large to ignore.</p>
+    <p class="text-gray-300">A practical strategy is to accept any Epic race (Frost or Flame) as a solid mid-term goal, then continue farming for the Legendary race that matches your weapon type. This gives you a strong build while you work toward the ideal.</p>
+  </section>
+
+  <!-- All Races Grid -->
   <section class="mb-8">
     <h2 class="text-2xl font-bold text-white mb-6">All Races ({races.length})</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

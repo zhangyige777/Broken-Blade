@@ -55,13 +55,48 @@ const commonMistakes = [
   race.tier === 'S' || race.tier === 'A'
     ? `Rerolling away ${race.name} because you want a different one. This is already a strong race — only reroll if you have a very specific build plan.`
     : `Keeping a ${race.tier}-tier race for too long. Once you hit level 500 and can farm Nivaron, start rerolling for a better option.`,
-  'Ignoring race-weapon synergy. Pairing ${race.name} with the right weapon type maximizes its effects.',
+  'Ignoring race-weapon synergy. Pairing your race with the right weapon type maximizes its effects.',
 ];
+
+// Dynamic: Different Game Modes
+const gameModesAdvice = race.tier === 'S'
+  ? `${race.name} excels in every game mode. For leveling, its damage bonuses speed up mob clears. For boss fights, the stat multipliers make each hit count more. For Boss Rush, ${race.name} is the top-tier pick because its combination of damage and crit bonuses scales with every other stat in your build. There is no game mode where ${race.name} is not the best or tied for best.`
+  : race.tier === 'A'
+  ? `${race.name} shines in its specialized role. For leveling, the ${race.effects[0] || 'damage bonus'} helps with fast mob clears. For boss fights, the weapon-specific damage boost makes a noticeable difference on long fights. For Boss Rush, ${race.name} is competitive with Aesir when paired with the right weapon type. Choose ${race.name} when you have committed to a weapon type and want to maximize that weapon's output.`
+  : race.tier === 'B'
+  ? `${race.name} is most useful during progression and learning. For leveling, its ${race.effects.join(' and ')} bonuses make the journey smoother and more forgiving. For boss fights, the defensive or sustain effects help you survive while learning attack patterns. For Boss Rush, ${race.name} is usable but not optimal — you will clear faster with a Legendary or Mythical race.`
+  : `${race.name} provides minimal benefit in any game mode. For leveling, its small bonuses are barely noticeable. For boss fights, the effects are too small to make a meaningful difference. For Boss Rush, ${race.name} is not recommended. Focus on getting any Epic or higher race as soon as possible.`;
+
+// Dynamic: Synergies
+const synergiesContent = race.id === 'aesir'
+  ? `<strong class="text-white">Weapons:</strong> Aesir works with every weapon type. Pair with Dragon Slayer (Buster), Excalibur (Sword), or a maxed Katana for best results. <strong class="text-white">Elements:</strong> Thunder is the best pairing for maximum crit synergy. Fire is the safest alternative. <strong class="text-white">Blessings:</strong> Odin for raw damage, Jormungandr for damage + defense, or any top-tier blessing.`
+  : race.id === 'vanir'
+  ? `<strong class="text-white">Weapons:</strong> Vanir pairs exclusively with <a href="/weapons/katana/" class="text-amber-400 hover:text-amber-300">Katana</a> for the +25% Katana Damage bonus. <strong class="text-white">Elements:</strong> Wind for maximum attack speed synergy, Fire for reliable damage, or Thunder for late-game crit scaling. <strong class="text-white">Blessings:</strong> Loki or Jormungandr for Katana-focused builds.`
+  : race.id === 'nether'
+  ? `<strong class="text-white">Weapons:</strong> Nether pairs exclusively with <a href="/weapons/buster/" class="text-amber-400 hover:text-amber-300">Buster</a> and <a href="/weapons/dragon-slayer/" class="text-amber-400 hover:text-amber-300">Dragon Slayer</a> for the +25% Buster Damage bonus. <strong class="text-white">Elements:</strong> Fire or Thunder for maximum boss damage. <strong class="text-white">Blessings:</strong> Thor, Surtr, Hel, Fenrir, or Odin for the best Buster blessing synergy.`
+  : race.id === 'elf'
+  ? `<strong class="text-white">Weapons:</strong> Elf pairs exclusively with <a href="/weapons/sword/" class="text-amber-400 hover:text-amber-300">Sword</a>, <a href="/weapons/broken-blade/" class="text-amber-400 hover:text-amber-300">Broken Blade</a>, and <a href="/weapons/excalibur/" class="text-amber-400 hover:text-amber-300">Excalibur</a> for the +25% Sword Damage bonus. <strong class="text-white">Elements:</strong> Fire is the safest pick. Thunder works well with Excalibur. <strong class="text-white">Blessings:</strong> Tyr, Heimdall, or Odin.`
+  : race.id === 'frost'
+  ? `<strong class="text-white">Weapons:</strong> Frost works with any weapon type thanks to its general damage bonus. Buster benefits most from the damage reduction during slow attack windows. <strong class="text-white">Elements:</strong> Fire for extra damage or Life for even more sustain. <strong class="text-white">Blessings:</strong> Tyr for sustain, Jormungandr for balanced offense and defense.`
+  : race.id === 'flame'
+  ? `<strong class="text-white">Weapons:</strong> Flame works with any weapon. Sword and Katana benefit from the extra health for more aggressive play. <strong class="text-white">Elements:</strong> Fire for stacking damage, or Life for double sustain. <strong class="text-white">Blessings:</strong> Tyr or Odin depending on whether you want sustain or damage.`
+  : `<strong class="text-white">Weapons:</strong> Any weapon works with ${race.name}, but the bonuses are too small to create meaningful synergy. <strong class="text-white">Elements:</strong> Fire or Thunder. <strong class="text-white">Blessings:</strong> Odin or Jormungandr. Focus on getting a better race before investing in synergy optimization.`;
+
+// Dynamic: Is it worth the grind
+const grindWorth = race.tier === 'S'
+  ? `Aesir is absolutely worth every reroll you spend chasing it. With +75% Damage, +10% Crit Chance, +100% Crit Damage, and +5% Attack Speed, no other race comes close to its total stat value. The 0.03% drop rate means it could take hundreds of rerolls, but the power increase is undeniable. If you are a dedicated player aiming for the absolute best, Aesir is the end goal.`
+  : race.tier === 'A'
+  ? `${race.name} is very much worth the grind. As a Legendary race, it provides ${race.effects.join(', ')}, which is a significant power spike over Epic and lower races. The weapon-specific damage bonus means you get +25% more damage on top of the base +75% Damage, giving you a total of +100% damage with your matched weapon. Farm Nivaron consistently and you will get a Legendary race eventually.`
+  : race.tier === 'B'
+  ? `${race.name} is a good mid-term goal but not something to grind for specifically. If you roll Frost or Flame naturally, keep it and use it while working toward a Legendary race. Spending rerolls trying to get a specific Epic race is not efficient — instead, keep rolling until you hit any Legendary.`
+  : `${race.name} is not worth grinding for. Common and Uncommon races like Human and Dwarves are what you start with and should be rerolled away from as soon as possible. Save your Nivaron rerolls and use them to chase Epic or higher races.`;
 
 const faq = [
   { question: `Should I keep ${race.name}?`, answer: keepAdvice },
   { question: `How do I get ${race.name}?`, answer: `${race.name} can be obtained through race rerolls unlocked at level 500. Defeat the Nivaron boss for reroll chances. ${race.name} is a ${race.rarity} race with a ${race.dropRate} drop rate.` },
   { question: `What builds work best with ${race.name}?`, answer: `${race.name} is best for ${race.bestFor}. Effects: ${race.effects.join(', ')}.` },
+  { question: `How does ${race.name} perform in Boss Rush?`, answer: gameModesAdvice },
+  { question: `Is ${race.name} worth rerolling for?`, answer: grindWorth },
 ];
 
 const relatedGuides = [
@@ -80,6 +115,13 @@ const relatedGuides = [
   faq={faq}
   relatedGuides={relatedGuides}
 >
+  <!-- Intro -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">About {race.name}</h2>
+    <p class="text-gray-300 mb-3">{race.name} is a <strong class="text-white">{race.rarity}</strong> race in Broken Blade, ranked <strong class="text-white">{race.tier}-tier</strong>. It is best suited for {race.bestFor.toLowerCase()}. {race.notes}</p>
+    <p class="text-gray-300">With a {race.dropRate} drop rate, {race.name} is {race.rarity === 'Mythical' ? 'one of the rarest races in the game. Obtaining it requires dedicated Nivaron farming and a significant amount of luck or trading.' : race.rarity === 'Legendary' ? 'a Legendary race from the shared Legendary pool. It is a common target for endgame builds due to its weapon-specific damage bonus.' : race.rarity === 'Epic' ? 'an Epic race from the Epic pool. It is a strong mid-tier option that many players use as a stepping stone.' : race.rarity === 'Rare' ? 'a Rare race with a reasonable drop rate. It can serve as a temporary option while you farm for something better.' : race.rarity === 'Uncommon' ? 'an Uncommon race that you may roll fairly often. It provides basic stats that are outclassed by higher rarity options.' : 'the most common race in the game. Almost half of all rerolls produce Human, but it should be replaced as soon as possible.'}</p>
+  </section>
+
   <!-- Effects -->
   <section class="mb-8">
     <h2 class="text-xl font-bold text-white mb-4">{race.name} Effects</h2>
@@ -106,7 +148,7 @@ const relatedGuides = [
         <li>Reach <strong class="text-white">level 500</strong> to unlock race rerolls.</li>
         <li>Fight the <strong class="text-amber-400">Nivaron boss</strong> for Race Reroll items.</li>
         <li>Use a Race Reroll from your inventory to roll a new race.</li>
-        <li>Each roll is random from the full race pool. ${race.name} has a <strong class="text-amber-400">{race.dropRate}</strong> chance per roll.</li>
+        <li>Each roll is random from the full race pool. {race.name} has a <strong class="text-amber-400">{race.dropRate}</strong> chance per roll.</li>
       </ol>
       <p class="mt-4 text-sm text-gray-400">You can also trade with other players for specific race rerolls if trading is available.</p>
     </div>
@@ -170,6 +212,27 @@ const relatedGuides = [
       </div>
       <p class="text-gray-300">{keepAdvice}</p>
     </div>
+  </section>
+
+  <!-- Different Game Modes -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">{race.name} in Different Game Modes</h2>
+    <p class="text-gray-300">{gameModesAdvice}</p>
+  </section>
+
+  <!-- Synergies -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">{race.name} Synergies</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6 text-gray-300">
+      <p class="mb-3">{synergiesContent}</p>
+      <p class="text-sm text-gray-400">Always match your race to your weapon type first, then choose element and blessing to support the same build direction.</p>
+    </div>
+  </section>
+
+  <!-- Is It Worth the Grind -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Is {race.name} Worth the Grind?</h2>
+    <p class="text-gray-300">{grindWorth}</p>
   </section>
 
   <!-- Beginner Value -->

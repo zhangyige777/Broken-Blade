@@ -31,6 +31,18 @@ const faq = [
     question: 'How do I upgrade weapons?',
     answer: 'Use the Forge system to upgrade weapons. Higher-tier weapons require materials from bosses and the progression route. See the Forge Guide for detailed upgrade paths.',
   },
+  {
+    question: 'Which weapon type should a beginner pick?',
+    answer: 'Sword is the best choice for beginners. It has balanced stats, forgiving attack timing, and a clear upgrade path to Broken Blade or Excalibur. Once you understand the game mechanics, you can switch to Katana or Buster.',
+  },
+  {
+    question: 'Can I use multiple weapon types?',
+    answer: 'You focus on one weapon type at a time since your race, element, and blessing should all support it. However, you can obtain and upgrade multiple weapons through the Forge system.',
+  },
+  {
+    question: 'What weapon is best for Boss Rush?',
+    answer: 'Dragon Slayer (Buster type) is the strongest weapon for Boss Rush due to its high damage per hit and blessing synergy. Broken Blade and Excalibur are also top-tier choices.',
+  },
 ];
 
 const relatedGuides = [
@@ -49,12 +61,82 @@ const relatedGuides = [
   faq={faq}
   relatedGuides={relatedGuides}
 >
-  <section class="mb-4">
-    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 text-sm text-gray-300">
-      These represent the main weapon types in Broken Blade. Each type can be upgraded through the <a href="/forge-guide/" class="text-amber-400 hover:text-amber-300">Forge system</a>.
+  <!-- Weapon Types Intro -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Weapon Types in Broken Blade</h2>
+    <p class="text-gray-300 mb-3">There are three weapon types in Broken Blade: <strong class="text-white">Sword</strong>, <strong class="text-white">Katana</strong>, and <strong class="text-white">Buster</strong>. Each type has a distinct playstyle, attack speed, and damage profile. Your weapon type determines which endgame weapon you upgrade toward, which race pairs best, and which blessings provide the most value.</p>
+    <p class="text-gray-300">Choosing your weapon type is the first major build decision in Broken Blade. Everything else &mdash; your race, element, and blessing &mdash; should be chosen to support your weapon. Switching weapon types later is possible but requires re-optimizing your entire build.</p>
+  </section>
+
+  <!-- Weapon Type Guide -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Weapon Type Guide</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="rounded-lg border border-amber-500/30 bg-gray-800/50 p-5">
+        <h3 class="text-lg font-bold text-white mb-3">Sword</h3>
+        <p class="text-sm text-gray-300 mb-2">Balanced and beginner-friendly. Sword has moderate attack speed and moderate damage per hit, making it the most forgiving weapon type to learn.</p>
+        <ul class="space-y-1 text-sm text-gray-400">
+          <li><span class="text-amber-400">Playstyle:</span> Balanced, consistent</li>
+          <li><span class="text-amber-400">Best race:</span> Elf or Aesir</li>
+          <li><span class="text-amber-400">Best element:</span> Fire</li>
+          <li><span class="text-amber-400">Endgame:</span> Broken Blade, Excalibur</li>
+          <li><span class="text-amber-400">Blessings:</span> Tyr, Heimdall, Odin</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-red-500/30 bg-gray-800/50 p-5">
+        <h3 class="text-lg font-bold text-white mb-3">Buster</h3>
+        <p class="text-sm text-gray-300 mb-2">High damage, slow attacks. Buster hits the hardest per swing and has the best blessing synergy in the game, making it the top choice for boss content.</p>
+        <ul class="space-y-1 text-sm text-gray-400">
+          <li><span class="text-amber-400">Playstyle:</span> Slow, high burst damage</li>
+          <li><span class="text-amber-400">Best race:</span> Nether or Aesir</li>
+          <li><span class="text-amber-400">Best element:</span> Fire or Thunder</li>
+          <li><span class="text-amber-400">Endgame:</span> Dragon Slayer</li>
+          <li><span class="text-amber-400">Blessings:</span> Thor, Surtr, Hel, Fenrir, Odin</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-blue-500/30 bg-gray-800/50 p-5">
+        <h3 class="text-lg font-bold text-white mb-3">Katana</h3>
+        <p class="text-sm text-gray-300 mb-2">Fast attacks, great for leveling. Katana has the highest attack speed and excels at active farming where hitting many times per second adds up quickly.</p>
+        <ul class="space-y-1 text-sm text-gray-400">
+          <li><span class="text-amber-400">Playstyle:</span> Fast, mobile-friendly</li>
+          <li><span class="text-amber-400">Best race:</span> Vanir or Aesir</li>
+          <li><span class="text-amber-400">Best element:</span> Wind, Fire, or Thunder</li>
+          <li><span class="text-amber-400">Endgame:</span> Katana upgrade path</li>
+          <li><span class="text-amber-400">Blessings:</span> Loki, Jormungandr, Odin</li>
+        </ul>
+      </div>
     </div>
   </section>
 
+  <!-- Forge and Upgrade Path -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Forge and Upgrade Path</h2>
+    <p class="text-gray-300 mb-3">All weapons are upgraded through the <a href="/forge-guide/" class="text-amber-400 hover:text-amber-300">Forge system</a>. Each weapon type has a progression route that leads to its endgame version. The basic Sword upgrades into Broken Blade or Excalibur. The Buster upgrades into Dragon Slayer. The Katana follows its own upgrade path.</p>
+    <p class="text-gray-300">Higher-tier weapons require materials from <a href="/bosses/" class="text-amber-400 hover:text-amber-300">bosses</a> and the <a href="/boss-rush-guide/" class="text-amber-400 hover:text-amber-300">Boss Rush</a>. Plan your farming around which weapon you want to end up with. Do not spread your resources across multiple weapon types early on.</p>
+  </section>
+
+  <!-- Which Weapon Type Should You Pick -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Which Weapon Type Should You Pick?</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ul class="space-y-4 text-gray-200">
+        <li class="flex items-start gap-3">
+          <span class="text-green-400 mt-0.5 font-bold">Pick Sword if:</span>
+          <span>You are a new player, you want a balanced playstyle, or you plan to go for Broken Blade / Excalibur as your endgame weapon. Sword is the safest pick and never feels bad.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-red-400 mt-0.5 font-bold">Pick Buster if:</span>
+          <span>You want the highest boss damage, you enjoy slow-but-powerful combat, and you plan to chase Dragon Slayer. Buster has the best blessing variety and is the strongest type for Boss Rush.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-blue-400 mt-0.5 font-bold">Pick Katana if:</span>
+          <span>You want fast clear speeds for leveling, you prefer an active and mobile playstyle, or you enjoy hit-and-run strategies. Katana pairs uniquely with Wind element for maximum attack speed.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- All Weapons Grid -->
   <section class="mb-8">
     <h2 class="text-2xl font-bold text-white mb-6">All Weapons ({weapons.length})</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

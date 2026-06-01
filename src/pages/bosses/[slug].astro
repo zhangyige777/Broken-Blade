@@ -20,7 +20,7 @@ const sTierWeapons = allWeapons.filter(w => w.tier === 'S').sort((a, b) => TIER_
 const sTierBlessings = allBlessings.filter(b => b.tier === 'S').sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
 
 const title = `${boss.name} Boss Guide - Broken Blade`;
-const description = `${boss.name} boss guide for Broken Blade Roblox. Level ${boss.levelRequirement} requirement, drops include ${boss.drops.join(', ')}, strategy and tips to defeat ${boss.name}.`;
+const description = `${boss.name} boss guide for Broken Blade Roblox with drops, strategy, recommended build, and rewards.`;
 
 const summaryRows = [
   { label: 'Level Requirement', value: boss.levelRequirement },

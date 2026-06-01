@@ -31,6 +31,18 @@ const faq = [
     question: 'What is the best strategy for farming bosses?',
     answer: 'Use a build optimized for boss damage (Buster or Dragon Slayer with damage blessing). Learn boss attack patterns first, then optimize for speed. Bring sustain while learning, then switch to full DPS.',
   },
+  {
+    question: 'What order should I farm bosses?',
+    answer: 'Start with Nivaron (level 500) to get a good race, then Velik (level 500) for your element. Once you hit level 1000, farm Gelaros for blessing rerolls. Boss Rush is the final step for endgame materials.',
+  },
+  {
+    question: 'Can I skip any bosses?',
+    answer: 'No. Each boss drops a specific reroll type you need for build optimization. Nivaron, Velik, and Gelaros are all essential for min-maxing. Boss Rush is needed for endgame weapon upgrades.',
+  },
+  {
+    question: 'How do I prepare for Boss Rush?',
+    answer: 'Have a fully upgraded weapon, a strong race (Epic or higher), and a good element (Fire or Thunder). Use a blessing that provides either raw damage (Odin) or sustain (Tyr). Learn the boss mechanics from earlier bosses first.',
+  },
 ];
 
 const relatedGuides = [
@@ -49,6 +61,36 @@ const relatedGuides = [
   faq={faq}
   relatedGuides={relatedGuides}
 >
+  <!-- Boss System Overview -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Boss System Overview</h2>
+    <p class="text-gray-300 mb-3">Bosses are the primary way to optimize your character build in Broken Blade. Each boss drops a specific type of reroll item that lets you change a part of your build &mdash; your <a href="/races/" class="text-amber-400 hover:text-amber-300">race</a>, <a href="/elements/" class="text-amber-400 hover:text-amber-300">element</a>, or <a href="/blessings/" class="text-amber-400 hover:text-amber-300">blessing</a>. Without farming bosses, you are stuck with whatever the game randomly assigns you.</p>
+    <p class="text-gray-300 mb-3">Bosses unlock at different level milestones. <strong class="text-white">Nivaron</strong> and <strong class="text-white">Velik</strong> both unlock at level 500, while <strong class="text-white">Gelaros</strong> requires level 1000. Boss Rush becomes accessible during mid-game and is the primary endgame activity for materials and progression items.</p>
+    <p class="text-gray-300">Each boss has its own attack patterns and difficulty. Learning these patterns is essential before you can farm efficiently. Start by focusing on survival, then switch to a damage-optimized build once you are comfortable with the mechanics.</p>
+  </section>
+
+  <!-- Boss Farming Order -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Recommended Boss Farming Order</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-4 text-gray-200">
+        <li>
+          <strong class="text-white">Nivaron</strong> <span class="text-gray-400">(Level 500+)</span> &mdash; Farm Race Rerolls first. Your race determines your damage bonuses and synergizes with your weapon type. Aim for at least an Epic race before moving on.
+        </li>
+        <li>
+          <strong class="text-white">Velik</strong> <span class="text-gray-400">(Level 500+)</span> &mdash; Farm Element Rerolls after settling on a race. Fire (+50% Damage) is the safest target. Thunder (+50% Crit Damage) is ideal if your race provides crit chance.
+        </li>
+        <li>
+          <strong class="text-white">Gelaros</strong> <span class="text-gray-400">(Level 1000+)</span> &mdash; Farm Blessing Rerolls once your weapon, race, and element are solid. Do not waste blessing rerolls before level 1000 since you may change your build direction.
+        </li>
+        <li>
+          <strong class="text-white">Boss Rush</strong> <span class="text-gray-400">(Mid-game+)</span> &mdash; Run Boss Rush for endgame materials, reroll resources, and weapon upgrade items. This is your long-term farming loop.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- All Bosses Grid -->
   <section class="mb-8">
     <h2 class="text-2xl font-bold text-white mb-6">All Bosses ({bosses.length})</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -86,5 +128,40 @@ const relatedGuides = [
         </a>
       ))}
     </div>
+  </section>
+
+  <!-- Boss Rush Preparation -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Boss Rush Preparation</h2>
+    <p class="text-gray-300 mb-3">Boss Rush is the most demanding content in Broken Blade and requires a well-optimized build. Before attempting Boss Rush, make sure you have the following:</p>
+    <ul class="space-y-2 text-gray-300">
+      <li class="flex items-start gap-2"><span class="text-amber-400 mt-0.5">&#x2713;</span> <span>A fully upgraded weapon from the <a href="/forge-guide/" class="text-amber-400 hover:text-amber-300">Forge</a>. At minimum, you should have an A-tier weapon like Buster, Katana, or Sword maxed out.</span></li>
+      <li class="flex items-start gap-2"><span class="text-amber-400 mt-0.5">&#x2713;</span> <span>An Epic or higher race that matches your weapon type. Frost and Flame are acceptable minimums if you have strong gear.</span></li>
+      <li class="flex items-start gap-2"><span class="text-amber-400 mt-0.5">&#x2713;</span> <span>Fire or Thunder element for maximum damage output.</span></li>
+      <li class="flex items-start gap-2"><span class="text-amber-400 mt-0.5">&#x2713;</span> <span>A blessing that provides either raw damage (Odin) or sustain (Tyr) depending on your playstyle.</span></li>
+    </ul>
+  </section>
+
+  <!-- Common Mistakes -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Common Boss Farming Mistakes</h2>
+    <ul class="space-y-3">
+      <li class="flex items-start gap-3 text-gray-200">
+        <span class="text-red-400 mt-0.5">&#x2717;</span>
+        <span><strong class="text-white">Rerolling before deciding your weapon type.</strong> Your race, element, and blessing should all support your weapon. Pick your weapon first, then farm the matching stats.</span>
+      </li>
+      <li class="flex items-start gap-3 text-gray-200">
+        <span class="text-red-400 mt-0.5">&#x2717;</span>
+        <span><strong class="text-white">Wasting blessing rerolls too early.</strong> Blessing rerolls come from Gelaros (level 1000+). Do not use them before you have committed to a build direction.</span>
+      </li>
+      <li class="flex items-start gap-3 text-gray-200">
+        <span class="text-red-400 mt-0.5">&#x2717;</span>
+        <span><strong class="text-white">Skipping Nivaron to farm Velik first.</strong> Race bonuses are larger than element bonuses in most cases. Getting a good race first gives you a stronger foundation for the rest of your build.</span>
+      </li>
+      <li class="flex items-start gap-3 text-gray-200">
+        <span class="text-red-400 mt-0.5">&#x2717;</span>
+        <span><strong class="text-white">Going full DPS before learning boss patterns.</strong> Start with sustain blessings and defensive elements while you learn. Switch to damage once you can clear without dying.</span>
+      </li>
+    </ul>
   </section>
 </ArticleLayout>

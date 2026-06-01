@@ -48,9 +48,56 @@ const lateGameValue = element.tier === 'S'
   ? `${element.name} holds up reasonably well in the late game if you do not have access to better options. Its bonuses are not dramatic but provide useful utility.`
   : `${element.name} does not scale well into the late game. The bonuses are too small compared to what Fire or Thunder provide. Plan to reroll before investing in endgame builds.`;
 
+// Dynamic advice: "Why Keep" or "When to Reroll" based on tier
+const keepOrRerollTitle = element.tier === 'S' || element.tier === 'A'
+  ? `Why ${element.name} is Worth Keeping`
+  : `When to Reroll ${element.name}`;
+
+const keepOrRerollContent = element.tier === 'S'
+  ? `${element.name} is the best element in Broken Blade. Its ${element.effects.join(', ')} effect is unmatched for endgame damage output. No other element provides the same level of scaling with crit-focused builds. If you roll ${element.name}, stop rerolling and build around it. The only reason to consider rerolling would be if your build has zero crit chance, which is an unusual situation since many races and blessings provide crit.`
+  : element.tier === 'A'
+  ? `${element.name} is one of the strongest elements available. Its ${element.effects.join(', ')} effect is universally useful and does not depend on other stats to be effective. Unlike crit-based elements, ${element.name} works with any race and any weapon type without needing specific synergy. Keep it unless you are specifically chasing Thunder for a crit-heavy build.`
+  : element.tier === 'B'
+  ? `${element.name} is a solid mid-tier element with ${element.effects.join(', ')}. It is worth keeping if it matches your playstyle or weapon type, but it falls behind Fire and Thunder in raw damage output. Reroll when you have spare rerolls and a clear endgame build direction. Specifically, keep ${element.name} if you are still leveling or learning boss mechanics, and reroll it once you are farming Boss Rush consistently.`
+  : `${element.name} provides ${element.effects.join(', ')}, which is helpful early on but does not scale into endgame content. Reroll as soon as you have access to Velik farming. Target Fire for general damage or Thunder for crit builds. If you are stuck with ${element.name} temporarily, focus on leveling and progression until you can change it.`;
+
+// Dynamic: Best Weapon Types
+const weaponAdvice = element.name === 'Thunder'
+  ? 'Thunder pairs best with Buster and Dragon Slayer for maximum crit damage on slow, heavy hits. It also works well with Sword builds that use the Excalibur line. Katana can benefit from Thunder but relies on stacking crit chance from other sources first.'
+  : element.name === 'Fire'
+  ? 'Fire works with every weapon type equally well because +50% Damage is a flat multiplier. This makes it the safest element choice regardless of whether you use Sword, Katana, or Buster. Pair it with any high-tier weapon for consistent results.'
+  : element.name === 'Wind'
+  ? 'Wind is specifically designed for fast-attacking weapons. Katana benefits the most from +15% Attack Speed since it already has the fastest base attacks. Sword can also benefit from the speed boost. Buster gains the least from Wind since its attacks are naturally slow.'
+  : element.name === 'Life'
+  ? 'Life Steal benefits most from fast weapons that hit many times. Katana and Sword gain more healing per second from +3% Life Steal than Buster does. However, Buster can also benefit since each hit is larger, giving bigger individual heals. Pair with Tyr blessing for maximum sustain.'
+  : element.name === 'Water'
+  ? 'Energy Recovery is a comfort stat that helps with all weapon types. Katana and Sword tend to use more energy due to faster attack rates, so they benefit slightly more. Buster has fewer energy issues due to slower attacks. Water is a placeholder element and should be rerolled.'
+  : 'Damage Reduction benefits all weapon types equally since it reduces incoming damage by a flat percentage. Buster players might find it slightly more useful since they take more hits during slow attack animations. Earth is a placeholder and should be rerolled for a damage element.';
+
+// Dynamic: Boss Rush Analysis
+const bossRushAdvice = element.tier === 'S'
+  ? `${element.name} is the top element for Boss Rush. The ${element.effects.join(', ')} bonus directly increases your clear speed and damage output, which is critical for efficient Boss Rush farming. Every top Boss Rush build uses ${element.name} as its element of choice.`
+  : element.tier === 'A'
+  ? `${element.name} is an excellent element for Boss Rush. ${element.effects.join(', ')} provides consistent damage that shaves seconds off every boss encounter. It is only marginally behind Thunder in overall Boss Rush performance and is arguably more reliable since it does not depend on crit RNG.`
+  : element.tier === 'B'
+  ? `${element.name} is usable in Boss Rush but not optimal. The ${element.effects.join(', ')} bonus does not directly increase your kill speed in the way that Fire or Thunder do. You can clear Boss Rush with ${element.name}, but your times will be noticeably slower than with a damage-focused element.`
+  : `${element.name} is not recommended for Boss Rush. The ${element.effects.join(', ')} bonus does not contribute meaningfully to boss kill times. Reroll for Fire or Thunder before investing time in Boss Rush farming.`;
+
+// Dynamic: Late Game Value extended
+const lateGameExtended = element.tier === 'S'
+  ? `At max level with fully upgraded gear, ${element.name} becomes even more valuable. As your crit chance increases from race bonuses (like Aesir) and blessing effects, the ${element.effects.join(', ')} multiplier compounds with your other stats. This is why ${element.name} is considered the best element &mdash; it scales multiplicatively with gear rather than additively.`
+  : element.tier === 'A'
+  ? `In the late game, ${element.name} remains one of the best elements. Its flat damage bonus applies to every hit regardless of other stats. While Thunder may edge it out in theoretical maximum DPS for crit-heavy builds, ${element.name} is more consistent and does not require specific gear to reach its full potential.`
+  : element.tier === 'B'
+  ? `Late game, ${element.name} starts to show its limitations. The ${element.effects.join(', ')} bonus is nice but does not provide the raw damage increase needed for fast Boss Rush clears. You can complete late game content with it, but you will notice a clear gap compared to players running Fire or Thunder.`
+  : `In the late game, ${element.name} provides minimal value. Endgame content like Boss Rush and high-level boss farming requires every stat advantage you can get, and ${element.effects.join(', ')} does not contribute meaningfully to kill times. Plan to reroll before committing to endgame builds.`;
+
 const faq = [
   { question: `Is ${element.name} a good element?`, answer: `${element.name} is a ${element.tier}-tier ${element.rarity} element, best for ${element.bestFor}. ${element.notes}` },
   { question: `How do I get ${element.name}?`, answer: `${element.name} can be obtained through element rerolls unlocked at level 500. Defeat the Velik boss for reroll chances. ${element.name} has a ${element.dropRate} drop rate.` },
+  { question: `What weapons work best with ${element.name}?`, answer: weaponAdvice },
+  { question: `Should I keep ${element.name} for Boss Rush?`, answer: bossRushAdvice },
+  { question: `Can I trade for ${element.name}?`, answer: `Yes, element rerolls can sometimes be obtained through trading with other players. However, the element you get from a reroll is random, so you cannot directly trade for ${element.name} specifically. You trade for reroll items and then use them for a chance at ${element.name} (${element.dropRate} per roll).` },
 ];
 
 const relatedGuides = [
@@ -69,6 +116,13 @@ const relatedGuides = [
   faq={faq}
   relatedGuides={relatedGuides}
 >
+  <!-- Intro -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">About {element.name}</h2>
+    <p class="text-gray-300 mb-3">{element.name} is a <strong class="text-white">{element.rarity}</strong> element in Broken Blade, ranked <strong class="text-white">{element.tier}-tier</strong>. It is best suited for {element.bestFor.toLowerCase()}. {element.notes}</p>
+    <p class="text-gray-300">As a {element.rarity} element, {element.name} has a {element.dropRate} drop rate per reroll. {element.rarity === 'Mythical' ? 'This makes it one of the hardest elements to obtain, requiring dedicated Velik farming or trading.' : element.rarity === 'Legendary' ? 'This is a reasonable drop rate that dedicated players can target through consistent farming.' : element.rarity === 'Epic' || element.rarity === 'Rare' ? 'This is a fairly common drop rate, so you should expect to see it regularly during rerolls.' : 'This is one of the most common drop rates, so you will likely roll it frequently.'}</p>
+  </section>
+
   <section class="mb-8">
     <h2 class="text-xl font-bold text-white mb-4">{element.name} Effects</h2>
     <ul class="space-y-2">
@@ -126,9 +180,16 @@ const relatedGuides = [
     </div>
   </section>
 
-  <!-- Best Weapons -->
+  <!-- Why Keep / When to Reroll -->
   <section class="mb-8">
-    <h2 class="text-xl font-bold text-white mb-4">Best Weapons for {element.name}</h2>
+    <h2 class="text-xl font-bold text-white mb-4">{keepOrRerollTitle}</h2>
+    <p class="text-gray-300">{keepOrRerollContent}</p>
+  </section>
+
+  <!-- Best Weapon Types -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Best Weapon Types for {element.name}</h2>
+    <p class="text-gray-300 mb-4">{weaponAdvice}</p>
     {elementWeapons.length > 0 ? (
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {elementWeapons.map(w => (
@@ -148,6 +209,12 @@ const relatedGuides = [
     )}
   </section>
 
+  <!-- Boss Rush Analysis -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">{element.name} in Boss Rush</h2>
+    <p class="text-gray-300">{bossRushAdvice}</p>
+  </section>
+
   <!-- Beginner Value -->
   <section class="mb-8">
     <h2 class="text-xl font-bold text-white mb-4">Beginner Value</h2>
@@ -157,6 +224,7 @@ const relatedGuides = [
   <!-- Late-game Value -->
   <section class="mb-8">
     <h2 class="text-xl font-bold text-white mb-4">Late-game Value</h2>
-    <p class="text-gray-300">{lateGameValue}</p>
+    <p class="text-gray-300 mb-3">{lateGameValue}</p>
+    <p class="text-gray-300">{lateGameExtended}</p>
   </section>
 </ArticleLayout>

@@ -31,6 +31,18 @@ const faq = [
     question: 'Which element for Katana?',
     answer: 'Wind (+15% Attack Speed) feels the best with Katana. Fire (+50% Damage) is the most reliable. Thunder (+50% Crit Damage) scales best in late-game with crit builds.',
   },
+  {
+    question: 'What element should I use for boss rush?',
+    answer: 'Fire and Thunder are the best elements for Boss Rush. Fire gives consistent +50% Damage that works on every hit. Thunder gives +50% Crit Damage which is stronger if your build has high crit chance from race or blessings.',
+  },
+  {
+    question: 'Should I reroll Life or Wind?',
+    answer: 'Life (+3% Life Steal) and Wind (+15% Attack Speed) are both B-tier elements. Keep Life if you need sustain while learning bosses. Keep Wind if you use Katana. Otherwise, reroll for Fire or Thunder.',
+  },
+  {
+    question: 'How rare are Mythical elements?',
+    answer: 'Mythical elements like Thunder have around a 3.6% drop rate per reroll. This means you need roughly 28 rerolls on average to get one. Farm Velik consistently and trade when possible.',
+  },
 ];
 
 const relatedGuides = [
@@ -49,6 +61,63 @@ const relatedGuides = [
   faq={faq}
   relatedGuides={relatedGuides}
 >
+  <!-- Intro -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">What Are Elements?</h2>
+    <p class="text-gray-300 mb-3">Elements are a core character stat system in Broken Blade that provide passive bonuses to your build. Each element gives a specific combat effect such as bonus damage, attack speed, crit damage, or sustain. Elements unlock at <strong class="text-white">level 500</strong>, which is the same milestone where race rerolls become available.</p>
+    <p class="text-gray-300 mb-3">Once unlocked, your character is assigned a random element. You can change it by using Element Reroll items obtained from the <a href="/bosses/velik/" class="text-amber-400 hover:text-amber-300">Velik boss</a> or through trading with other players. Each reroll pulls from the full element pool, so results are random and the rarity of the element determines how likely you are to roll it.</p>
+    <p class="text-gray-300">There are {elements.length} elements in the game, ranging from Common to Mythical rarity. Higher-rarity elements like Thunder and Fire provide significant damage bonuses that directly impact your clear speed in boss fights and Boss Rush.</p>
+  </section>
+
+  <!-- How to Get Elements -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">How to Get Elements</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li>Reach <strong class="text-white">level 500</strong> to unlock the element system.</li>
+        <li>Farm the <a href="/bosses/velik/" class="text-amber-400 hover:text-amber-300">Velik boss</a> for Element Reroll items.</li>
+        <li>Use an Element Reroll from your inventory to roll a new random element.</li>
+        <li>Each roll is independent. Higher-rarity elements like Thunder (Mythical, ~3.6%) are much harder to obtain than Common elements like Earth (~54.6%).</li>
+        <li>You can also trade with other players for specific elements if trading is available.</li>
+      </ol>
+      <p class="mt-4 text-sm text-gray-400">Do not spend all your rerolls at once. Decide on your weapon type first, then target the element that best matches your build.</p>
+    </div>
+  </section>
+
+  <!-- Element Categories -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Element Categories by Rarity</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+      <div class="rounded-lg border border-purple-500/30 bg-purple-500/5 p-4">
+        <h3 class="text-amber-400 font-semibold mb-2">Mythical</h3>
+        <p class="text-sm text-gray-300">Thunder is the only Mythical element. It provides +50% Crit Damage, making it the strongest element for crit-focused builds. With a ~3.6% drop rate, you need to farm Velik consistently.</p>
+      </div>
+      <div class="rounded-lg border border-orange-500/30 bg-orange-500/5 p-4">
+        <h3 class="text-amber-400 font-semibold mb-2">Legendary</h3>
+        <p class="text-sm text-gray-300">Fire (+50% Damage) is the Legendary element and the most reliable damage boost in the game. At ~8.8% drop rate, it is more obtainable than Thunder and works with every weapon type.</p>
+      </div>
+      <div class="rounded-lg border border-blue-500/30 bg-blue-500/5 p-4">
+        <h3 class="text-amber-400 font-semibold mb-2">Epic &amp; Below</h3>
+        <p class="text-sm text-gray-300">Wind, Life, Water, and Earth fill out the lower tiers. These are usable for leveling but should be rerolled once you have a clear endgame build direction.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keep or Reroll Guide -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Keep or Reroll Guide</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ul class="space-y-3 text-gray-200">
+        <li class="flex items-start gap-2"><span class="text-green-400 mt-1">&#x2713;</span> <span><strong class="text-white">Thunder</strong> &mdash; Keep. Best element in the game. Only reroll if you have zero crit chance.</span></li>
+        <li class="flex items-start gap-2"><span class="text-green-400 mt-1">&#x2713;</span> <span><strong class="text-white">Fire</strong> &mdash; Keep. The most versatile damage element. Works with any build.</span></li>
+        <li class="flex items-start gap-2"><span class="text-yellow-400 mt-1">&#x25CB;</span> <span><strong class="text-white">Wind</strong> &mdash; Keep only if you use Katana. Reroll otherwise.</span></li>
+        <li class="flex items-start gap-2"><span class="text-yellow-400 mt-1">&#x25CB;</span> <span><strong class="text-white">Life</strong> &mdash; Keep while learning boss mechanics. Reroll for Fire or Thunder once you are comfortable.</span></li>
+        <li class="flex items-start gap-2"><span class="text-red-400 mt-1">&#x2717;</span> <span><strong class="text-white">Water / Earth</strong> &mdash; Reroll. These do not provide enough damage impact for endgame content.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- All Elements Grid -->
   <section class="mb-8">
     <h2 class="text-2xl font-bold text-white mb-6">All Elements ({elements.length})</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -80,6 +149,7 @@ const relatedGuides = [
               ))}
             </div>
           </div>
+          <p class="mt-3 text-xs text-gray-400">{element.notes}</p>
         </a>
       ))}
     </div>
