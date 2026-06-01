@@ -47,7 +47,7 @@ const breadcrumbItems = [
 const relatedGuides = [
   { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons in Broken Blade.' },
   { title: 'Beginner Guide', url: '/beginner-guide/', description: 'Everything new players need to know.' },
-  { title: 'Discord', url: '/discord/', description: 'Join the official Broken Blade Discord for new codes.' },
+  { title: 'Discord', url: '/discord/', description: 'Join the community Broken Blade Discord for new codes.' },
   { title: 'Wiki', url: '/wiki/', description: 'Complete Broken Blade wiki and guides.' },
 ];
 ---
@@ -55,7 +55,7 @@ const relatedGuides = [
 <ArticleLayout
   title={title}
   description={description}
-  quickAnswer={`There are currently ${activeCodes.length} active Broken Blade codes. Redeem them in-game for free rewards like gems, boosts, and exclusive items. Codes expire quickly, so redeem them as soon as possible.`}
+  quickAnswer={`There are currently ${activeCodes.length} active Broken Blade codes. Redeem them in-game for free rewards like Thunder, Beherit, Holy, and other rewards. Codes expire quickly, so redeem them as soon as possible.`}
   breadcrumbItems={breadcrumbItems}
   schema={codesSchema}
   faq={faq}
@@ -90,9 +90,19 @@ const relatedGuides = [
       </>
     ) : (
       <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6 text-center">
-        <p class="text-gray-400">No active codes at the moment. Check back soon or join the <a href="/discord/" class="text-amber-400 hover:text-amber-300">official Discord</a> for updates.</p>
+        <p class="text-gray-400">No active codes at the moment. Check back soon or join the <a href="/discord/" class="text-amber-400 hover:text-amber-300">community Discord</a> for updates.</p>
       </div>
     )}
+  </section>
+
+  <!-- Codes Not Working -->
+  <section class="mb-10">
+    <div class="rounded-lg border border-amber-500/20 bg-gray-800/50 p-5">
+      <p class="text-gray-200">
+        <span class="text-amber-400 font-medium">&#9888;&#65039; Having trouble with codes?</span>
+        See our <a href="/codes-not-working/" class="text-amber-400 hover:text-amber-300 underline">Broken Blade Codes Not Working</a> guide for troubleshooting tips and solutions.
+      </p>
+    </div>
   </section>
 
   <!-- How to Redeem -->
@@ -130,7 +140,7 @@ const relatedGuides = [
         </li>
         <li class="flex items-start gap-2">
           <span class="text-amber-400 mt-0.5">&#9733;</span>
-          <span><strong class="text-white">Official Discord</strong> — the developers often post codes in the announcements channel.</span>
+          <span><strong class="text-white">Community Discord</strong> — the developers often post codes in the announcements channel.</span>
         </li>
         <li class="flex items-start gap-2">
           <span class="text-amber-400 mt-0.5">&#9733;</span>

@@ -16,6 +16,13 @@
     { "id": "njord", "slug": "njord", "name": "Njord", "rarity": "Epic", "dropRate": "0.8506%", "tier": "B", "bestFor": "Energy recovery", "effects": ["+40% Damage", "+0.5 Energy Recovery per Second"], "notes": "Comfort pick for leveling." },
     { "id": "frigg", "slug": "frigg", "name": "Frigg", "rarity": "Epic", "dropRate": "0.8506%", "tier": "B", "bestFor": "Attack speed", "effects": ["+30% Damage", "+5% Attack Speed"], "notes": "Good if you do not have Loki." },
     { "id": "freyr", "slug": "freyr", "name": "Freyr", "rarity": "Epic", "dropRate": "0.8506%", "tier": "B", "bestFor": "Crit damage", "effects": ["+35% Damage", "+15% Crit Damage"], "notes": "Budget crit option." },
-    { "id": "baldr", "slug": "baldr", "name": "Baldr", "rarity": "Epic", "dropRate": "0.8506%", "tier": "B", "bestFor": "Crit chance", "effects": ["+35% Damage", "+15% Crit Chance"], "notes": "Pairs well with Thunder." }
+    { "id": "baldr", "slug": "baldr", "name": "Baldr", "rarity": "Epic", "dropRate": "0.8506%", "tier": "B", "bestFor": "Crit chance", "effects": ["+35% Damage", "+15% Crit Chance"], "notes": "Pairs well with Thunder." },
+    { "id": "dark", "slug": "dark", "name": "Dark", "rarity": "Uncommon", "dropRate": "0.8506%", "tier": "C", "bestFor": "Early defense", "effects": ["+20% Damage", "+5% Damage Reduction"], "notes": "Low-tier blessing. Reroll when possible." },
+    { "id": "light", "slug": "light", "name": "Light", "rarity": "Uncommon", "dropRate": "0.8506%", "tier": "C", "bestFor": "Basic sustain", "effects": ["+15% Damage", "+3% Life Steal"], "notes": "Acceptable early pick, reroll at level 1000+." },
+    { "id": "valkyrie", "slug": "valkyrie", "name": "Valkyrie", "rarity": "Rare", "dropRate": "0.2127%", "tier": "C", "bestFor": "Supportive leveling", "effects": ["+25% Damage", "+5% Crit Chance"], "notes": "Decent crit bridge for early builds." },
+    { "id": "einherjar", "slug": "einherjar", "name": "Einherjar", "rarity": "Rare", "dropRate": "0.2127%", "tier": "C", "bestFor": "Aggressive farming", "effects": ["+30% Damage", "+5% Attack Speed"], "notes": "Good for active grinding before endgame." },
+    { "id": "vidar", "slug": "vidar", "name": "Vidar", "rarity": "Rare", "dropRate": "0.2127%", "tier": "C", "bestFor": "Budget tanking", "effects": ["+20% Damage", "+10% Damage Reduction"], "notes": "Useful in boss fights if you have nothing better." },
+    { "id": "vali", "slug": "vali", "name": "Vali", "rarity": "Uncommon", "dropRate": "0.8506%", "tier": "D", "bestFor": "Very early game", "effects": ["+10% Damage", "+5% Health"], "notes": "Replace as soon as you unlock blessing rerolls." },
+    { "id": "eir", "slug": "eir", "name": "Eir", "rarity": "Common", "dropRate": "Common pool", "tier": "D", "bestFor": "Starter healing", "effects": ["+5% Life Steal"], "notes": "Starter-tier blessing. Reroll at the first opportunity." }
   ]
 }

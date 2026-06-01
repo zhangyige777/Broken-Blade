@@ -16,6 +16,7 @@ const { title = config.seo.siteTitle, description = config.seo.siteDescription, 
 const siteUrl = config.seo.baseUrl;
 const canonicalURL = new URL(canonical || Astro.url.pathname, siteUrl);
 const ogImageURL = ogImage ? new URL(ogImage, siteUrl) : null;
+const finalOgImage = ogImageURL ? ogImageURL.href : new URL('/favicon.svg', siteUrl).href;
 const keywords = [...config.seo.primaryKeywords, ...config.seo.secondaryKeywords].join(', ');
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 const hasGA = gaMeasurementId && !gaMeasurementId.includes('PLACEHOLDER');
@@ -34,13 +35,13 @@ const hasGA = gaMeasurementId && !gaMeasurementId.includes('PLACEHOLDER');
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonicalURL.href} />
-  {ogImageURL && <meta property="og:image" content={ogImageURL.href} />}
+  <meta property="og:image" content={finalOgImage} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content={config.game.name} />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  {ogImageURL && <meta name="twitter:image" content={ogImageURL.href} />}
+  <meta name="twitter:image" content={finalOgImage} />
 
   {hasGA && (
     <>

@@ -3,7 +3,7 @@ import ArticleLayout from '@/layouts/ArticleLayout.astro';
 import TierBadge from '@/components/TierBadge.astro';
 import { getBuilds } from '@/lib/data';
 
-const build = getBuilds().find(b => b.slug === 'best-boss-rush-build')!;
+const build = getBuilds().find(b => b.slug === 'boss-rush-build')!;
 
 const summaryRows = [
   { label: 'Tier', value: build.tier },

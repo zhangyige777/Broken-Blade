@@ -4,9 +4,9 @@ import { getGameConfig } from '@/lib/data';
 
 const config = getGameConfig();
 
-const title = 'Broken Blade Discord - Official Server Link';
-const description = 'Find the official Broken Blade Discord server link. Connect with the community, get updates, share builds, and find codes.';
-const quickAnswer = `The official Broken Blade Discord server is the best place to find updates, codes, and community discussions. Join the Discord at: ${config.game.officialDiscord}`;
+const title = 'Broken Blade Discord - Community Server Link';
+const description = 'Find the Broken Blade Discord server link. Connect with the community, get updates, share builds, and find codes.';
+const quickAnswer = `The Broken Blade community Discord server is the best place to find updates, codes, and community discussions. Join the Discord at: ${config.game.officialDiscord}`;
 
 const breadcrumbItems = [
   { name: 'Home', url: '/' },
@@ -16,7 +16,7 @@ const breadcrumbItems = [
 const faq = [
   {
     question: 'Is there an official Broken Blade Discord?',
-    answer: 'Yes. The official Discord server is managed by the Broken Blade development team. It is the best place for game updates, code announcements, and community interaction.',
+    answer: 'There is a community Discord server associated with Broken Blade. Players should verify the link through the Roblox game page\'s social links to make sure they are joining the right server.',
   },
   {
     question: 'What do I find on the Broken Blade Discord?',
@@ -24,7 +24,7 @@ const faq = [
   },
   {
     question: 'How do I join the Broken Blade Discord?',
-    answer: 'You can find the Discord link on the Roblox game page under social links, or use the official invite link. You will need a Discord account to join.',
+    answer: 'You can find the Discord link on the Roblox game page under social links. We recommend always verifying through the game page to make sure you are joining the correct server. You will need a Discord account to join.',
   },
   {
     question: 'Do Broken Blade codes get announced on Discord first?',
@@ -45,6 +45,7 @@ const relatedGuides = [
   { title: 'Codes', url: '/codes/', description: 'All active and expired Broken Blade codes.' },
   { title: 'Wiki', url: '/wiki/', description: 'Complete Broken Blade game database.' },
   { title: 'Updates', url: '/updates/', description: 'Latest Broken Blade update log.' },
+  { title: 'Official Links', url: '/official-link/', description: 'All official Broken Blade links in one place.' },
 ];
 ---
 
@@ -57,21 +58,21 @@ const relatedGuides = [
   relatedGuides={relatedGuides}
   showDisclaimer={false}
 >
-  <!-- Official Discord Server -->
+  <!-- Community Discord Server -->
   <section class="mb-8">
-    <h2 class="text-2xl font-bold text-white mb-4">Official Discord Server</h2>
+    <h2 class="text-2xl font-bold text-white mb-4">Community Discord Server</h2>
     <p class="text-gray-200 mb-4 leading-relaxed">
-      The Broken Blade Discord server is the central hub for the game's community. It is where the development team posts announcements, where new codes are shared first, and where players gather to discuss builds, strategies, and game updates. If you play Broken Blade regularly, joining the Discord is highly recommended.
+      The Broken Blade Discord server is a community hub for the game. It is where announcements are posted, where new codes may be shared, and where players gather to discuss builds, strategies, and game updates. Always verify the Discord link through the Roblox game page's social links before joining.
     </p>
     <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-6 text-center">
-      <p class="text-gray-200 mb-4">Join the official Broken Blade Discord server for updates, codes, and community discussions.</p>
+      <p class="text-gray-200 mb-4">Join the Broken Blade community Discord server for updates, codes, and community discussions.</p>
       <a
         href={config.game.officialDiscord}
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-indigo-500"
       >
-        Join Official Discord
+        Join Community Discord
       </a>
     </div>
   </section>
@@ -102,17 +103,17 @@ const relatedGuides = [
     </div>
   </section>
 
-  <!-- Official vs Fake -->
+  <!-- Verified vs Fake -->
   <section class="mb-8">
-    <h2 class="text-2xl font-bold text-white mb-4">Official vs Fake Discord Servers</h2>
+    <h2 class="text-2xl font-bold text-white mb-4">Verified vs Fake Discord Servers</h2>
     <p class="text-gray-200 mb-4 leading-relaxed">
-      As Broken Blade grows in popularity, fake Discord servers have appeared that impersonate the official one. These servers may contain malicious links, phishing attempts, or misinformation about the game. It is important to make sure you are joining the real server.
+      As Broken Blade grows in popularity, fake Discord servers have appeared that impersonate the real one. These servers may contain malicious links, phishing attempts, or misinformation about the game. It is important to make sure you are joining the correct server.
     </p>
     <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-5">
-      <h3 class="font-bold text-red-400 mb-2">How to Verify the Official Server</h3>
+      <h3 class="font-bold text-red-400 mb-2">How to Verify the Server</h3>
       <ul class="list-disc list-inside text-gray-300 text-sm space-y-2">
         <li>Only use the Discord link from the <a href={config.game.officialRobloxUrl} target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:text-amber-300">official Roblox game page</a> social links</li>
-        <li>The official server is linked directly on this page at the top</li>
+        <li>The server linked on this page matches the Roblox game page's social links, but always double-check</li>
         <li>Do not trust Discord links from comments, random YouTube videos, or unofficial sources</li>
         <li>The real server will have verified developer roles and a large member count</li>
       </ul>
@@ -153,7 +154,7 @@ const relatedGuides = [
     <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
       <ol class="list-decimal list-inside space-y-3 text-gray-200">
         <li>If you do not have one, create a free <strong class="text-white">Discord account</strong> at discord.com.</li>
-        <li>Click the <strong class="text-amber-400">Join Official Discord</strong> button above, or use the invite link from the Roblox game page.</li>
+        <li>Click the <strong class="text-amber-400">Join Community Discord</strong> button above, or use the invite link from the Roblox game page's social links.</li>
         <li>Accept the server invite and complete any verification steps the server requires.</li>
         <li>Read the server rules in the #rules channel before posting.</li>
         <li>Start browsing channels like #announcements and #build-discussion to get oriented.</li>
