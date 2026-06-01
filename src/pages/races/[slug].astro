@@ -1,0 +1,64 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import RarityBadge from '@/components/RarityBadge.astro';
+import SummaryTable from '@/components/SummaryTable.astro';
+import { getRaces, getRaceBySlug } from '@/lib/data';
+
+export function getStaticPaths() {
+  const races = getRaces();
+  return races.map(race => ({ params: { slug: race.slug }, props: { race } }));
+}
+
+const { race } = Astro.props;
+
+const title = `${race.name} - Broken Blade Race Guide`;
+const description = `${race.name} race guide for Broken Blade Roblox. Tier ${race.tier}, ${race.rarity} rarity, effects, best builds, and whether to keep or reroll.`;
+
+const summaryRows = [
+  { label: 'Rarity', value: race.rarity },
+  { label: 'Drop Rate', value: race.dropRate },
+  { label: 'Tier', value: race.tier },
+  { label: 'Best For', value: race.bestFor },
+];
+
+const faq = [
+  { question: `Should I keep ${race.name}?`, answer: race.tier === 'S' || race.tier === 'A' ? `Yes, ${race.name} is a ${race.tier}-tier race and worth keeping for ${race.bestFor}.` : `${race.name} is a ${race.tier}-tier race. Consider rerolling if you have a clear build direction, but it is usable for ${race.bestFor}.` },
+  { question: `How do I get ${race.name}?`, answer: `${race.name} can be obtained through race rerolls unlocked at level 500. Defeat the Nivaron boss for reroll chances.` },
+  { question: `What builds work best with ${race.name}?`, answer: `${race.name} is best for ${race.bestFor}. Effects: ${race.effects.join(', ')}.` },
+];
+
+const relatedGuides = [
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'Complete Broken Blade races tier list and rankings.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Find the best weapon for your race.' },
+  { title: 'Progression Guide', url: '/progression-guide/', description: 'Full progression route for Broken Blade.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Boss Rush strategies and builds.' },
+];
+---
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={`${race.name} is a ${race.rarity} ${race.tier}-tier race in Broken Blade, best for ${race.bestFor}.`}
+  breadcrumbItems={[{ name: 'Home', url: '/' }, { name: 'Races', url: '/races/' }, { name: race.name, url: `/races/${race.slug}/` }]}
+  summaryRows={summaryRows}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- Effects -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">{race.name} Effects</h2>
+    <ul class="space-y-2">
+      {race.effects.map((effect) => (
+        <li class="flex items-center gap-2 text-gray-200">
+          <span class="text-amber-400">&#x2713;</span> {effect}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Notes -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Notes</h2>
+    <p class="text-gray-300">{race.notes}</p>
+  </section>
+</ArticleLayout>

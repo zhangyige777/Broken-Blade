@@ -1,0 +1,88 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import { getGameConfig } from '@/lib/data';
+
+const config = getGameConfig();
+
+const title = 'Broken Blade Discord - Official Server Link';
+const description = 'Find the official Broken Blade Discord server link. Connect with the community, get updates, share builds, and find codes.';
+const quickAnswer = `The official Broken Blade Discord server is the best place to find updates, codes, and community discussions. Join the Discord at: ${config.game.officialDiscord}`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Discord', url: '/discord/' },
+];
+
+const faq = [
+  {
+    question: 'Is there an official Broken Blade Discord?',
+    answer: 'Yes. The official Discord server is managed by the Broken Blade development team. It is the best place for game updates, code announcements, and community interaction.',
+  },
+  {
+    question: 'What do I find on the Broken Blade Discord?',
+    answer: 'The Discord server typically has channels for game announcements, update logs, code drops, general discussion, build sharing, bug reports, and trading.',
+  },
+  {
+    question: 'How do I join the Broken Blade Discord?',
+    answer: 'You can find the Discord link on the Roblox game page under social links, or use the official invite link. You will need a Discord account to join.',
+  },
+  {
+    question: 'Do Broken Blade codes get announced on Discord first?',
+    answer: 'Yes. New codes are often announced on the Discord server before anywhere else. It is the fastest way to get notified about new codes, especially during milestone celebrations.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Trello', url: '/trello/', description: 'Is there a Broken Blade Trello board?' },
+  { title: 'Codes', url: '/codes/', description: 'All active and expired Broken Blade codes.' },
+  { title: 'Wiki', url: '/wiki/', description: 'Complete Broken Blade game database.' },
+  { title: 'Updates', url: '/updates/', description: 'Latest Broken Blade update log.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+  showDisclaimer={false}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Official Discord Server</h2>
+    <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-6 text-center">
+      <p class="text-gray-200 mb-4">Join the official Broken Blade Discord server for updates, codes, and community discussions.</p>
+      <a
+        href={config.game.officialDiscord}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-indigo-500"
+      >
+        Join Official Discord
+      </a>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">What You Find on Discord</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Announcements</h3>
+        <p class="text-sm text-gray-300">Official game updates, patch notes, and event announcements from the developers.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Codes</h3>
+        <p class="text-sm text-gray-300">New code drops, often announced on Discord before any other platform.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Community Builds</h3>
+        <p class="text-sm text-gray-300">Share and discuss build setups, race rolls, and blessing combinations with other players.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Bug Reports</h3>
+        <p class="text-sm text-gray-300">Report bugs and see known issues directly to the development team.</p>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

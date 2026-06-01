@@ -1,0 +1,90 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getBosses, TIER_ORDER } from '@/lib/data';
+
+const bosses = getBosses().sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+
+const title = 'Broken Blade Bosses - All Bosses & Strategies';
+const description = 'All bosses in Broken Blade with level requirements, drops, strategies, and tier rankings. Complete boss guide for farming and progression.';
+const quickAnswer = `There are ${bosses.length} bosses in Broken Blade. Key bosses include Nivaron (race rerolls), Velik (element rerolls), Gelaros (blessing rerolls), and Boss Rush (endgame materials). Each boss requires different strategies and level requirements.`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Bosses', url: '/bosses/' },
+];
+
+const faq = [
+  {
+    question: 'What bosses drop rerolls?',
+    answer: 'Nivaron drops Race Rerolls (level 500+). Velik drops Element Rerolls (level 500+). Gelaros drops Blessing Rerolls (level 1000+). Farm these bosses to optimize your build.',
+  },
+  {
+    question: 'What is Boss Rush?',
+    answer: 'Boss Rush is the endgame farming activity in Broken Blade. It drops materials, reroll resources, and endgame progression items. Bring a high-damage build with sustain for the best results.',
+  },
+  {
+    question: 'What level do I need for bosses?',
+    answer: 'Nivaron and Velik require level 500+. Gelaros requires level 1000+. Boss Rush is mid-game and beyond. Make sure your weapon and build are upgraded before challenging bosses.',
+  },
+  {
+    question: 'What is the best strategy for farming bosses?',
+    answer: 'Use a build optimized for boss damage (Buster or Dragon Slayer with damage blessing). Learn boss attack patterns first, then optimize for speed. Bring sustain while learning, then switch to full DPS.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Full strategy guide for Boss Rush.' },
+  { title: 'Builds', url: '/builds/', description: 'Optimized builds for boss content.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Full weapon tier list.' },
+  { title: 'Progression Guide', url: '/progression-guide/', description: 'Full progression route.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6">All Bosses ({bosses.length})</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {bosses.map((boss) => (
+        <a
+          href={`/bosses/${boss.slug}/`}
+          class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
+        >
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold text-gray-100">{boss.name}</h3>
+            <div class="flex items-center gap-2">
+              <TierBadge tier={boss.tier} />
+            </div>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">Level:</span>
+            <span class="text-sm text-gray-200 ml-1">{boss.levelRequirement}</span>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-amber-400">Best For:</span>
+            <span class="text-sm text-gray-200 ml-1">{boss.bestFor}</span>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">Drops:</span>
+            <div class="flex flex-wrap gap-1 mt-1">
+              {boss.drops.map((drop) => (
+                <span class="inline-block rounded bg-gray-700 px-2 py-0.5 text-xs text-gray-300">{drop}</span>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span class="text-xs text-gray-400">Strategy:</span>
+            <p class="text-sm text-gray-300 mt-1">{boss.strategy}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</ArticleLayout>

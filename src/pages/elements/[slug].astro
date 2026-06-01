@@ -1,0 +1,61 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import RarityBadge from '@/components/RarityBadge.astro';
+import SummaryTable from '@/components/SummaryTable.astro';
+import { getElements, getElementBySlug } from '@/lib/data';
+
+export function getStaticPaths() {
+  const elements = getElements();
+  return elements.map(element => ({ params: { slug: element.slug }, props: { element } }));
+}
+
+const { element } = Astro.props;
+
+const title = `${element.name} Element - Broken Blade Element Guide`;
+const description = `${element.name} element guide for Broken Blade Roblox. Tier ${element.tier}, ${element.rarity} rarity, effects, and best builds.`;
+
+const summaryRows = [
+  { label: 'Rarity', value: element.rarity },
+  { label: 'Drop Rate', value: element.dropRate },
+  { label: 'Tier', value: element.tier },
+  { label: 'Best For', value: element.bestFor },
+];
+
+const faq = [
+  { question: `Is ${element.name} a good element?`, answer: `${element.name} is a ${element.tier}-tier ${element.rarity} element, best for ${element.bestFor}. ${element.notes}` },
+  { question: `How do I get ${element.name}?`, answer: `${element.name} can be obtained through element rerolls unlocked at level 500. Defeat the Velik boss for reroll chances.` },
+];
+
+const relatedGuides = [
+  { title: 'Elements Tier List', url: '/elements-tier-list/', description: 'Complete Broken Blade elements tier list.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Find the best weapon for your element.' },
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'Best race for your build.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Boss Rush strategies.' },
+];
+---
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={`${element.name} is a ${element.rarity} ${element.tier}-tier element in Broken Blade, best for ${element.bestFor}.`}
+  breadcrumbItems={[{ name: 'Home', url: '/' }, { name: 'Elements', url: '/elements/' }, { name: element.name, url: `/elements/${element.slug}/` }]}
+  summaryRows={summaryRows}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">{element.name} Effects</h2>
+    <ul class="space-y-2">
+      {element.effects.map((effect) => (
+        <li class="flex items-center gap-2 text-gray-200">
+          <span class="text-amber-400">&#x2713;</span> {effect}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Notes</h2>
+    <p class="text-gray-300">{element.notes}</p>
+  </section>
+</ArticleLayout>

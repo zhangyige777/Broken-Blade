@@ -1,0 +1,212 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import {
+  getWeapons,
+  getBuilds,
+  getPageFAQs,
+  TIER_ORDER,
+} from '@/lib/data';
+
+const weapons = getWeapons();
+const builds = getBuilds();
+const pageFAQ = getPageFAQs('level-15000-guide');
+
+const sortedWeapons = [...weapons].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const bestFarmingBuild = builds.find(b => b.useCase.toLowerCase().includes('farm') || b.useCase.toLowerCase().includes('level')) || builds.find(b => b.tier === 'S') || builds[0];
+
+const faq = [
+  ...pageFAQ,
+  {
+    question: 'How long does it take to reach level 15000?',
+    answer: 'With an optimized build and efficient farming, reaching level 15000 can take anywhere from a few days to a couple of weeks of consistent play, depending on your available playtime.',
+  },
+  {
+    question: 'What is the best farming stage for leveling?',
+    answer: 'The best farming stage depends on your current level. Use the highest level area you can clear efficiently. Boss farming provides the best XP per hour at higher levels.',
+  },
+  {
+    question: 'Should I reroll before max level?',
+    answer: 'Reroll at Level 500 and Level 1000 for the best results. Having optimized race, element, and blessing makes leveling significantly faster.',
+  },
+].filter(item => !pageFAQ.some(p => p.question === item.question));
+
+const title = 'Broken Blade Level 15000 Guide - Fast Leveling Route';
+const description = 'How to reach max level 15000 in Broken Blade fast. Best farming stages, builds, and upgrade priorities.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Level 15000 Guide', url: '/level-15000-guide/' },
+];
+
+const relatedGuides = [
+  { title: 'Progression Guide', url: '/progression-guide/', description: 'Complete progression route from beginner to endgame.' },
+  { title: 'Beginner Guide', url: '/beginner-guide/', description: 'Getting started with Broken Blade.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Best builds and strategies for Boss Rush.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer="To reach max level 15000 in Broken Blade fast, use an optimized S-Tier build, farm the highest level bosses you can clear efficiently, and focus on XP-boosting strategies. Reroll your race and element at Level 500 for faster leveling."
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- Fast Leveling Route -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Fast Leveling Route</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="space-y-4">
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">1</div>
+          <div>
+            <h3 class="font-bold text-white">Level 1 - 500: Early Game</h3>
+            <p class="text-sm text-gray-300">Complete quests, defeat low-level bosses, and upgrade your starter weapon. Focus on quick kills and quest XP.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">2</div>
+          <div>
+            <h3 class="font-bold text-white">Level 500 - 1000: Mid Game</h3>
+            <p class="text-sm text-gray-300">Reroll race and element, then farm mid-level bosses. Switch to AoE farming if available for faster XP gains.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">3</div>
+          <div>
+            <h3 class="font-bold text-white">Level 1000 - 5000: Late Game</h3>
+            <p class="text-sm text-gray-300">Unlock blessing and farm high-level bosses for S-Tier gear. Boss farming becomes the primary XP source.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">4</div>
+          <div>
+            <h3 class="font-bold text-white">Level 5000 - 15000: Endgame</h3>
+            <p class="text-sm text-gray-300">Farm the highest level bosses with a fully optimized build. Boss Rush provides excellent XP and rewards simultaneously.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Farming Stages -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Farming Stages</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-gray-900/50">
+              <th class="px-4 py-3 text-left font-semibold text-gray-300">Level Range</th>
+              <th class="px-4 py-3 text-left font-semibold text-gray-300">Best Stage</th>
+              <th class="px-4 py-3 text-left font-semibold text-gray-300">Method</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t border-gray-700/50">
+              <td class="px-4 py-3 text-gray-200">1 - 100</td>
+              <td class="px-4 py-3 text-gray-300">Starter Area Quests</td>
+              <td class="px-4 py-3 text-gray-400">Complete all quests</td>
+            </tr>
+            <tr class="border-t border-gray-700/50 bg-gray-800/30">
+              <td class="px-4 py-3 text-gray-200">100 - 500</td>
+              <td class="px-4 py-3 text-gray-300">Low-Level Bosses</td>
+              <td class="px-4 py-3 text-gray-400">Repeat boss fights</td>
+            </tr>
+            <tr class="border-t border-gray-700/50">
+              <td class="px-4 py-3 text-gray-200">500 - 1000</td>
+              <td class="px-4 py-3 text-gray-300">Mid-Level Bosses</td>
+              <td class="px-4 py-3 text-gray-400">Boss farming loop</td>
+            </tr>
+            <tr class="border-t border-gray-700/50 bg-gray-800/30">
+              <td class="px-4 py-3 text-gray-200">1000 - 5000</td>
+              <td class="px-4 py-3 text-gray-300">High-Level Bosses</td>
+              <td class="px-4 py-3 text-gray-400">Optimized boss runs</td>
+            </tr>
+            <tr class="border-t border-gray-700/50">
+              <td class="px-4 py-3 text-gray-200">5000 - 15000</td>
+              <td class="px-4 py-3 text-gray-300">Endgame Bosses + Boss Rush</td>
+              <td class="px-4 py-3 text-gray-400">Boss Rush farming</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Build for Leveling -->
+  {bestFarmingBuild && (
+    <section class="mb-10">
+      <h2 class="text-2xl font-bold mb-4 text-white">Best Build for Leveling</h2>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="rounded-lg bg-gray-900/50 p-3 text-center">
+            <p class="text-xs text-gray-400 mb-1">Weapon</p>
+            <p class="font-bold text-white text-sm">{bestFarmingBuild.weapon}</p>
+          </div>
+          <div class="rounded-lg bg-gray-900/50 p-3 text-center">
+            <p class="text-xs text-gray-400 mb-1">Race</p>
+            <p class="font-bold text-white text-sm">{bestFarmingBuild.race}</p>
+          </div>
+          <div class="rounded-lg bg-gray-900/50 p-3 text-center">
+            <p class="text-xs text-gray-400 mb-1">Element</p>
+            <p class="font-bold text-white text-sm">{bestFarmingBuild.element}</p>
+          </div>
+          <div class="rounded-lg bg-gray-900/50 p-3 text-center">
+            <p class="text-xs text-gray-400 mb-1">Blessing</p>
+            <p class="font-bold text-white text-sm">{bestFarmingBuild.blessing}</p>
+          </div>
+        </div>
+        {bestFarmingBuild.notes && (
+          <p class="mt-4 text-sm text-gray-400">Notes: {bestFarmingBuild.notes}</p>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- When to Reroll -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">When to Reroll</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="space-y-4">
+        <div class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">Lv 500:</span>
+          <div>
+            <p class="text-white font-medium">Reroll Race &amp; Element</p>
+            <p class="text-sm text-gray-400">Save up reroll items and use them at Level 500 when you have enough currency. Aim for S or A Tier.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">Lv 1000:</span>
+          <div>
+            <p class="text-white font-medium">Unlock &amp; Optimize Blessing</p>
+            <p class="text-sm text-gray-400">Complete the blessing quest and equip the best available blessing for your build.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">Lv 5000+:</span>
+          <div>
+            <p class="text-white font-medium">Fine-tune Your Build</p>
+            <p class="text-sm text-gray-400">If you have excess currency, optimize any remaining suboptimal stats.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upgrade Priorities -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Upgrade Priorities for Leveling</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li><strong class="text-white">Weapon upgrades</strong> — a stronger weapon means faster boss kills and more XP per hour.</li>
+        <li><strong class="text-white">XP boosts</strong> — use XP boost items from codes and events whenever available.</li>
+        <li><strong class="text-white">Race optimization</strong> — better race stats improve overall farming efficiency.</li>
+        <li><strong class="text-white">Element optimization</strong> — the right element increases damage output.</li>
+        <li><strong class="text-white">Blessing</strong> — unlock and equip as soon as available for passive stat bonuses.</li>
+      </ol>
+    </div>
+  </section>
+</ArticleLayout>

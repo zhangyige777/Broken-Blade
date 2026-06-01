@@ -1,0 +1,21 @@
+{
+  "lastChecked": "2026-06-01",
+  "unlockLevel": 1000,
+  "rerollSource": "Gelaros boss and trading",
+  "items": [
+    { "id": "odin", "slug": "odin", "name": "Odin", "rarity": "Mythical", "dropRate": "0.0085%", "tier": "S", "bestFor": "Overall DPS and Buster crit builds", "effects": ["+200% Damage", "+75% Crit Damage", "+25% Buster Damage", "+12% Attack Speed"], "notes": "Best listed blessing for raw late-game damage." },
+    { "id": "jormungandr", "slug": "jormungandr", "name": "Jormungandr", "rarity": "Mythical", "dropRate": "0.0085%", "tier": "S", "bestFor": "Crit DPS with extra safety", "effects": ["+175% Damage", "+12% Attack Speed", "+70% Crit Damage", "+10% Damage Reduction"], "notes": "Excellent boss rush pick." },
+    { "id": "fenrir", "slug": "fenrir", "name": "Fenrir", "rarity": "Mythical", "dropRate": "0.0085%", "tier": "S", "bestFor": "Sustain damage", "effects": ["+150% Damage", "+8% Crit Damage", "+25% Buster Damage", "+8% Life Steal"], "notes": "Strong if you need healing without giving up too much damage." },
+    { "id": "hel", "slug": "hel", "name": "Hel", "rarity": "Mythical", "dropRate": "0.0085%", "tier": "S", "bestFor": "Tanky Buster builds", "effects": ["+125% Damage", "+75% Crit Damage", "+25% Buster Damage", "+60% Health"], "notes": "Very forgiving for late-game bosses." },
+    { "id": "surtr", "slug": "surtr", "name": "Surtr", "rarity": "Mythical", "dropRate": "0.0085%", "tier": "S", "bestFor": "Attack speed Buster builds", "effects": ["+100% Damage", "+25% Buster Damage", "+12% Attack Speed", "+0.6 Energy Recovery per Second"], "notes": "High comfort and high output." },
+    { "id": "thor", "slug": "thor", "name": "Thor", "rarity": "Legendary", "dropRate": "0.0085%", "tier": "A", "bestFor": "Buster and crit builds", "effects": ["+70% Damage", "+20% Buster Damage", "+50% Crit Damage"], "notes": "Best non-mythical Buster blessing if rolled." },
+    { "id": "loki", "slug": "loki", "name": "Loki", "rarity": "Legendary", "dropRate": "0.2127%", "tier": "A", "bestFor": "Speed and energy comfort", "effects": ["+65% Damage", "+8% Attack Speed", "+0.5 Energy Recovery per Second"], "notes": "Great for active farming." },
+    { "id": "tyr", "slug": "tyr", "name": "Tyr", "rarity": "Legendary", "dropRate": "0.2127%", "tier": "A", "bestFor": "Lifesteal DPS", "effects": ["+60% Damage", "+6% Life Steal", "+8% Crit Chance"], "notes": "Balanced bossing pick." },
+    { "id": "heimdall", "slug": "heimdall", "name": "Heimdall", "rarity": "Legendary", "dropRate": "0.2127%", "tier": "A", "bestFor": "Crit setup", "effects": ["+50% Damage", "+7% Crit Chance", "+20% Crit Damage"], "notes": "Good bridge into crit builds." },
+    { "id": "freyja", "slug": "freyja", "name": "Freyja", "rarity": "Legendary", "dropRate": "0.2127%", "tier": "B", "bestFor": "Defensive progression", "effects": ["+50% Damage", "+8% Damage Reduction", "+20% Health"], "notes": "Useful if you are undergeared." },
+    { "id": "njord", "slug": "njord", "name": "Njord", "rarity": "Epic", "dropRate": "0.8506%", "tier": "B", "bestFor": "Energy recovery", "effects": ["+40% Damage", "+0.5 Energy Recovery per Second"], "notes": "Comfort pick for leveling." },
+    { "id": "frigg", "slug": "frigg", "name": "Frigg", "rarity": "Epic", "dropRate": "0.8506%", "tier": "B", "bestFor": "Attack speed", "effects": ["+30% Damage", "+5% Attack Speed"], "notes": "Good if you do not have Loki." },
+    { "id": "freyr", "slug": "freyr", "name": "Freyr", "rarity": "Epic", "dropRate": "0.8506%", "tier": "B", "bestFor": "Crit damage", "effects": ["+35% Damage", "+15% Crit Damage"], "notes": "Budget crit option." },
+    { "id": "baldr", "slug": "baldr", "name": "Baldr", "rarity": "Epic", "dropRate": "0.8506%", "tier": "B", "bestFor": "Crit chance", "effects": ["+35% Damage", "+15% Crit Chance"], "notes": "Pairs well with Thunder." }
+  ]
+}

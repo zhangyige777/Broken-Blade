@@ -1,0 +1,10 @@
+{
+  "lastChecked": "2026-06-01",
+  "items": [
+    { "id": "best-boss-rush-build", "slug": "best-boss-rush-build", "name": "Best Boss Rush Build", "tier": "S", "weapon": "Dragon Slayer or Buster", "race": "Aesir or Nether", "element": "Thunder or Fire", "blessing": "Odin, Jormungandr, Surtr, or Hel", "useCase": "Late-game Boss Rush", "notes": "Prioritize stable clears first, then optimize crit damage." },
+    { "id": "best-katana-build", "slug": "best-katana-build", "name": "Best Katana Build", "tier": "A", "weapon": "Katana", "race": "Vanir or Aesir", "element": "Wind, Fire, or Thunder", "blessing": "Loki, Jormungandr, or Odin", "useCase": "Fast leveling and active farming", "notes": "Wind and Loki make the route feel smoother; Thunder scales better with crit." },
+    { "id": "best-buster-build", "slug": "best-buster-build", "name": "Best Buster Build", "tier": "S", "weapon": "Buster or Dragon Slayer", "race": "Nether or Aesir", "element": "Fire or Thunder", "blessing": "Odin, Thor, Surtr, Hel, or Fenrir", "useCase": "Boss damage", "notes": "Stack Buster bonuses when you can, but do not ignore survivability." },
+    { "id": "best-sword-build", "slug": "best-sword-build", "name": "Best Sword Build", "tier": "A", "weapon": "Sword, Excalibur, or Broken Blade", "race": "Elf or Aesir", "element": "Fire or Thunder", "blessing": "Odin, Heimdall, Tyr, or Jormungandr", "useCase": "General progression", "notes": "The safest path for players who want simple upgrades." },
+    { "id": "beginner-build", "slug": "beginner-build", "name": "Beginner Build", "tier": "B", "weapon": "Sword or Katana", "race": "Flame, Frost, Giant, or any Legendary", "element": "Fire, Life, Wind, or Earth", "blessing": "Any damage blessing after level 1000", "useCase": "First hours and early islands", "notes": "Keep any damage roll while learning, then specialize after level 500." }
+  ]
+}

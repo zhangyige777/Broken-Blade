@@ -1,0 +1,98 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import { getPageFAQs, getGlobalFAQs } from '@/lib/data';
+
+const pageFAQ = getPageFAQs('codes-not-working');
+const globalFAQ = getGlobalFAQs();
+
+const faq = [
+  ...pageFAQ,
+  {
+    question: 'Why does it say "Code Expired" when I try to redeem?',
+    answer: 'The code has already passed its expiration date. Most codes are time-limited and stop working after an update or event ends. Check the <a href="/codes/">active codes list</a> for current working codes.',
+  },
+  {
+    question: 'Can I redeem a code more than once?',
+    answer: 'No, each code can only be redeemed once per account. If you see an "Already Redeemed" message, the code worked but you have already claimed it.',
+  },
+  {
+    question: 'How do I know if a code is still active?',
+    answer: 'Check our <a href="/codes/">Broken Blade codes page</a> — we update the status of every code regularly so you always know which ones are working.',
+  },
+].filter(item => !pageFAQ.some(p => p.question === item.question)).slice(0, 5);
+
+const title = 'Broken Blade Codes Not Working - How to Fix';
+const description = 'Reasons why Broken Blade codes may not work and how to fix them.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Codes Not Working', url: '/codes-not-working/' },
+];
+
+const relatedGuides = [
+  { title: 'Codes', url: '/codes/', description: 'All working Broken Blade codes and how to redeem them.' },
+  { title: 'Beginner Guide', url: '/beginner-guide/', description: 'Everything new players need to know.' },
+  { title: 'Wiki', url: '/', description: 'Complete Broken Blade wiki and guides.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer="If your Broken Blade code is not working, the most common reasons are: the code has expired, you typed it incorrectly (codes are case-sensitive), you already redeemed it, or there is a server delay. Try copying the code exactly from our codes page and pasting it in-game."
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- Common Reasons -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Common Reasons Codes Don't Work</h2>
+    <div class="space-y-4">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-bold text-white mb-2">1. Code Has Expired</h3>
+        <p class="text-gray-300">Most Broken Blade codes are time-limited. Developers deactivate codes after updates, events, or milestones. If a code says "Expired" or "Invalid," it likely has passed its expiration date.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-bold text-white mb-2">2. Case Sensitivity</h3>
+        <p class="text-gray-300">Broken Blade codes are <strong class="text-amber-400">case-sensitive</strong>. Typing a code with the wrong capitalization will cause it to fail. For example, "FREEGEMS" is not the same as "freegems".</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-bold text-white mb-2">3. Already Redeemed</h3>
+        <p class="text-gray-300">Each code can only be redeemed <strong class="text-white">once per account</strong>. If you see "Already Redeemed," the code worked previously and you have already received the reward.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-bold text-white mb-2">4. Server Delay</h3>
+        <p class="text-gray-300">Sometimes the game servers experience lag. If you enter a valid code and get no response, wait a few minutes and try again. You can also try rejoining the game.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <h3 class="font-bold text-white mb-2">5. Typo or Extra Spaces</h3>
+        <p class="text-gray-300">Accidental spaces at the beginning or end of a code will cause it to fail. Always double-check for trailing spaces before submitting.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Fix -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">How to Fix Codes Not Working</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li><strong class="text-white">Copy the code exactly</strong> — use the copy button on our <a href="/codes/" class="text-amber-400 hover:text-amber-300">codes page</a> to avoid typos.</li>
+        <li><strong class="text-white">Check if the code is active</strong> — expired codes will not work regardless of how you enter them.</li>
+        <li><strong class="text-white">Restart the game</strong> — close and reopen Broken Blade to resolve server-side issues.</li>
+        <li><strong class="text-white">Try a different server</strong> — switch to a new server if the current one has connectivity issues.</li>
+        <li><strong class="text-white">Check your inventory</strong> — you may have already redeemed the code. Look for the reward in your inventory.</li>
+        <li><strong class="text-white">Wait and retry</strong> — if servers are busy, wait 5-10 minutes and try again.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="mb-10">
+    <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-6 text-center">
+      <p class="text-gray-200 mb-4">Need working codes? Check our updated list.</p>
+      <a href="/codes/" class="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-6 py-3 font-semibold text-gray-900 transition-colors hover:bg-amber-400">
+        View All Active Codes
+      </a>
+    </div>
+  </section>
+</ArticleLayout>

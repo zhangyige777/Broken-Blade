@@ -1,0 +1,131 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getBlessings, getWeapons, TIER_ORDER } from '@/lib/data';
+
+const blessings = getBlessings();
+const weapons = getWeapons();
+const busterBlessings = blessings.filter(b => ['odin', 'thor', 'surtr', 'hel', 'fenrir'].includes(b.id));
+
+const title = 'Broken Blade Best Blessing for Buster - Blessing Comparison';
+const description = 'Compare the best blessings for Buster builds in Broken Blade: Odin, Thor, Surtr, Hel, Fenrir. Detailed stats, effects, and recommendations.';
+const quickAnswer = 'The best blessing for Buster in Broken Blade is Odin (+200% Damage, +75% Crit Damage, +25% Buster Damage). Thor, Surtr, Hel, and Fenrir are all excellent alternatives depending on whether you need damage, speed, tankiness, or sustain.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Builds', url: '/builds/' },
+  { name: 'Best Blessing for Buster', url: '/builds/best-blessing-for-buster/' },
+];
+
+const faq = [
+  {
+    question: 'What is the best blessing for Buster?',
+    answer: 'Odin is the strongest blessing for Buster builds (+200% Damage, +75% Crit Damage, +25% Buster Damage, +12% Attack Speed). It provides the highest damage output of any blessing in the game.',
+  },
+  {
+    question: 'Is Thor good for Buster?',
+    answer: 'Yes. Thor is the best non-Mythical blessing for Buster (+70% Damage, +20% Buster Damage, +50% Crit Damage). It is a Legendary blessing, making it more accessible than the Mythical options.',
+  },
+  {
+    question: 'Which blessing for tanky Buster builds?',
+    answer: 'Hel (+125% Damage, +75% Crit Damage, +25% Buster Damage, +60% Health) is the best tanky Buster blessing. The +60% Health makes it very forgiving for boss rush content.',
+  },
+  {
+    question: 'Should I use Fenrir or Surtr for Buster?',
+    answer: 'Fenrir is better if you need sustain (+8% Life Steal). Surtr is better for comfort and speed (+12% Attack Speed, +0.6 Energy Recovery). Both include +25% Buster Damage. Pick based on whether you need healing or energy.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Best Buster Build', url: '/builds/best-buster-build/', description: 'Full Buster build with weapon, race, and element.' },
+  { title: 'Blessings Tier List', url: '/blessings-tier-list/', description: 'All blessings ranked by tier.' },
+  { title: 'Dragon Slayer Reforge', url: '/dragon-slayer-reforge/', description: 'Complete guide to Dragon Slayer Reforge.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'How to beat Boss Rush with optimal setups.' },
+];
+
+const summaryRows = [
+  { label: 'Buster Weapon', value: 'Buster or Dragon Slayer (A/S-tier)' },
+  { label: 'Best Blessing', value: 'Odin (Mythical, S-tier)' },
+  { label: 'Best Budget Blessing', value: 'Thor (Legendary, A-tier)' },
+  { label: 'Tankiest Blessing', value: 'Hel (Mythical, S-tier)' },
+  { label: 'Best Sustain Blessing', value: 'Fenrir (Mythical, S-tier)' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  summaryRows={summaryRows}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6">Blessing Comparison for Buster</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full rounded-lg border border-gray-700 overflow-hidden">
+        <thead>
+          <tr class="bg-gray-800">
+            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-300">Blessing</th>
+            <th class="px-4 py-3 text-center text-sm font-semibold text-gray-300">Tier</th>
+            <th class="px-4 py-3 text-center text-sm font-semibold text-gray-300">Rarity</th>
+            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-300">Effects</th>
+            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-300">Best For</th>
+          </tr>
+        </thead>
+        <tbody>
+          {busterBlessings.sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier)).map((blessing, i) => (
+            <tr class={`${i % 2 === 0 ? 'bg-gray-800/30' : 'bg-gray-800/60'} border-t border-gray-700`}>
+              <td class="px-4 py-3">
+                <a href={`/blessings/${blessing.slug}/`} class="text-gray-100 font-medium hover:text-amber-400 transition-colors">{blessing.name}</a>
+              </td>
+              <td class="px-4 py-3 text-center">
+                <TierBadge tier={blessing.tier} />
+              </td>
+              <td class="px-4 py-3 text-center text-sm text-gray-300">{blessing.rarity}</td>
+              <td class="px-4 py-3 text-sm text-gray-200">
+                <ul class="list-disc list-inside space-y-0.5">
+                  {blessing.effects.map((effect) => (
+                    <li>{effect}</li>
+                  ))}
+                </ul>
+              </td>
+              <td class="px-4 py-3 text-sm text-gray-400">{blessing.bestFor}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6">Recommendation</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <TierBadge tier="S" size="md" />
+          <h3 class="text-lg font-bold text-amber-400">Odin</h3>
+        </div>
+        <p class="text-xs text-gray-400 mb-2">Best Overall</p>
+        <p class="text-sm text-gray-200">+200% Damage, +75% Crit Damage, +25% Buster Damage, +12% Attack Speed. The highest damage output of any blessing.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <TierBadge tier="S" size="md" />
+          <h3 class="text-lg font-bold text-gray-100">Hel</h3>
+        </div>
+        <p class="text-xs text-gray-400 mb-2">Tankiest</p>
+        <p class="text-sm text-gray-200">+125% Damage, +75% Crit Damage, +25% Buster Damage, +60% Health. Very forgiving for late-game bosses.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <TierBadge tier="A" size="md" />
+          <h3 class="text-lg font-bold text-gray-100">Thor</h3>
+        </div>
+        <p class="text-xs text-gray-400 mb-2">Best Budget</p>
+        <p class="text-sm text-gray-200">+70% Damage, +20% Buster Damage, +50% Crit Damage. Legendary rarity makes it more accessible than Mythical options.</p>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

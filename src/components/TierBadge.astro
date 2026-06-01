@@ -1,0 +1,15 @@
+---
+import { TIER_COLORS } from '@/lib/data';
+
+interface Props {
+  tier: string;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { tier, size = 'sm' } = Astro.props;
+const colorClass = TIER_COLORS[tier] || 'bg-gray-500 text-white';
+const sizeClass = size === 'lg' ? 'px-3 py-1 text-base' : size === 'md' ? 'px-2.5 py-0.5 text-sm' : 'px-2 py-0.5 text-xs';
+---
+<span class={`inline-flex items-center justify-center rounded font-bold ${colorClass} ${sizeClass}`}>
+  {tier}
+</span>

@@ -1,0 +1,89 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getWeapons, TIER_ORDER } from '@/lib/data';
+
+const weapons = getWeapons().sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+
+const title = 'Broken Blade Weapons - All Weapons & Stats';
+const description = 'All weapons in Broken Blade ranked by tier with stats, obtain methods, recommended builds, and upgrade paths. Complete weapon guide.';
+const quickAnswer = `There are ${weapons.length} weapons in Broken Blade. The best weapons are Broken Blade, Dragon Slayer, and Excalibur (all S-tier). Dragon Slayer is the strongest for boss rush, while Broken Blade is the namesake endgame weapon.`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Weapons', url: '/weapons/' },
+];
+
+const faq = [
+  {
+    question: 'What is the best weapon in Broken Blade?',
+    answer: 'Broken Blade, Dragon Slayer, and Excalibur are all S-tier weapons. Dragon Slayer is the strongest for boss rush content. Broken Blade is the namesake endgame weapon. Excalibur was added in the Eclipse update.',
+  },
+  {
+    question: 'How do I get Dragon Slayer?',
+    answer: 'Dragon Slayer is obtained through the Eclipse event and the reforge event route. It is one of the strongest weapons and a top priority for Buster build players.',
+  },
+  {
+    question: 'Sword vs Katana vs Buster?',
+    answer: 'Sword is the safest for beginners and general progression. Katana is best for fast leveling and active farming. Buster is best for boss damage and has the best blessing synergy. Each has its own endgame upgrade path.',
+  },
+  {
+    question: 'How do I upgrade weapons?',
+    answer: 'Use the Forge system to upgrade weapons. Higher-tier weapons require materials from bosses and the progression route. See the Forge Guide for detailed upgrade paths.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Best Swords', url: '/best-swords/', description: 'Full weapon tier list.' },
+  { title: 'Forge Guide', url: '/forge-guide/', description: 'How the forge works and upgrade routes.' },
+  { title: 'Dragon Slayer Reforge', url: '/dragon-slayer-reforge/', description: 'Complete guide to Dragon Slayer Reforge.' },
+  { title: 'Builds', url: '/builds/', description: 'Optimized builds for every weapon type.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6">All Weapons ({weapons.length})</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {weapons.map((weapon) => (
+        <a
+          href={`/weapons/${weapon.slug}/`}
+          class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
+        >
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold text-gray-100">{weapon.name}</h3>
+            <div class="flex items-center gap-2">
+              <TierBadge tier={weapon.tier} />
+              <span class="text-xs text-gray-400">{weapon.type}</span>
+            </div>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-amber-400">Best For:</span>
+            <span class="text-sm text-gray-200 ml-1">{weapon.bestFor}</span>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">Obtain:</span>
+            <span class="text-sm text-gray-200 ml-1">{weapon.obtainMethod}</span>
+          </div>
+          <div class="grid grid-cols-2 gap-1 text-xs">
+            <div>
+              <span class="text-gray-400">Race:</span>
+              <span class="text-gray-300 ml-1">{weapon.recommendedRace}</span>
+            </div>
+            <div>
+              <span class="text-gray-400">Element:</span>
+              <span class="text-gray-300 ml-1">{weapon.recommendedElement}</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</ArticleLayout>

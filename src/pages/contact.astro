@@ -1,0 +1,41 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const title = 'Contact - Broken Blade Guide';
+const description = 'Contact the Broken Blade Guide team for questions, corrections, or feedback about our Broken Blade wiki.';
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="text-3xl md:text-4xl font-bold mb-6 text-white">Contact Us</h1>
+
+    <div class="space-y-6 text-gray-200 leading-relaxed">
+      <section class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+        <h2 class="text-xl font-bold text-white mb-3">Get in Touch</h2>
+        <p class="text-gray-300">
+          Have questions, corrections, or feedback about the Broken Blade Guide? We would love to hear from you.
+        </p>
+      </section>
+
+      <section class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+        <h2 class="text-xl font-bold text-white mb-3">Report Data Issues</h2>
+        <p class="text-gray-300">
+          If you notice any incorrect or outdated information on this site, please let us know. Broken Blade receives regular updates, and we strive to keep all data accurate and current.
+        </p>
+      </section>
+
+      <section class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+        <h2 class="text-xl font-bold text-white mb-3">Community</h2>
+        <p class="text-gray-300">
+          For general game questions and discussions, the best place is the <a href="/discord/" class="text-amber-400 hover:text-amber-300 transition-colors">official Broken Blade Discord server</a>. The community is active and helpful for new and experienced players alike.
+        </p>
+      </section>
+
+      <div class="text-center">
+        <a href="/" class="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-6 py-3 font-semibold text-gray-900 transition-colors hover:bg-amber-400">
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

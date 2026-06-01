@@ -1,0 +1,43 @@
+{
+  "game": {
+    "name": "Broken Blade",
+    "platform": "Roblox",
+    "developer": "Skyrift Devs",
+    "genre": "Action RPG",
+    "robloxPlaceId": "10093833731",
+    "robloxUniverseId": "",
+    "maxLevel": 15000,
+    "currentUpdate": "Excalibur / Eclipse Update",
+    "lastManualDataReview": "2026-06-01",
+    "officialDiscord": "https://discord.com/servers/anime-story-2-1419418821110009939",
+    "officialRobloxUrl": "https://www.roblox.com/games/10093833731/Broken-Blade-Eclipse"
+  },
+  "stats": {
+    "playing": "5.16K",
+    "likeRatio": "86.31%",
+    "visits": "Unknown",
+    "favorites": "Unknown",
+    "lastChecked": "2026-06-01"
+  },
+  "seo": {
+    "siteTitle": "Broken Blade Wiki, Codes, Tier Lists & Progression Guide",
+    "siteDescription": "Data-driven Broken Blade Roblox wiki with codes, best swords, races, elements, blessings, boss rush, forge, Dragon Slayer reforge, builds, and progression routes.",
+    "baseUrl": "https://brokenbladeguide.com",
+    "primaryKeywords": [
+      "broken blade roblox",
+      "broken blade codes",
+      "broken blade best sword",
+      "broken blade races tier list",
+      "broken blade blessings tier list"
+    ],
+    "secondaryKeywords": [
+      "broken blade dragon slayer reforge",
+      "broken blade boss rush guide",
+      "broken blade progression guide",
+      "broken blade forge guide",
+      "broken blade element tier list",
+      "broken blade trello",
+      "broken blade discord"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "lastChecked": "2026-06-01",
+  "unlockLevel": 500,
+  "rerollSource": "Velik boss and trading",
+  "items": [
+    { "id": "thunder", "slug": "thunder", "name": "Thunder", "rarity": "Mythical", "dropRate": "3.6156%", "tier": "S", "bestFor": "Crit and boss damage", "effects": ["+50% Crit Damage"], "notes": "Best element when your build already has crit chance." },
+    { "id": "fire", "slug": "fire", "name": "Fire", "rarity": "Legendary", "dropRate": "8.7884%", "tier": "A", "bestFor": "General DPS", "effects": ["+50% Damage"], "notes": "Most reliable damage element." },
+    { "id": "wind", "slug": "wind", "name": "Wind", "rarity": "Epic", "dropRate": "16.4668%", "tier": "B", "bestFor": "Fast weapons and leveling", "effects": ["+15% Attack Speed"], "notes": "Feels good with Katana and spam-heavy routes." },
+    { "id": "life", "slug": "life", "name": "Life", "rarity": "Rare", "dropRate": "29.1538%", "tier": "B", "bestFor": "Sustain", "effects": ["+3% Life Steal"], "notes": "Useful before you have strong defensive blessings." },
+    { "id": "water", "slug": "water", "name": "Water", "rarity": "Uncommon", "dropRate": "47.4096%", "tier": "C", "bestFor": "Energy recovery", "effects": ["+1.0 Energy Recovery per Second"], "notes": "Playable for early combat comfort." },
+    { "id": "earth", "slug": "earth", "name": "Earth", "rarity": "Common", "dropRate": "54.5749%", "tier": "C", "bestFor": "Beginner defense", "effects": ["+10% Damage Reduction"], "notes": "Safe but low ceiling." }
+  ]
+}

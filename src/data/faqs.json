@@ -1,0 +1,114 @@
+{
+  "global": [
+    {
+      "question": "What is the best sword in Broken Blade?",
+      "answer": "The best swords in Broken Blade are Dragon Slayer and Broken Blade for late-game. Dragon Slayer is the strongest Buster, while Broken Blade is the top Sword. Excalibur is also S-tier after the Eclipse update."
+    },
+    {
+      "question": "What is the best race in Broken Blade?",
+      "answer": "Aesir is the best overall race with +75% Damage, +10% Crit Chance, and +100% Crit Damage. For specific builds, Vanir is best for Katana, Nether is best for Buster, and Elf is best for Sword."
+    },
+    {
+      "question": "What is the best blessing in Broken Blade?",
+      "answer": "Odin is the strongest blessing overall (+200% Damage, +75% Crit Damage). For Boss Rush, Jormungandr is excellent. For Buster builds, Thor and Surtr are top picks."
+    },
+    {
+      "question": "What is the best element in Broken Blade?",
+      "answer": "Thunder is the best element for crit builds (+50% Crit Damage). Fire is the most reliable damage element (+50% Damage). Wind is great for fast weapons like Katana."
+    },
+    {
+      "question": "How do you redeem Broken Blade codes?",
+      "answer": "Open Broken Blade in Roblox, tap the Twitter/codes button (usually in settings or menu), enter the code exactly as shown, and press Redeem. Codes are case-sensitive."
+    },
+    {
+      "question": "Does Broken Blade have a Trello?",
+      "answer": "There is no official Trello board confirmed for Broken Blade. The best place for updates is the official Discord server."
+    },
+    {
+      "question": "What is the official Broken Blade Discord?",
+      "answer": "The official Discord can be found through the Roblox game page or social links on the game's description."
+    },
+    {
+      "question": "How do you unlock blessings?",
+      "answer": "Blessings unlock at level 1000. You can reroll blessings by defeating the Gelaros boss and trading."
+    },
+    {
+      "question": "How do you reroll races?",
+      "answer": "Races unlock at level 500. You can reroll by defeating the Nivaron boss and through trading."
+    },
+    {
+      "question": "How do you beat Boss Rush?",
+      "answer": "Bring a high-damage build with sustain. Best setup: Dragon Slayer or Buster with Aesir/Nether race, Thunder/Fire element, and Odin/Jormungandr blessing. Prioritize damage reduction while learning, then switch to full DPS."
+    }
+  ],
+  "pages": {
+    "codes": [
+      {
+        "question": "Why are my Broken Blade codes not working?",
+        "answer": "Codes may be expired, already redeemed on your account, or entered incorrectly (codes are case-sensitive). Check that you are typing the code exactly as shown, including capital letters."
+      },
+      {
+        "question": "Where do new Broken Blade codes come from?",
+        "answer": "New codes are usually released on the official Discord, in Roblox game updates, or during milestone celebrations (likes milestones, update launches)."
+      }
+    ],
+    "best-swords": [
+      {
+        "question": "What is the best sword for beginners?",
+        "answer": "Sword is the most straightforward starting weapon. Upgrade to Katana if you prefer faster attacks, or Buster if you want higher damage per hit."
+      },
+      {
+        "question": "How do you upgrade weapons in Broken Blade?",
+        "answer": "Use the Forge system to upgrade weapons. Higher-tier weapons require materials from bosses and the progression route."
+      }
+    ],
+    "races-tier-list": [
+      {
+        "question": "Should I reroll my race?",
+        "answer": "Reroll if you have a Common or Uncommon race (Human, Dwarves). Keep any Epic or higher race until you have a clear build direction. Aesir is worth keeping no matter what."
+      }
+    ],
+    "blessings-tier-list": [
+      {
+        "question": "When should I start rerolling blessings?",
+        "answer": "Wait until level 1000 when blessings unlock. Do not waste rerolls before you know your weapon type and build direction."
+      }
+    ],
+    "elements-tier-list": [
+      {
+        "question": "Can I change my element?",
+        "answer": "Yes, you can reroll elements by defeating the Velik boss and through trading."
+      }
+    ],
+    "boss-rush": [
+      {
+        "question": "What level should I be for Boss Rush?",
+        "answer": "Aim for at least level 1000 with a fully upgraded weapon and a good blessing before attempting Boss Rush consistently."
+      }
+    ],
+    "dragon-slayer-reforge": [
+      {
+        "question": "Is Dragon Slayer Reforge worth it?",
+        "answer": "Yes. Dragon Slayer is one of the strongest weapons in Broken Blade and the Reforge path upgrades it significantly. It is a top priority for Buster build players."
+      }
+    ],
+    "forge": [
+      {
+        "question": "What should I forge first?",
+        "answer": "Prioritize your main weapon upgrade path. If you are on the Buster route, focus on Buster and Dragon Slayer materials."
+      }
+    ],
+    "progression": [
+      {
+        "question": "What should I do first in Broken Blade?",
+        "answer": "Focus on leveling to 500 to unlock race and element rerolls, then specialize your build. Follow the progression: Level 500 → Reroll → Level 1000 → Blessing → Boss Rush → Reforge."
+      }
+    ],
+    "level-15000": [
+      {
+        "question": "How long does it take to reach level 15000?",
+        "answer": "It depends on your build and playtime. With an optimized Katana or Buster build and active farming, most players reach max level in a few weeks of consistent play."
+      }
+    ]
+  }
+}

@@ -1,0 +1,87 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getRaces, TIER_ORDER } from '@/lib/data';
+
+const races = getRaces().sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+
+const title = 'Broken Blade Races - All Races & Drop Rates';
+const description = 'All races in Broken Blade ranked by tier with drop rates, effects, and best use cases. Complete race guide for builds and reroll decisions.';
+const quickAnswer = `There are ${races.length} races in Broken Blade. The best race is Aesir (S-tier, Mythical, 0.03% drop rate) with +75% Damage, +10% Crit Chance, and +100% Crit Damage. For specific builds, Vanir is best for Katana, Nether for Buster, and Elf for Sword.`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Races', url: '/races/' },
+];
+
+const faq = [
+  {
+    question: 'What is the best race in Broken Blade?',
+    answer: 'Aesir is the best overall race (S-tier, Mythical). It provides +75% Damage, +10% Crit Chance, +100% Crit Damage, and +5% Attack Speed. For weapon-specific picks, Vanir is best for Katana, Nether for Buster, and Elf for Sword.',
+  },
+  {
+    question: 'When do races unlock in Broken Blade?',
+    answer: 'Races unlock at level 500. You can reroll races by defeating the Nivaron boss and through trading.',
+  },
+  {
+    question: 'Should I reroll my race?',
+    answer: 'Reroll if you have a Common or Uncommon race (Human, Dwarves). Keep any Epic or higher race until you have a clear build direction. Aesir is worth keeping no matter what.',
+  },
+  {
+    question: 'How do race drop rates work?',
+    answer: 'Each race has a specific drop rate. Common races like Human have a 47.60% chance, while Mythical races like Aesir have only a 0.03% chance. Legendary races come from the Legendary pool.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'All races ranked by tier.' },
+  { title: 'Elements', url: '/elements/', description: 'All elements with effects and drop rates.' },
+  { title: 'Blessings', url: '/blessings/', description: 'All blessings with effects and drop rates.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Full weapon tier list.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6">All Races ({races.length})</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {races.map((race) => (
+        <a
+          href={`/races/${race.slug}/`}
+          class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
+        >
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold text-gray-100">{race.name}</h3>
+            <div class="flex items-center gap-2">
+              <TierBadge tier={race.tier} />
+              <span class="text-xs text-gray-400">{race.rarity}</span>
+            </div>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">Drop Rate:</span>
+            <span class="text-sm text-gray-200 ml-1">{race.dropRate}</span>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-amber-400">Best For:</span>
+            <span class="text-sm text-gray-200 ml-1">{race.bestFor}</span>
+          </div>
+          <div>
+            <span class="text-xs text-gray-400">Effects:</span>
+            <div class="flex flex-wrap gap-1 mt-1">
+              {race.effects.map((effect) => (
+                <span class="inline-block rounded bg-gray-700 px-2 py-0.5 text-xs text-gray-300">{effect}</span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</ArticleLayout>

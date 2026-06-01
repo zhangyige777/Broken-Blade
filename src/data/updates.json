@@ -1,0 +1,28 @@
+{
+  "lastChecked": "2026-06-01",
+  "items": [
+    {
+      "title": "Excalibur / Eclipse Update",
+      "slug": "excalibur-eclipse-update",
+      "date": "2026-05-28",
+      "summary": "Major content update adding Excalibur as a new S-tier sword, the Eclipse event, and balance changes to races and blessings.",
+      "changes": [
+        "Added Excalibur weapon (S-tier Sword)",
+        "Eclipse event with exclusive rewards",
+        "Blessing drop rate adjustments",
+        "New codes for the update"
+      ],
+      "affectedPages": ["/best-swords/", "/weapons/excalibur/", "/codes/", "/updates/"]
+    },
+    {
+      "title": "5K Likes Milestone",
+      "slug": "5k-likes-milestone",
+      "date": "2026-05-29",
+      "summary": "Celebration code BB5KLIKES released giving 8 Beherit.",
+      "changes": [
+        "New code: BB5KLIKES (8 Beherit)"
+      ],
+      "affectedPages": ["/codes/"]
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import CodeTable from '@/components/CodeTable.astro';
+import {
+  getActiveCodes,
+  getExpiredCodes,
+  getGlobalFAQs,
+  getPageFAQs,
+  generateItemListSchema,
+} from '@/lib/data';
+
+const activeCodes = getActiveCodes();
+const expiredCodes = getExpiredCodes();
+const globalFAQ = getGlobalFAQs();
+const pageFAQ = getPageFAQs('codes');
+
+const faq = [
+  ...pageFAQ,
+  ...globalFAQ.filter(g => !pageFAQ.some(p => p.question === g.question)),
+].slice(0, 10);
+
+const codesSchema = generateItemListSchema(
+  activeCodes.map((c, i) => ({
+    name: `${c.code} - ${c.reward}`,
+    url: `/codes/`,
+    position: i + 1,
+  }))
+);
+
+const title = 'Broken Blade Codes - Latest Working Codes (June 2026)';
+const description = 'All working Broken Blade Roblox codes for free rewards. Active codes, expired codes, and how to redeem.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Codes', url: '/codes/' },
+];
+
+const relatedGuides = [
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons in Broken Blade.' },
+  { title: 'Beginner Guide', url: '/beginner-guide/', description: 'Everything new players need to know.' },
+  { title: 'Discord', url: 'https://discord.gg/brokenblade', description: 'Join the official Broken Blade Discord for new codes.' },
+  { title: 'Wiki', url: '/', description: 'Complete Broken Blade wiki and guides.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={`There are currently ${activeCodes.length} active Broken Blade codes. Redeem them in-game for free rewards like gems, boosts, and exclusive items. Codes expire quickly, so redeem them as soon as possible.`}
+  breadcrumbItems={breadcrumbItems}
+  schema={codesSchema}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- Active Codes -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Active Codes</h2>
+    {activeCodes.length > 0 ? (
+      <CodeTable codes={activeCodes} showStatus={true} />
+    ) : (
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6 text-center">
+        <p class="text-gray-400">No active codes at the moment. Check back soon or join the <a href="https://discord.gg/brokenblade" class="text-amber-400 hover:text-amber-300">official Discord</a> for updates.</p>
+      </div>
+    )}
+  </section>
+
+  <!-- How to Redeem -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">How to Redeem Codes</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li>Open <strong class="text-white">Broken Blade</strong> in Roblox.</li>
+        <li>Look for the <strong class="text-amber-400">Twitter bird icon</strong> or the <strong class="text-amber-400">Codes button</strong> on the left side of the screen.</li>
+        <li>Click it to open the <strong class="text-white">code redemption window</strong>.</li>
+        <li>Type or paste the code <strong class="text-white">exactly as shown</strong> (codes are case-sensitive).</li>
+        <li>Press <strong class="text-amber-400">Enter</strong> or click <strong class="text-amber-400">Redeem</strong> to claim your reward.</li>
+      </ol>
+      <p class="mt-4 text-sm text-gray-400">Tip: Copy codes directly from the table above using the copy button to avoid typos.</p>
+    </div>
+  </section>
+
+  <!-- Expired Codes -->
+  {expiredCodes.length > 0 && (
+    <section class="mb-10">
+      <h2 class="text-2xl font-bold mb-4 text-white">Expired Codes</h2>
+      <CodeTable codes={expiredCodes} showStatus={true} />
+      <p class="mt-3 text-sm text-gray-500">These codes have expired and can no longer be redeemed. We keep them listed for reference.</p>
+    </section>
+  )}
+
+  <!-- Where to Find New Codes -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Where to Find New Codes</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ul class="space-y-3 text-gray-200">
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400 mt-0.5">&#9733;</span>
+          <span><strong class="text-white">Bookmark this page</strong> — we update codes as soon as they are released.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400 mt-0.5">&#9733;</span>
+          <span><strong class="text-white">Official Discord</strong> — the developers often post codes in the announcements channel.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400 mt-0.5">&#9733;</span>
+          <span><strong class="text-white">YouTube &amp; Twitter</strong> — content creators sometimes share exclusive codes.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+</ArticleLayout>

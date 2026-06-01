@@ -1,0 +1,9 @@
+{
+  "lastChecked": "2026-06-01",
+  "items": [
+    { "id": "nivaron", "slug": "nivaron", "name": "Nivaron", "levelRequirement": "500+", "drops": ["Race Reroll"], "tier": "A", "bestFor": "Race farming", "strategy": "Farm after unlocking race rerolls. Use a stable weapon and avoid spending all rerolls before you know your weapon route." },
+    { "id": "velik", "slug": "velik", "name": "Velik", "levelRequirement": "500+", "drops": ["Element Reroll"], "tier": "A", "bestFor": "Element farming", "strategy": "Target Velik when chasing Fire or Thunder. Keep Life or Wind if your current build needs sustain or speed." },
+    { "id": "gelaros", "slug": "gelaros", "name": "Gelaros", "levelRequirement": "1000+", "drops": ["Blessing Reroll"], "tier": "S", "bestFor": "Blessing farming", "strategy": "Do not waste blessing rerolls before level 1000. Farm Gelaros once your weapon upgrades can handle longer fights." },
+    { "id": "boss-rush", "slug": "boss-rush", "name": "Boss Rush", "levelRequirement": "Mid-game+", "drops": ["Materials", "Reroll resources", "Endgame progression"], "tier": "S", "bestFor": "Late-game farming", "strategy": "Bring sustain or damage reduction while learning. Switch into crit or Buster damage once you can clear consistently." }
+  ]
+}

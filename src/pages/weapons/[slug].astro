@@ -1,0 +1,74 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import SummaryTable from '@/components/SummaryTable.astro';
+import { getWeapons, getWeaponBySlug } from '@/lib/data';
+
+export function getStaticPaths() {
+  const weapons = getWeapons();
+  return weapons.map(weapon => ({ params: { slug: weapon.slug }, props: { weapon } }));
+}
+
+const { weapon } = Astro.props;
+
+const title = `${weapon.name} - Broken Blade Weapon Guide`;
+const description = `${weapon.name} weapon guide for Broken Blade Roblox. Tier ${weapon.tier}, ${weapon.type} type, how to obtain, recommended race, element, and blessing pairings.`;
+
+const summaryRows = [
+  { label: 'Type', value: weapon.type },
+  { label: 'Tier', value: weapon.tier },
+  { label: 'Best For', value: weapon.bestFor },
+  { label: 'Obtain Method', value: weapon.obtainMethod },
+  { label: 'Recommended Race', value: weapon.recommendedRace },
+  { label: 'Recommended Element', value: weapon.recommendedElement },
+  { label: 'Recommended Blessing', value: weapon.recommendedBlessing },
+];
+
+const faq = [
+  { question: `Is ${weapon.name} worth using?`, answer: weapon.tier === 'S' || weapon.tier === 'A' ? `Yes, ${weapon.name} is a ${weapon.tier}-tier ${weapon.type} weapon and one of the best options for ${weapon.bestFor}.` : `${weapon.name} is a ${weapon.tier}-tier ${weapon.type} weapon. It can work for ${weapon.bestFor}, but there may be better options available.` },
+  { question: `How do I get ${weapon.name}?`, answer: `${weapon.name} can be obtained by: ${weapon.obtainMethod}.` },
+  { question: `What is the best build for ${weapon.name}?`, answer: `The recommended build for ${weapon.name} pairs it with ${weapon.recommendedRace} race, ${weapon.recommendedElement} element, and ${weapon.recommendedBlessing} blessing. This combination is optimized for ${weapon.bestFor}.` },
+  { question: `What type of weapon is ${weapon.name}?`, answer: `${weapon.name} is a ${weapon.type} type weapon, ranked at tier ${weapon.tier}.` },
+];
+
+const relatedGuides = [
+  { title: 'Best Swords', url: '/best-swords/', description: 'Complete Broken Blade weapon tier list and rankings.' },
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'Best race for your weapon.' },
+  { title: 'Elements Tier List', url: '/elements-tier-list/', description: 'Best element for your weapon.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Boss Rush strategies and builds.' },
+];
+---
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={`${weapon.name} is a tier ${weapon.tier} ${weapon.type} weapon in Broken Blade, best for ${weapon.bestFor}. Obtain via ${weapon.obtainMethod}.`}
+  breadcrumbItems={[{ name: 'Home', url: '/' }, { name: 'Weapons', url: '/weapons/' }, { name: weapon.name, url: `/weapons/${weapon.slug}/` }]}
+  summaryRows={summaryRows}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- Recommended Build -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Recommended Build Pairings</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+        <h3 class="text-amber-400 font-semibold mb-2">Race</h3>
+        <p class="text-gray-200">{weapon.recommendedRace}</p>
+      </div>
+      <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+        <h3 class="text-amber-400 font-semibold mb-2">Element</h3>
+        <p class="text-gray-200">{weapon.recommendedElement}</p>
+      </div>
+      <div class="bg-gray-800 rounded-lg p-4 border border-gray-700">
+        <h3 class="text-amber-400 font-semibold mb-2">Blessing</h3>
+        <p class="text-gray-200">{weapon.recommendedBlessing}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notes -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Notes</h2>
+    <p class="text-gray-300">{weapon.notes}</p>
+  </section>
+</ArticleLayout>

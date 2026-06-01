@@ -1,0 +1,10 @@
+---
+interface Props {
+  date: string;
+}
+
+const { date } = Astro.props;
+---
+<p class="text-xs text-gray-500 mb-6">
+  Last updated: {date}
+</p>

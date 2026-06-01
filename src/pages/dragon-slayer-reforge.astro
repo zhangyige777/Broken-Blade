@@ -1,0 +1,171 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import SummaryTable from '@/components/SummaryTable.astro';
+import {
+  getWeaponBySlug,
+  getBuilds,
+  getPageFAQs,
+} from '@/lib/data';
+
+const dragonSlayer = getWeaponBySlug('dragon-slayer');
+const builds = getBuilds();
+const pageFAQ = getPageFAQs('dragon-slayer-reforge');
+
+const bestBuild = builds.find(b =>
+  b.weapon.toLowerCase().includes('dragon slayer') ||
+  b.useCase.toLowerCase().includes('reforge')
+) || builds.find(b => b.tier === 'S') || builds[0];
+
+const buildSummary = bestBuild ? [
+  { label: 'Weapon', value: bestBuild.weapon },
+  { label: 'Race', value: bestBuild.race },
+  { label: 'Element', value: bestBuild.element },
+  { label: 'Blessing', value: bestBuild.blessing },
+  { label: 'Build Tier', value: bestBuild.tier },
+] : [];
+
+const faq = [
+  ...pageFAQ,
+  {
+    question: 'Is Dragon Slayer Reforge worth it?',
+    answer: dragonSlayer
+      ? `Yes, Dragon Slayer Reforge is worth it if you plan to use <strong>${dragonSlayer.name}</strong> as your main weapon. The reforged version provides significantly higher damage and better stats.`
+      : 'Yes, Dragon Slayer Reforge is worth it for endgame content. The reforged version provides significantly higher damage output.',
+  },
+  {
+    question: 'What materials do I need for Dragon Slayer Reforge?',
+    answer: 'You need the base Dragon Slayer weapon, rare boss drop materials, and a significant amount of in-game currency. Check the Requirements section above for the full list.',
+  },
+  {
+    question: 'Can I undo a reforge?',
+    answer: 'No, reforging is permanent. Make sure you are committed to using the weapon before applying the reforge.',
+  },
+].filter(item => !pageFAQ.some(p => p.question === item.question));
+
+const title = 'Broken Blade Dragon Slayer Reforge Guide';
+const description = 'Complete guide to Dragon Slayer Reforge in Broken Blade. Requirements, materials, best builds, and whether it is worth it.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Dragon Slayer Reforge', url: '/dragon-slayer-reforge/' },
+];
+
+const relatedGuides = [
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons in Broken Blade.' },
+  { title: 'Forge Guide', url: '/forge-guide/', description: 'How the forge works and upgrade routes.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Best builds and strategies for Boss Rush.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={dragonSlayer
+    ? `Dragon Slayer Reforge upgrades ${dragonSlayer.name} into a significantly stronger version. It is worth it for endgame content. You need the base weapon, rare boss materials, and currency to complete the reforge.`
+    : 'Dragon Slayer Reforge upgrades the Dragon Slayer into a significantly stronger version. It is worth it for endgame content, Boss Rush, and high-level farming.'
+  }
+  breadcrumbItems={breadcrumbItems}
+  summaryRows={buildSummary}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- What is Dragon Slayer Reforge -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">What is Dragon Slayer Reforge?</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <p class="text-gray-200 leading-relaxed">
+        Dragon Slayer Reforge is a powerful weapon upgrade in Broken Blade that transforms the base Dragon Slayer sword into a significantly stronger version. The reforged weapon gains increased base damage, improved scaling, and often new abilities that make it one of the best weapons in the game.
+      </p>
+      {dragonSlayer && (
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="rounded-lg bg-gray-900/50 p-4">
+            <p class="text-sm text-gray-400 mb-1">Base Weapon</p>
+            <p class="font-bold text-white">{dragonSlayer.name}</p>
+            <p class="text-sm text-gray-400">Tier: {dragonSlayer.tier}</p>
+            <p class="text-sm text-gray-400">Type: {dragonSlayer.type}</p>
+          </div>
+          <div class="rounded-lg bg-gray-900/50 p-4">
+            <p class="text-sm text-gray-400 mb-1">Best For</p>
+            <p class="font-bold text-white">{dragonSlayer.bestFor}</p>
+            <p class="text-sm text-gray-400">Obtain: {dragonSlayer.obtainMethod}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Requirements -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Reforge Requirements</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ul class="space-y-3 text-gray-200">
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">&#10003;</span>
+          <span><strong class="text-white">Base Weapon:</strong> Dragon Slayer sword (obtained from boss drops or crafting).</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">&#10003;</span>
+          <span><strong class="text-white">Rare Materials:</strong> Boss drop materials from high-level bosses, including Dragon Scales and Mythical Ore.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">&#10003;</span>
+          <span><strong class="text-white">Currency:</strong> A significant amount of in-game gems or gold.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">&#10003;</span>
+          <span><strong class="text-white">Level Requirement:</strong> Recommended Level 1000+ before attempting the reforge.</span>
+        </li>
+      </ul>
+      <p class="mt-4 text-sm text-gray-400">Note: Check the <a href="/forge-guide/" class="text-amber-400 hover:text-amber-300">Forge Guide</a> for detailed upgrade routes and material farming spots.</p>
+    </div>
+  </section>
+
+  <!-- Best Build -->
+  {bestBuild && (
+    <section class="mb-10">
+      <h2 class="text-2xl font-bold mb-4 text-white">Best Build for Dragon Slayer</h2>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+        <SummaryTable rows={buildSummary} caption="Recommended Dragon Slayer Build" />
+        {bestBuild.notes && (
+          <p class="mt-4 text-sm text-gray-400">Notes: {bestBuild.notes}</p>
+        )}
+        {dragonSlayer && (
+          <div class="mt-4 text-sm text-gray-400">
+            <p>Recommended Race: {dragonSlayer.recommendedRace}</p>
+            <p>Recommended Element: {dragonSlayer.recommendedElement}</p>
+            <p>Recommended Blessing: {dragonSlayer.recommendedBlessing}</p>
+          </div>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- Is It Worth It -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Is Dragon Slayer Reforge Worth It?</h2>
+    <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-6">
+      <p class="text-gray-200 leading-relaxed mb-4">
+        <strong class="text-white">Yes, Dragon Slayer Reforge is worth it</strong> if you are committed to using the Dragon Slayer as your main weapon. The stat boost and improved abilities make a significant difference in:
+      </p>
+      <ul class="space-y-2 text-gray-300">
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400">&#9733;</span>
+          <span>Boss Rush performance</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400">&#9733;</span>
+          <span>Endgame farming efficiency</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400">&#9733;</span>
+          <span>PvP combat (if applicable)</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400">&#9733;</span>
+          <span>General progression speed</span>
+        </li>
+      </ul>
+      <p class="mt-4 text-sm text-gray-400">However, if you plan to switch weapons later, consider saving your materials for a different upgrade path.</p>
+    </div>
+  </section>
+</ArticleLayout>

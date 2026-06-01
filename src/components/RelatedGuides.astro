@@ -1,0 +1,21 @@
+---
+interface Props {
+  links: { title: string; url: string; description: string }[];
+}
+
+const { links } = Astro.props;
+---
+<section>
+  <h2 class="text-2xl font-bold mb-6 text-white">Related Guides</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {links.map((link) => (
+      <a
+        href={link.url}
+        class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 transition-colors hover:border-amber-500/50 hover:bg-gray-800"
+      >
+        <h3 class="font-semibold text-gray-100 mb-1">{link.title}</h3>
+        <p class="text-sm text-gray-400">{link.description}</p>
+      </a>
+    ))}
+  </div>
+</section>

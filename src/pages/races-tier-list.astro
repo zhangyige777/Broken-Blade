@@ -1,0 +1,146 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierTable from '@/components/TierTable.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import {
+  getRaces,
+  getGlobalFAQs,
+  getPageFAQs,
+  TIER_ORDER,
+  RARITY_ORDER,
+} from '@/lib/data';
+
+const allRaces = getRaces();
+const sortedRaces = [...allRaces].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const globalFAQ = getGlobalFAQs();
+const pageFAQ = getPageFAQs('races-tier-list');
+
+const bestRace = sortedRaces[0];
+const bestForKatana = sortedRaces.find(r => r.bestFor.toLowerCase().includes('katana') || r.bestFor.toLowerCase().includes('speed')) || sortedRaces[0];
+const bestForBuster = sortedRaces.find(r => r.bestFor.toLowerCase().includes('buster') || r.bestFor.toLowerCase().includes('damage')) || sortedRaces[0];
+
+const faq = [
+  ...pageFAQ,
+  {
+    question: 'What is the best race in Broken Blade?',
+    answer: `The best race overall is <strong>${bestRace?.name || 'Aesir'}</strong> (${bestRace?.tier || 'S'} Tier). It provides the best bonuses for general progression and endgame content.`,
+  },
+  {
+    question: 'How do I reroll my race?',
+    answer: 'You can reroll your race by using a Race Reroll item from the shop or by speaking to the NPC in the main hub. Rerolling gives you a random race from the available pool.',
+  },
+  {
+    question: 'Does race affect weapon damage?',
+    answer: 'Yes, each race provides different stat bonuses that affect weapon performance. Some races are better suited for specific weapon types like Buster or Katana.',
+  },
+].filter(item => !pageFAQ.some(p => p.question === item.question));
+
+const title = 'Broken Blade Races Tier List - Best Race for Every Build';
+const description = 'Complete Broken Blade races tier list. Best race for Katana, Buster, Boss Rush, and general progression.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Races Tier List', url: '/races-tier-list/' },
+];
+
+const relatedGuides = [
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons in Broken Blade.' },
+  { title: 'Blessings Tier List', url: '/blessings-tier-list/', description: 'Best blessings for every build.' },
+  { title: 'Elements Tier List', url: '/elements-tier-list/', description: 'Best elements for damage and crit.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Best builds and strategies for Boss Rush.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={`The best race in Broken Blade is ${bestRace?.name || 'Aesir'} (${bestRace?.tier || 'S'} Tier). For Katana builds, go with ${bestForKatana?.name || 'Aesir'}. For Buster builds, ${bestForBuster?.name || 'Aesir'} is the top choice.`}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- Race Tier Table -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Race Tier List</h2>
+    <TierTable items={sortedRaces.map(r => ({
+      name: r.name,
+      tier: r.tier,
+      rarity: r.rarity,
+      description: r.bestFor,
+      slug: r.slug,
+      slugPrefix: 'races',
+    }))} />
+  </section>
+
+  <!-- Best Race Overall -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Race Overall</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <h3 class="text-lg font-bold text-white">{bestRace?.name}</h3>
+        <TierBadge tier={bestRace?.tier || 'S'} />
+        <span class="text-sm text-gray-400">({bestRace?.rarity})</span>
+      </div>
+      <p class="text-gray-300 mb-2">{bestRace?.bestFor}</p>
+      <p class="text-sm text-gray-400">Drop Rate: {bestRace?.dropRate}</p>
+      <p class="text-sm text-gray-400 mt-1">Notes: {bestRace?.notes}</p>
+      {bestRace?.effects && bestRace.effects.length > 0 && (
+        <div class="mt-3">
+          <p class="text-sm font-medium text-gray-200 mb-1">Effects:</p>
+          <ul class="list-disc list-inside text-sm text-gray-400">
+            {bestRace.effects.map(e => <li>{e}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Best for Katana -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Race for Katana</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <h3 class="text-lg font-bold text-white">{bestForKatana?.name}</h3>
+        <TierBadge tier={bestForKatana?.tier || 'S'} />
+      </div>
+      <p class="text-gray-300 mb-2">{bestForKatana?.bestFor}</p>
+      {bestForKatana?.effects && bestForKatana.effects.length > 0 && (
+        <ul class="list-disc list-inside text-sm text-gray-400">
+          {bestForKatana.effects.map(e => <li>{e}</li>)}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <!-- Best for Buster -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Race for Buster</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <h3 class="text-lg font-bold text-white">{bestForBuster?.name}</h3>
+        <TierBadge tier={bestForBuster?.tier || 'S'} />
+      </div>
+      <p class="text-gray-300 mb-2">{bestForBuster?.bestFor}</p>
+      {bestForBuster?.effects && bestForBuster.effects.length > 0 && (
+        <ul class="list-disc list-inside text-sm text-gray-400">
+          {bestForBuster.effects.map(e => <li>{e}</li>)}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <!-- How to Reroll -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">How to Reroll Your Race</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li>Open the <strong class="text-white">Shop</strong> menu in-game.</li>
+        <li>Find the <strong class="text-amber-400">Race Reroll</strong> item.</li>
+        <li>Purchase it with gems or in-game currency.</li>
+        <li>Use the item from your inventory to roll a new race.</li>
+        <li>Repeat until you get the race you want.</li>
+      </ol>
+      <p class="mt-4 text-sm text-gray-400">Note: Rarer races have lower drop rates. Check the tier table above for drop rate percentages.</p>
+    </div>
+  </section>
+</ArticleLayout>

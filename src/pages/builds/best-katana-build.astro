@@ -1,0 +1,119 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getBuilds } from '@/lib/data';
+
+const build = getBuilds().find(b => b.slug === 'best-katana-build')!;
+
+const summaryRows = [
+  { label: 'Tier', value: build.tier },
+  { label: 'Weapon', value: build.weapon },
+  { label: 'Race', value: build.race },
+  { label: 'Element', value: build.element },
+  { label: 'Blessing', value: build.blessing },
+  { label: 'Use Case', value: build.useCase },
+];
+
+const title = 'Broken Blade Best Katana Build - Weapon, Race, Element & Blessing';
+const description = `Best Katana build in Broken Blade: ${build.weapon} with ${build.race} race, ${build.element} element, and ${build.blessing} blessing. Optimized for ${build.useCase}.`;
+const quickAnswer = `The best Katana build in Broken Blade uses ${build.weapon} with ${build.race} race, ${build.element} element, and ${build.blessing} blessing. This A-tier build is best for ${build.useCase}. Wind and Loki make the route feel smoother, while Thunder scales better with crit.`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Builds', url: '/builds/' },
+  { name: 'Best Katana Build', url: '/builds/best-katana-build/' },
+];
+
+const faq = [
+  {
+    question: 'Is Katana good in Broken Blade?',
+    answer: 'Yes. Katana is an A-tier weapon best suited for fast leveling and active farming. It pairs well with Vanir or Aesir race and Wind, Fire, or Thunder elements.',
+  },
+  {
+    question: 'What race is best for Katana in Broken Blade?',
+    answer: 'Vanir is the best dedicated race for Katana builds (+75% Damage, +25% Katana Damage). Aesir is the best overall race if you can roll it (+75% Damage, +10% Crit Chance, +100% Crit Damage).',
+  },
+  {
+    question: 'What blessing should I use with Katana?',
+    answer: 'Loki is the most comfortable blessing for Katana (+65% Damage, +8% Attack Speed, +0.5 Energy Recovery). Jormungandr is excellent for crit-based Katana builds. Odin is the strongest if you can get it.',
+  },
+  {
+    question: 'What element works best with Katana?',
+    answer: 'Wind (+15% Attack Speed) feels the smoothest with Katana. Fire (+50% Damage) is the most reliable. Thunder (+50% Crit Damage) scales the best in late-game if your build has crit chance.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Best Swords', url: '/best-swords/', description: 'Full weapon tier list for Broken Blade.' },
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'All races ranked by tier.' },
+  { title: 'Blessings Tier List', url: '/blessings-tier-list/', description: 'All blessings ranked for every build.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'How to beat Boss Rush with optimal setups.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  summaryRows={summaryRows}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Recommended Setup</h2>
+    <div class="space-y-4">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Weapon</h3>
+        <p class="text-gray-200">{build.weapon} — Fast and forgiving for active grinding. Best for leveling quickly and mobile-friendly combat.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Race</h3>
+        <p class="text-gray-200">{build.race} — Vanir gives +25% Katana Damage on top of the base +75% Damage. Aesir is the stronger all-rounder if you can roll it.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Element</h3>
+        <p class="text-gray-200">{build.element} — Wind for speed, Fire for raw damage, Thunder for crit scaling in late-game.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Blessing</h3>
+        <p class="text-gray-200">{build.blessing} — Loki for farming comfort, Jormungandr for crit, Odin for maximum damage output.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Pros &amp; Cons</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="rounded-lg border border-green-700/50 bg-green-900/20 p-4">
+        <h3 class="font-semibold text-green-400 mb-2">Pros</h3>
+        <ul class="list-disc list-inside text-sm text-gray-200 space-y-1">
+          <li>Fast attack speed makes farming efficient</li>
+          <li>Mobile-friendly combat style</li>
+          <li>Good for active leveling</li>
+          <li>Multiple viable element options</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-red-700/50 bg-red-900/20 p-4">
+        <h3 class="font-semibold text-red-400 mb-2">Cons</h3>
+        <ul class="list-disc list-inside text-sm text-gray-200 space-y-1">
+          <li>A-tier, not S-tier for boss damage</li>
+          <li>Lower burst damage than Buster builds</li>
+          <li>Requires active play to maximize value</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Progression Notes</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+      <p class="text-gray-200 leading-relaxed">{build.notes}</p>
+      <div class="mt-4 space-y-2 text-sm text-gray-300">
+        <p><span class="text-amber-400 font-medium">Early game:</span> Use any Katana you find. Focus on leveling to 500.</p>
+        <p><span class="text-amber-400 font-medium">Mid game:</span> Reroll race to Vanir or Aesir. Pick Wind or Fire element.</p>
+        <p><span class="text-amber-400 font-medium">Late game:</span> Farm for Loki or Odin blessing. Switch to Thunder element if you have crit chance.</p>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

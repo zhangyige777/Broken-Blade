@@ -1,0 +1,146 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierTable from '@/components/TierTable.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import {
+  getElements,
+  getGlobalFAQs,
+  getPageFAQs,
+  TIER_ORDER,
+} from '@/lib/data';
+
+const allElements = getElements();
+const sortedElements = [...allElements].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const globalFAQ = getGlobalFAQs();
+const pageFAQ = getPageFAQs('elements-tier-list');
+
+const bestElement = sortedElements[0];
+const bestForDamage = sortedElements.find(e => e.bestFor.toLowerCase().includes('damage') || e.bestFor.toLowerCase().includes('attack')) || sortedElements[0];
+const bestForCrit = sortedElements.find(e => e.bestFor.toLowerCase().includes('crit') || e.bestFor.toLowerCase().includes('critical')) || sortedElements[0];
+const bestForBeginners = sortedElements.find(e => e.bestFor.toLowerCase().includes('beginner') || e.bestFor.toLowerCase().includes('general')) || sortedElements.find(e => e.tier === 'A') || sortedElements[0];
+
+const faq = [
+  ...pageFAQ,
+  {
+    question: 'What is the best element in Broken Blade?',
+    answer: `The best element overall is <strong>${bestElement?.name || 'Thunder'}</strong> (${bestElement?.tier || 'S'} Tier). It provides the highest damage multipliers for most weapon types.`,
+  },
+  {
+    question: 'How do I reroll my element?',
+    answer: 'Use an Element Reroll item from the shop or talk to the Element NPC in the hub. Rerolling gives you a random element from the available pool.',
+  },
+  {
+    question: 'Does element affect Boss Rush performance?',
+    answer: 'Yes, your element choice significantly impacts Boss Rush damage output. See our <a href="/boss-rush-guide/" class="text-amber-400">Boss Rush Guide</a> for recommended element picks.',
+  },
+].filter(item => !pageFAQ.some(p => p.question === item.question));
+
+const title = 'Broken Blade Element Tier List - Best Element for Damage & Crit';
+const description = 'Complete Broken Blade element tier list. Best element for damage, crit, beginners, and every build.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Elements Tier List', url: '/elements-tier-list/' },
+];
+
+const relatedGuides = [
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'Best races for every build.' },
+  { title: 'Blessings Tier List', url: '/blessings-tier-list/', description: 'Best blessings for every build.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons in Broken Blade.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Best builds and strategies for Boss Rush.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={`The best element in Broken Blade is ${bestElement?.name || 'Thunder'} (${bestElement?.tier || 'S'} Tier). For raw damage, ${bestForDamage?.name || 'Thunder'} leads. For crit builds, ${bestForCrit?.name || 'Thunder'} is the top pick.`}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- Element Tier Table -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Element Tier List</h2>
+    <TierTable items={sortedElements.map(e => ({
+      name: e.name,
+      tier: e.tier,
+      rarity: e.rarity,
+      description: e.bestFor,
+      slug: e.slug,
+      slugPrefix: 'elements',
+    }))} />
+  </section>
+
+  <!-- Best Element for Damage -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Element for Damage</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <h3 class="text-lg font-bold text-white">{bestForDamage?.name}</h3>
+        <TierBadge tier={bestForDamage?.tier || 'S'} />
+        <span class="text-sm text-gray-400">({bestForDamage?.rarity})</span>
+      </div>
+      <p class="text-gray-300 mb-2">{bestForDamage?.bestFor}</p>
+      <p class="text-sm text-gray-400">Drop Rate: {bestForDamage?.dropRate}</p>
+      <p class="text-sm text-gray-400 mt-1">Notes: {bestForDamage?.notes}</p>
+      {bestForDamage?.effects && bestForDamage.effects.length > 0 && (
+        <div class="mt-3">
+          <p class="text-sm font-medium text-gray-200 mb-1">Effects:</p>
+          <ul class="list-disc list-inside text-sm text-gray-400">
+            {bestForDamage.effects.map(e => <li>{e}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Best for Crit -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Element for Crit</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <h3 class="text-lg font-bold text-white">{bestForCrit?.name}</h3>
+        <TierBadge tier={bestForCrit?.tier || 'S'} />
+      </div>
+      <p class="text-gray-300 mb-2">{bestForCrit?.bestFor}</p>
+      {bestForCrit?.effects && bestForCrit.effects.length > 0 && (
+        <ul class="list-disc list-inside text-sm text-gray-400">
+          {bestForCrit.effects.map(e => <li>{e}</li>)}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <!-- Best for Beginners -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Element for Beginners</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <h3 class="text-lg font-bold text-white">{bestForBeginners?.name}</h3>
+        <TierBadge tier={bestForBeginners?.tier || 'A'} />
+      </div>
+      <p class="text-gray-300 mb-2">{bestForBeginners?.bestFor}</p>
+      {bestForBeginners?.effects && bestForBeginners.effects.length > 0 && (
+        <ul class="list-disc list-inside text-sm text-gray-400">
+          {bestForBeginners.effects.map(e => <li>{e}</li>)}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <!-- How to Reroll -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">How to Reroll Your Element</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li>Open the <strong class="text-white">Shop</strong> menu in-game.</li>
+        <li>Find the <strong class="text-amber-400">Element Reroll</strong> item.</li>
+        <li>Purchase it with gems or in-game currency.</li>
+        <li>Use the item from your inventory to roll a new element.</li>
+        <li>Repeat until you get the element you want.</li>
+      </ol>
+      <p class="mt-4 text-sm text-gray-400">Tip: Focus on S and A tier elements for the best results. Lower tier elements can still be viable with the right build.</p>
+    </div>
+  </section>
+</ArticleLayout>

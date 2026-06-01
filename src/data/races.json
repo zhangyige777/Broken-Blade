@@ -1,0 +1,16 @@
+{
+  "lastChecked": "2026-06-01",
+  "unlockLevel": 500,
+  "rerollSource": "Nivaron boss and trading",
+  "items": [
+    { "id": "aesir", "slug": "aesir", "name": "Aesir", "rarity": "Mythical", "dropRate": "0.03%", "tier": "S", "bestFor": "Crit builds, all weapon types, late-game boss rush", "effects": ["+75% Damage", "+10% Crit Chance", "+100% Crit Damage", "+5% Attack Speed"], "notes": "Best all-round race if you can roll it." },
+    { "id": "vanir", "slug": "vanir", "name": "Vanir", "rarity": "Legendary", "dropRate": "Legendary pool", "tier": "A", "bestFor": "Katana builds", "effects": ["+75% Damage", "+25% Katana Damage"], "notes": "Top practical pick for Katana users." },
+    { "id": "nether", "slug": "nether", "name": "Nether", "rarity": "Legendary", "dropRate": "Legendary pool", "tier": "A", "bestFor": "Buster builds", "effects": ["+75% Damage", "+25% Buster Damage"], "notes": "Pairs well with Thor, Surtr, Odin, Hel, and Fenrir." },
+    { "id": "elf", "slug": "elf", "name": "Elf", "rarity": "Legendary", "dropRate": "Legendary pool", "tier": "A", "bestFor": "Sword builds", "effects": ["+75% Damage", "+25% Sword Damage"], "notes": "Best race for standard Sword route." },
+    { "id": "frost", "slug": "frost", "name": "Frost", "rarity": "Epic", "dropRate": "Epic pool", "tier": "B", "bestFor": "Safer progression", "effects": ["+50% Damage", "+20% Damage Reduction"], "notes": "Strong early-to-mid roll for players dying in bosses." },
+    { "id": "flame", "slug": "flame", "name": "Flame", "rarity": "Epic", "dropRate": "Epic pool", "tier": "B", "bestFor": "General leveling", "effects": ["+50% Damage", "+50% Health"], "notes": "Good enough to keep before hunting legendaries." },
+    { "id": "giant", "slug": "giant", "name": "Giant", "rarity": "Rare", "dropRate": "15.87%", "tier": "C", "bestFor": "Budget sustain", "effects": ["+10% Damage Reduction", "+5% Life Steal"], "notes": "Useful while learning boss patterns." },
+    { "id": "dwarves", "slug": "dwarves", "name": "Dwarves", "rarity": "Uncommon", "dropRate": "15.87%", "tier": "D", "bestFor": "Very early game", "effects": ["+30% Health"], "notes": "Replace once rerolls are available." },
+    { "id": "human", "slug": "human", "name": "Human", "rarity": "Common", "dropRate": "47.60%", "tier": "D", "bestFor": "Starter progression", "effects": ["+10% Health"], "notes": "Starter-level value only." }
+  ]
+}

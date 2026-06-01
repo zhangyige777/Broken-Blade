@@ -1,0 +1,168 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import {
+  getWeapons,
+  getBosses,
+  getPageFAQs,
+  TIER_ORDER,
+} from '@/lib/data';
+
+const weapons = getWeapons();
+const bosses = getBosses();
+const pageFAQ = getPageFAQs('forge-guide');
+
+const sortedWeapons = [...weapons].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const topWeapons = sortedWeapons.slice(0, 5);
+
+const faq = [
+  ...pageFAQ,
+  {
+    question: 'How does the forge work in Broken Blade?',
+    answer: 'The forge allows you to upgrade weapons by combining them with materials. Higher level upgrades require rarer materials from bosses and events.',
+  },
+  {
+    question: 'What should I forge first?',
+    answer: 'Focus on forging your main weapon to max level first. Then upgrade secondary weapons for specific use cases like Boss Rush.',
+  },
+  {
+    question: 'Is reforging better than regular upgrades?',
+    answer: 'Reforge provides a bigger power spike than regular upgrades but requires rare materials. It is best used on your main weapon once it is fully upgraded.',
+  },
+].filter(item => !pageFAQ.some(p => p.question === item.question));
+
+const title = 'Broken Blade Forge Guide - Upgrade Routes & Best Items';
+const description = 'How the forge works in Broken Blade, including weapon upgrade routes, best items to forge first, and common mistakes.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Forge Guide', url: '/forge-guide/' },
+];
+
+const relatedGuides = [
+  { title: 'Dragon Slayer Reforge', url: '/dragon-slayer-reforge/', description: 'Complete guide to Dragon Slayer Reforge.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons in Broken Blade.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Best builds and strategies for Boss Rush.' },
+  { title: 'Progression Guide', url: '/progression-guide/', description: 'Complete progression route from beginner to endgame.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer="The forge is where you upgrade and reforge weapons in Broken Blade. Focus on upgrading your main weapon first, then use the reforge system on S-Tier weapons for the biggest power boost. Always farm materials from the highest-level bosses you can handle."
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- How Forge Works -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">How the Forge Works</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <p class="text-gray-200 leading-relaxed mb-4">
+        The forge is the main weapon upgrade system in Broken Blade. It allows you to strengthen your weapons through regular upgrades and reforging.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="rounded-lg bg-gray-900/50 p-4">
+          <h3 class="font-bold text-amber-400 mb-2">Regular Upgrades</h3>
+          <p class="text-sm text-gray-300">Use common materials and currency to increase weapon level and base stats. Available at any forge NPC.</p>
+        </div>
+        <div class="rounded-lg bg-gray-900/50 p-4">
+          <h3 class="font-bold text-amber-400 mb-2">Reforge</h3>
+          <p class="text-sm text-gray-300">Transforms a weapon into a significantly stronger version. Requires rare boss materials and higher currency costs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Weapon Upgrade Route -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Weapon Upgrade Route</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="space-y-4">
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">1</div>
+          <div>
+            <h3 class="font-bold text-white">Get a Starter Weapon</h3>
+            <p class="text-sm text-gray-300">Obtain a weapon from early boss drops or the shop. Any B-Tier or higher weapon works as a starter.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">2</div>
+          <div>
+            <h3 class="font-bold text-white">Upgrade to Max Level</h3>
+            <p class="text-sm text-gray-300">Use the forge to upgrade your weapon to max level with common materials. Farm bosses for upgrade materials.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">3</div>
+          <div>
+            <h3 class="font-bold text-white">Farm for a Top-Tier Weapon</h3>
+            <p class="text-sm text-gray-300">Once strong enough, farm high-level bosses for S-Tier weapon drops. See the <a href="/best-swords/" class="text-amber-400 hover:text-amber-300">Best Swords</a> tier list for targets.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">4</div>
+          <div>
+            <h3 class="font-bold text-white">Upgrade and Reforge</h3>
+            <p class="text-sm text-gray-300">Max upgrade your S-Tier weapon, then apply the reforge for maximum power. See <a href="/dragon-slayer-reforge/" class="text-amber-400 hover:text-amber-300">Dragon Slayer Reforge</a> for an example.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Items to Forge First -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Items to Forge First</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="space-y-3">
+        {topWeapons.map((w, i) => (
+          <div class="flex items-center justify-between border-b border-gray-700/50 pb-3 last:border-0 last:pb-0">
+            <div class="flex items-center gap-3">
+              <span class="text-amber-400 font-bold">#{i + 1}</span>
+              <a href={`/weapons/${w.slug}/`} class="font-medium text-gray-100 hover:text-amber-400 transition-colors">{w.name}</a>
+            </div>
+            <span class="text-sm text-gray-400">{w.tier}-Tier &middot; {w.type}</span>
+          </div>
+        ))}
+      </div>
+      <p class="mt-4 text-sm text-gray-400">Prioritize S-Tier weapons first. They provide the best return on investment for forge materials.</p>
+    </div>
+  </section>
+
+  <!-- Reforge Priorities -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Reforge Priorities</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li><strong class="text-white">Main Weapon</strong> — Reforge your primary weapon first for the biggest power increase.</li>
+        <li><strong class="text-white">Boss Rush Weapon</strong> — If different from your main, reforge a weapon optimized for Boss Rush.</li>
+        <li><strong class="text-white">Secondary Weapon</strong> — Reforge a backup weapon for variety or specific situations.</li>
+      </ol>
+      <p class="mt-4 text-sm text-gray-400">Do not reforge low-tier weapons. Save rare materials for S-Tier and A-Tier weapons only.</p>
+    </div>
+  </section>
+
+  <!-- Common Mistakes -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Common Forge Mistakes</h2>
+    <div class="space-y-3">
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <p class="font-medium text-red-300">Reforging low-tier weapons</p>
+        <p class="text-sm text-gray-400 mt-1">Save rare reforge materials for S-Tier weapons. Low-tier weapons become obsolete quickly.</p>
+      </div>
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <p class="font-medium text-red-300">Spreading materials across multiple weapons</p>
+        <p class="text-sm text-gray-400 mt-1">Focus on one weapon at a time. A single maxed weapon is better than several partially upgraded ones.</p>
+      </div>
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <p class="font-medium text-red-300">Skipping regular upgrades</p>
+        <p class="text-sm text-gray-400 mt-1">Always max out regular upgrades before reforging. The reforge bonus scales with the weapon's base level.</p>
+      </div>
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <p class="font-medium text-red-300">Forging without a plan</p>
+        <p class="text-sm text-gray-400 mt-1">Follow the upgrade route above and plan your material farming to avoid wasting resources.</p>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

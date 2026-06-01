@@ -1,0 +1,231 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import {
+  getWeapons,
+  getRaces,
+  getElements,
+  getBlessings,
+  getBosses,
+  getPageFAQs,
+  TIER_ORDER,
+} from '@/lib/data';
+
+const weapons = getWeapons();
+const races = getRaces();
+const elements = getElements();
+const blessings = getBlessings();
+const bosses = getBosses();
+const pageFAQ = getPageFAQs('progression-guide');
+
+const sortedWeapons = [...weapons].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const sortedRaces = [...races].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const sortedElements = [...elements].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const sortedBlessings = [...blessings].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+
+const faq = [
+  ...pageFAQ,
+  {
+    question: 'What is the fastest way to progress in Broken Blade?',
+    answer: 'Focus on leveling first, then optimize your race, element, and blessing. Farm bosses for weapon drops and upgrade them at the forge. Follow the progression route above for the most efficient path.',
+  },
+  {
+    question: 'When should I reroll my race and element?',
+    answer: 'Reroll at Level 500 when you have enough resources. Aim for S or A Tier options. Do not spend all your currency on rerolls early on.',
+  },
+  {
+    question: 'What order should I upgrade things?',
+    answer: 'Weapon first, then race, element, and blessing. A strong weapon carries you through most content while you optimize the rest.',
+  },
+].filter(item => !pageFAQ.some(p => p.question === item.question));
+
+const title = 'Broken Blade Progression Guide - Complete Route';
+const description = 'Complete Broken Blade progression guide from beginner to endgame. Level routes, upgrade order, and build progression.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Progression Guide', url: '/progression-guide/' },
+];
+
+const relatedGuides = [
+  { title: 'Beginner Guide', url: '/beginner-guide/', description: 'Getting started with Broken Blade.' },
+  { title: 'Level 15000 Guide', url: '/level-15000-guide/', description: 'Fast leveling route to max level.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons.' },
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'Best races for every build.' },
+  { title: 'Elements Tier List', url: '/elements-tier-list/', description: 'Best elements for damage and crit.' },
+  { title: 'Blessings Tier List', url: '/blessings-tier-list/', description: 'Best blessings for every build.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer="The fastest progression route in Broken Blade is: level to 500, reroll race/element, level to 1000, unlock blessing, farm bosses for S-Tier weapons, upgrade at forge, attempt Boss Rush, then reforge your best weapon. Follow the detailed route below."
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- Beginner Route -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Beginner Route (Level 1 - 500)</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="space-y-4">
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">1</div>
+          <div>
+            <h3 class="font-bold text-white">Complete the Tutorial</h3>
+            <p class="text-sm text-gray-300">Finish all tutorial quests to learn game mechanics and earn starter rewards.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">2</div>
+          <div>
+            <h3 class="font-bold text-white">Farm Low-Level Bosses</h3>
+            <p class="text-sm text-gray-300">Defeat early bosses for weapon drops and upgrade materials. Any B-Tier or higher weapon is a good starter.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">3</div>
+          <div>
+            <h3 class="font-bold text-white">Upgrade Your Weapon</h3>
+            <p class="text-sm text-gray-300">Use the forge to upgrade your weapon as you level. Focus all materials on your main weapon.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">4</div>
+          <div>
+            <h3 class="font-bold text-white">Redeem Codes</h3>
+            <p class="text-sm text-gray-300">Redeem all active <a href="/codes/" class="text-amber-400 hover:text-amber-300">codes</a> for free gems, boosts, and items.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Level 500 Route -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Level 500 Route</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="space-y-4">
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">1</div>
+          <div>
+            <h3 class="font-bold text-white">Reroll Your Race</h3>
+            <p class="text-sm text-gray-300">Use Race Rerolls to get an S or A Tier race. Target: <strong class="text-amber-400">{sortedRaces[0]?.name || 'best S-Tier race'}</strong>.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">2</div>
+          <div>
+            <h3 class="font-bold text-white">Reroll Your Element</h3>
+            <p class="text-sm text-gray-300">Use Element Rerolls for an S or A Tier element. Target: <strong class="text-amber-400">{sortedElements[0]?.name || 'best S-Tier element'}</strong>.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">3</div>
+          <div>
+            <h3 class="font-bold text-white">Continue Farming</h3>
+            <p class="text-sm text-gray-300">Farm mid-level bosses for better weapon drops and materials. Start targeting A-Tier and S-Tier weapons.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Level 1000 Route -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Level 1000 Route</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="space-y-4">
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">1</div>
+          <div>
+            <h3 class="font-bold text-white">Unlock Your Blessing</h3>
+            <p class="text-sm text-gray-300">Complete the blessing quest and equip an S or A Tier blessing. Target: <strong class="text-amber-400">{sortedBlessings[0]?.name || 'best S-Tier blessing'}</strong>.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">2</div>
+          <div>
+            <h3 class="font-bold text-white">Farm for S-Tier Weapon</h3>
+            <p class="text-sm text-gray-300">Focus on farming the boss that drops <strong class="text-amber-400">{sortedWeapons[0]?.name || 'the best S-Tier weapon'}</strong>. Fully upgrade it at the forge.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">3</div>
+          <div>
+            <h3 class="font-bold text-white">Attempt Boss Rush</h3>
+            <p class="text-sm text-gray-300">With an optimized build, try <a href="/boss-rush-guide/" class="text-amber-400 hover:text-amber-300">Boss Rush</a> for exclusive rewards and rare materials.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Boss Rush Route -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Boss Rush Route</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <p class="text-gray-200 leading-relaxed mb-4">
+        Once you have a fully optimized build (S-Tier weapon, race, element, and blessing), focus on Boss Rush for endgame rewards.
+      </p>
+      <ul class="space-y-2 text-gray-300">
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400">&#9733;</span>
+          <span>Farm Boss Rush for exclusive materials and weapon upgrades.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400">&#9733;</span>
+          <span>Collect reforge materials for your S-Tier weapon.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-amber-400">&#9733;</span>
+          <span>Push higher difficulties for better rewards.</span>
+        </li>
+      </ul>
+      <p class="mt-4 text-sm text-gray-400">See the <a href="/boss-rush-guide/" class="text-amber-400 hover:text-amber-300">Boss Rush Guide</a> for detailed strategies.</p>
+    </div>
+  </section>
+
+  <!-- Reforge Route -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Reforge Route</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li>Max upgrade your S-Tier weapon to the highest regular level.</li>
+        <li>Farm rare reforge materials from high-level bosses and Boss Rush.</li>
+        <li>Apply the reforge at the forge NPC.</li>
+        <li>Continue upgrading the reforged weapon.</li>
+      </ol>
+      <p class="mt-4 text-sm text-gray-400">See the <a href="/dragon-slayer-reforge/" class="text-amber-400 hover:text-amber-300">Dragon Slayer Reforge guide</a> for a specific example.</p>
+    </div>
+  </section>
+
+  <!-- Best Upgrade Order -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Upgrade Order</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center gap-3 p-3 rounded bg-gray-900/50 border-l-4 border-amber-500">
+          <span class="text-amber-400 font-bold w-6 text-center">1</span>
+          <span class="text-white font-medium">Weapon (forge upgrades)</span>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded bg-gray-900/50 border-l-4 border-orange-500">
+          <span class="text-orange-400 font-bold w-6 text-center">2</span>
+          <span class="text-white font-medium">Race (reroll to S/A Tier)</span>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded bg-gray-900/50 border-l-4 border-yellow-500">
+          <span class="text-yellow-400 font-bold w-6 text-center">3</span>
+          <span class="text-white font-medium">Element (reroll to S/A Tier)</span>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded bg-gray-900/50 border-l-4 border-green-500">
+          <span class="text-green-400 font-bold w-6 text-center">4</span>
+          <span class="text-white font-medium">Blessing (unlock and equip S/A Tier)</span>
+        </div>
+        <div class="flex items-center gap-3 p-3 rounded bg-gray-900/50 border-l-4 border-purple-500">
+          <span class="text-purple-400 font-bold w-6 text-center">5</span>
+          <span class="text-white font-medium">Reforge (apply to fully upgraded S-Tier weapon)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

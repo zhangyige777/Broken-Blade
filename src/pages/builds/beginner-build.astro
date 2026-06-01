@@ -1,0 +1,119 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getBuilds } from '@/lib/data';
+
+const build = getBuilds().find(b => b.slug === 'beginner-build')!;
+
+const summaryRows = [
+  { label: 'Tier', value: build.tier },
+  { label: 'Weapon', value: build.weapon },
+  { label: 'Race', value: build.race },
+  { label: 'Element', value: build.element },
+  { label: 'Blessing', value: build.blessing },
+  { label: 'Use Case', value: build.useCase },
+];
+
+const title = 'Broken Blade Beginner Build - Getting Started';
+const description = `Beginner build for Broken Blade: ${build.weapon} with flexible race and element choices. Everything new players need to start strong and progress efficiently.`;
+const quickAnswer = `The best beginner build in Broken Blade uses ${build.weapon} with any Legendary or higher race (${build.race}), ${build.element} element, and any damage blessing after level 1000. Focus on leveling and learning the game first, then specialize after level 500.`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Builds', url: '/builds/' },
+  { name: 'Beginner Build', url: '/builds/beginner-build/' },
+];
+
+const faq = [
+  {
+    question: 'What should I do first in Broken Blade?',
+    answer: 'Focus on leveling to 500 to unlock race and element rerolls. Use whatever weapon you are most comfortable with (Sword is the safest pick). Do not worry about optimizing your build until after level 500.',
+  },
+  {
+    question: 'Should I reroll my race as a beginner?',
+    answer: 'Only if you have a Common or Uncommon race (Human, Dwarves). Keep any Epic or higher race until you have a clear weapon direction. Flame (+50% Damage, +50% Health) and Frost (+50% Damage, +20% Damage Reduction) are great for beginners.',
+  },
+  {
+    question: 'Sword or Katana for beginners?',
+    answer: 'Both work well for beginners. Sword is more straightforward with simpler attack patterns. Katana is faster and better for active farming. Pick whichever feels more comfortable.',
+  },
+  {
+    question: 'When should I start focusing on my build?',
+    answer: 'Start thinking about your build direction around level 500 when you unlock race and element rerolls. Commit fully after level 1000 when blessings unlock. The progression is: Level 500 → Reroll → Level 1000 → Blessing → Boss Rush → Reforge.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Beginner Guide', url: '/beginner-guide/', description: 'Everything new players need to know.' },
+  { title: 'Codes', url: '/codes/', description: 'Active codes for free rewards.' },
+  { title: 'Progression Guide', url: '/progression-guide/', description: 'Full progression route from start to endgame.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  summaryRows={summaryRows}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Recommended Setup</h2>
+    <div class="space-y-4">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Weapon</h3>
+        <p class="text-gray-200">{build.weapon} — Both are beginner-friendly. Sword is the most straightforward with simple combos. Katana is faster and better for active grinding.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Race</h3>
+        <p class="text-gray-200">{build.race} — As a beginner, keep any Epic or higher race. Flame and Frost are the best early rolls. Giant works for budget sustain. Do not stress about getting a Legendary or Mythical race right away.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Element</h3>
+        <p class="text-gray-200">{build.element} — Fire for damage, Life for sustain, Wind for speed, Earth for defense. Any of these will work fine while you learn the game.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Blessing</h3>
+        <p class="text-gray-200">{build.blessing} — Do not worry about blessings until level 1000. Once unlocked, pick any blessing that adds damage. You can reroll later once you commit to a weapon type.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Pros &amp; Cons</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="rounded-lg border border-green-700/50 bg-green-900/20 p-4">
+        <h3 class="font-semibold text-green-400 mb-2">Pros</h3>
+        <ul class="list-disc list-inside text-sm text-gray-200 space-y-1">
+          <li>Flexible — works with many race/element combos</li>
+          <li>Forgiving for new players</li>
+          <li>Easy to transition into specialized builds later</li>
+          <li>No rare rolls required to get started</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-red-700/50 bg-red-900/20 p-4">
+        <h3 class="font-semibold text-red-400 mb-2">Cons</h3>
+        <ul class="list-disc list-inside text-sm text-gray-200 space-y-1">
+          <li>B-tier — not optimal for endgame content</li>
+          <li>Lower ceiling than specialized builds</li>
+          <li>Will need rerolls to transition later</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Beginner Progression</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+      <p class="text-gray-200 leading-relaxed">{build.notes}</p>
+      <div class="mt-4 space-y-2 text-sm text-gray-300">
+        <p><span class="text-amber-400 font-medium">Level 1–500:</span> Pick Sword or Katana. Use whatever race and element you roll. Focus on learning the game and leveling.</p>
+        <p><span class="text-amber-400 font-medium">Level 500–1000:</span> Reroll race to Flame/Frost or better. Pick a preferred element. Start thinking about your weapon specialization.</p>
+        <p><span class="text-amber-400 font-medium">Level 1000+:</span> Unlock blessings. Pick a damage blessing. Transition into a specialized build (Katana, Buster, or Sword).</p>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

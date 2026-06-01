@@ -1,0 +1,119 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getBuilds } from '@/lib/data';
+
+const build = getBuilds().find(b => b.slug === 'best-boss-rush-build')!;
+
+const summaryRows = [
+  { label: 'Tier', value: build.tier },
+  { label: 'Weapon', value: build.weapon },
+  { label: 'Race', value: build.race },
+  { label: 'Element', value: build.element },
+  { label: 'Blessing', value: build.blessing },
+  { label: 'Use Case', value: build.useCase },
+];
+
+const title = 'Broken Blade Best Boss Rush Build - Strategy & Setup';
+const description = `Best Boss Rush build in Broken Blade: ${build.weapon} with ${build.race} race, ${build.element} element, and ${build.blessing} blessing. Strategy for consistent Boss Rush clears.`;
+const quickAnswer = `The best Boss Rush build in Broken Blade uses ${build.weapon} with ${build.race} race, ${build.element} element, and ${build.blessing} blessing. This S-tier build is optimized for ${build.useCase}. Prioritize stable clears first, then optimize crit damage.`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Builds', url: '/builds/' },
+  { name: 'Boss Rush Build', url: '/builds/boss-rush-build/' },
+];
+
+const faq = [
+  {
+    question: 'What level should I be for Boss Rush?',
+    answer: 'Aim for at least level 1000 with a fully upgraded weapon and a good blessing before attempting Boss Rush consistently. The content is designed for mid-to-late game players.',
+  },
+  {
+    question: 'Can I do Boss Rush with Katana?',
+    answer: 'While possible, Katana is not optimal for Boss Rush. Buster or Dragon Slayer with the right race and blessing will give you better results due to higher burst damage per hit.',
+  },
+  {
+    question: 'How do I survive in Boss Rush?',
+    answer: 'Prioritize damage reduction and health bonuses while learning. Hel blessing (+60% Health) and Frost race (+20% Damage Reduction) are good starter options. Switch to full DPS once you can clear consistently.',
+  },
+  {
+    question: 'What drops from Boss Rush?',
+    answer: 'Boss Rush drops materials, reroll resources, and endgame progression items. It is the primary farming activity for late-game players looking to optimize their builds.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Full strategy guide for Boss Rush.' },
+  { title: 'Dragon Slayer Reforge', url: '/dragon-slayer-reforge/', description: 'Complete guide to Dragon Slayer Reforge.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Full weapon tier list for Broken Blade.' },
+  { title: 'Blessings Tier List', url: '/blessings-tier-list/', description: 'All blessings ranked for every build.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  summaryRows={summaryRows}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Recommended Setup</h2>
+    <div class="space-y-4">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Weapon</h3>
+        <p class="text-gray-200">{build.weapon} — Dragon Slayer is the preferred endgame option for Boss Rush. Buster is a strong alternative while working toward the Reforge.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Race</h3>
+        <p class="text-gray-200">{build.race} — Aesir provides the strongest overall stats for Boss Rush. Nether gives dedicated Buster Damage bonuses. Both are excellent for clearing.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Element</h3>
+        <p class="text-gray-200">{build.element} — Thunder for crit burst damage, Fire for consistent DPS. Both work well depending on your blessing setup.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Blessing</h3>
+        <p class="text-gray-200">{build.blessing} — Odin for raw damage, Jormungandr for crit with safety, Surtr for attack speed comfort, Hel for tankiness. All are S-tier picks for Boss Rush.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Pros &amp; Cons</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="rounded-lg border border-green-700/50 bg-green-900/20 p-4">
+        <h3 class="font-semibold text-green-400 mb-2">Pros</h3>
+        <ul class="list-disc list-inside text-sm text-gray-200 space-y-1">
+          <li>Highest tier (S) for endgame content</li>
+          <li>Multiple viable blessing combinations</li>
+          <li>Best build for farming materials and rerolls</li>
+          <li>Dragon Slayer Reforge makes it even stronger</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-red-700/50 bg-red-900/20 p-4">
+        <h3 class="font-semibold text-red-400 mb-2">Cons</h3>
+        <ul class="list-disc list-inside text-sm text-gray-200 space-y-1">
+          <li>Requires late-game investment</li>
+          <li>Learning curve for boss patterns</li>
+          <li>Needs good gear to start clearing consistently</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Boss Rush Strategy</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+      <p class="text-gray-200 leading-relaxed">{build.notes}</p>
+      <div class="mt-4 space-y-2 text-sm text-gray-300">
+        <p><span class="text-amber-400 font-medium">Phase 1 — Learning:</span> Bring sustain (Hel blessing, Frost race). Focus on learning boss attack patterns. Prioritize survival over damage.</p>
+        <p><span class="text-amber-400 font-medium">Phase 2 — Clearing:</span> Once you can clear consistently, start optimizing. Switch to damage-focused blessings like Odin or Jormungandr.</p>
+        <p><span class="text-amber-400 font-medium">Phase 3 — Speed:</span> Full DPS setup with crit stacking. Aim for fastest clear times with Aesir, Thunder, and Odin/Jormungandr.</p>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

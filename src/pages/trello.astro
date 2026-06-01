@@ -1,0 +1,96 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import { getGameConfig } from '@/lib/data';
+
+const config = getGameConfig();
+
+const title = 'Broken Blade Trello - Is There a Trello Board?';
+const description = 'Is there a Broken Blade Trello board? Find out where to get game info, updates, and codes through the official Discord and community resources.';
+const quickAnswer = 'There is no official Trello board confirmed for Broken Blade. The best place for updates, roadmaps, and game information is the official Discord server and this wiki.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Trello', url: '/trello/' },
+];
+
+const faq = [
+  {
+    question: 'Does Broken Blade have a Trello?',
+    answer: 'No. There is no official Trello board confirmed for Broken Blade. The developers use Discord for announcements and updates instead.',
+  },
+  {
+    question: 'Where can I find Broken Blade updates?',
+    answer: 'The best places are the official Discord server for real-time updates and this wiki for detailed guides and tier lists. You can also check the Roblox game page for patch notes.',
+  },
+  {
+    question: 'Is there a Broken Blade roadmap?',
+    answer: 'There is no public roadmap. The Discord server is the closest thing to a roadmap, as developers sometimes share upcoming features and plans there.',
+  },
+  {
+    question: 'What alternatives to Trello exist for Broken Blade?',
+    answer: 'The Discord server is the primary alternative for real-time information. This wiki covers all game data including tier lists, builds, codes, and progression guides.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Discord', url: '/discord/', description: 'Official Broken Blade Discord server.' },
+  { title: 'Wiki', url: '/wiki/', description: 'Complete Broken Blade game database.' },
+  { title: 'Updates', url: '/updates/', description: 'Latest Broken Blade update log.' },
+  { title: 'Codes', url: '/codes/', description: 'All active and expired Broken Blade codes.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+  showDisclaimer={false}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">No Official Trello Board</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+      <p class="text-gray-200 leading-relaxed">
+        Broken Blade does not have an official Trello board. Unlike some other Roblox games that use Trello for roadmaps and update tracking, Broken Blade's development team primarily communicates through their Discord server.
+      </p>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Where to Find Information</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <a
+        href="/discord/"
+        class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
+      >
+        <h3 class="font-semibold text-amber-400 mb-2">Official Discord</h3>
+        <p class="text-sm text-gray-300">Real-time updates, code drops, announcements, and community discussion. The fastest way to get game news.</p>
+      </a>
+      <a
+        href="/wiki/"
+        class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
+      >
+        <h3 class="font-semibold text-amber-400 mb-2">This Wiki</h3>
+        <p class="text-sm text-gray-300">Comprehensive game database with tier lists, builds, codes, boss strategies, and progression guides.</p>
+      </a>
+      <a
+        href="/updates/"
+        class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
+      >
+        <h3 class="font-semibold text-amber-400 mb-2">Update Log</h3>
+        <p class="text-sm text-gray-300">Track every game update with detailed change logs and affected content.</p>
+      </a>
+      <a
+        href={config.game.officialRobloxUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
+      >
+        <h3 class="font-semibold text-amber-400 mb-2">Roblox Game Page</h3>
+        <p class="text-sm text-gray-300">Official Roblox page with game description, social links, and update notes.</p>
+      </a>
+    </div>
+  </section>
+</ArticleLayout>

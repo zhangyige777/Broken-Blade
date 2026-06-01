@@ -1,0 +1,31 @@
+---
+interface Props {
+  /** The FAQ question */
+  question: string;
+  /** The FAQ answer (supports inline HTML) */
+  answer: string;
+}
+
+const { question, answer } = Astro.props;
+---
+<details class="group rounded-lg border border-gray-700 bg-gray-800/50">
+  <summary class="flex cursor-pointer items-center justify-between gap-4 px-5 py-4 text-base font-medium text-gray-100 select-none hover:text-amber-400">
+    <span>{question}</span>
+    <svg
+      class="h-5 w-5 shrink-0 text-gray-500 transition-transform group-open:rotate-180"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+        clip-rule="evenodd"
+      />
+    </svg>
+  </summary>
+  <div class="border-t border-gray-700 px-5 py-4 text-sm leading-relaxed text-gray-300">
+    <p set:html={answer} />
+  </div>
+</details>

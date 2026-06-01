@@ -1,0 +1,144 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierTable from '@/components/TierTable.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import {
+  getBlessings,
+  getGlobalFAQs,
+  getPageFAQs,
+  TIER_ORDER,
+} from '@/lib/data';
+
+const allBlessings = getBlessings();
+const sortedBlessings = [...allBlessings].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const globalFAQ = getGlobalFAQs();
+const pageFAQ = getPageFAQs('blessings-tier-list');
+
+const bestBlessing = sortedBlessings[0];
+const bestForBuster = sortedBlessings.find(b => b.bestFor.toLowerCase().includes('buster') || b.bestFor.toLowerCase().includes('damage')) || sortedBlessings[0];
+const bestForBossRush = sortedBlessings.find(b => b.bestFor.toLowerCase().includes('boss rush') || b.bestFor.toLowerCase().includes('burst')) || sortedBlessings[0];
+
+const faq = [
+  ...pageFAQ,
+  {
+    question: 'What is the best blessing in Broken Blade?',
+    answer: `The best blessing overall is <strong>${bestBlessing?.name || 'Odin'}</strong> (${bestBlessing?.tier || 'S'} Tier). It provides the strongest bonuses for general gameplay.`,
+  },
+  {
+    question: 'How do I unlock blessings?',
+    answer: 'Blessings are unlocked through specific in-game milestones, boss drops, or events. See the "How to Unlock" section below for details.',
+  },
+  {
+    question: 'Can I change my blessing?',
+    answer: 'Yes, you can change blessings by using a Blessing Reroll item or completing certain quests that grant a blessing change.',
+  },
+].filter(item => !pageFAQ.some(p => p.question === item.question));
+
+const title = 'Broken Blade Blessings Tier List - Best Blessing for Every Build';
+const description = 'Complete Broken Blade blessings tier list. Best blessing for Buster, Boss Rush, and every weapon type.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Blessings Tier List', url: '/blessings-tier-list/' },
+];
+
+const relatedGuides = [
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons in Broken Blade.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Best builds and strategies for Boss Rush.' },
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'Best races for every build.' },
+  { title: 'Elements Tier List', url: '/elements-tier-list/', description: 'Best elements for damage and crit.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={`The best blessing in Broken Blade is ${bestBlessing?.name || 'Odin'} (${bestBlessing?.tier || 'S'} Tier). For Buster builds, ${bestForBuster?.name || 'Odin'} is ideal. For Boss Rush, ${bestForBossRush?.name || 'Odin'} provides the best burst damage.`}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- Blessing Tier Table -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Blessing Tier List</h2>
+    <TierTable items={sortedBlessings.map(b => ({
+      name: b.name,
+      tier: b.tier,
+      rarity: b.rarity,
+      description: b.bestFor,
+      slug: b.slug,
+      slugPrefix: 'blessings',
+    }))} />
+  </section>
+
+  <!-- Best Blessing Overall -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Blessing Overall</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <h3 class="text-lg font-bold text-white">{bestBlessing?.name}</h3>
+        <TierBadge tier={bestBlessing?.tier || 'S'} />
+        <span class="text-sm text-gray-400">({bestBlessing?.rarity})</span>
+      </div>
+      <p class="text-gray-300 mb-2">{bestBlessing?.bestFor}</p>
+      <p class="text-sm text-gray-400">Drop Rate: {bestBlessing?.dropRate}</p>
+      <p class="text-sm text-gray-400 mt-1">Notes: {bestBlessing?.notes}</p>
+      {bestBlessing?.effects && bestBlessing.effects.length > 0 && (
+        <div class="mt-3">
+          <p class="text-sm font-medium text-gray-200 mb-1">Effects:</p>
+          <ul class="list-disc list-inside text-sm text-gray-400">
+            {bestBlessing.effects.map(e => <li>{e}</li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Best for Buster -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Blessing for Buster</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <h3 class="text-lg font-bold text-white">{bestForBuster?.name}</h3>
+        <TierBadge tier={bestForBuster?.tier || 'S'} />
+      </div>
+      <p class="text-gray-300 mb-2">{bestForBuster?.bestFor}</p>
+      {bestForBuster?.effects && bestForBuster.effects.length > 0 && (
+        <ul class="list-disc list-inside text-sm text-gray-400">
+          {bestForBuster.effects.map(e => <li>{e}</li>)}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <!-- Best for Boss Rush -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Blessing for Boss Rush</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <h3 class="text-lg font-bold text-white">{bestForBossRush?.name}</h3>
+        <TierBadge tier={bestForBossRush?.tier || 'S'} />
+      </div>
+      <p class="text-gray-300 mb-2">{bestForBossRush?.bestFor}</p>
+      {bestForBossRush?.effects && bestForBossRush.effects.length > 0 && (
+        <ul class="list-disc list-inside text-sm text-gray-400">
+          {bestForBossRush.effects.map(e => <li>{e}</li>)}
+        </ul>
+      )}
+    </div>
+  </section>
+
+  <!-- How to Unlock -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">How to Unlock Blessings</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ol class="list-decimal list-inside space-y-3 text-gray-200">
+        <li>Reach the <strong class="text-white">required level</strong> for blessing unlocks.</li>
+        <li>Complete <strong class="text-amber-400">specific quests</strong> or defeat bosses that drop blessing items.</li>
+        <li>Visit the <strong class="text-white">Blessing Shrine</strong> NPC in the main hub.</li>
+        <li>Select and equip your desired blessing from the unlocked options.</li>
+      </ol>
+      <p class="mt-4 text-sm text-gray-400">Tip: Higher rarity blessings are harder to obtain but provide significantly stronger effects.</p>
+    </div>
+  </section>
+</ArticleLayout>

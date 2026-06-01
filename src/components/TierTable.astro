@@ -1,0 +1,56 @@
+---
+import TierBadge from '@/components/TierBadge.astro';
+import RarityBadge from '@/components/RarityBadge.astro';
+
+interface Props {
+  items: {
+    name: string;
+    tier: string;
+    rarity?: string;
+    description: string;
+    slug?: string;
+    slugPrefix?: string;
+  }[];
+  showRarity?: boolean;
+}
+
+const { items, showRarity = true } = Astro.props;
+---
+<div class="overflow-x-auto rounded-lg border border-gray-700">
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="bg-gray-800">
+        <th class="px-4 py-3 text-left font-semibold text-gray-300 w-12">#</th>
+        <th class="px-4 py-3 text-left font-semibold text-gray-300">Name</th>
+        {showRarity && <th class="px-4 py-3 text-left font-semibold text-gray-300">Rarity</th>}
+        <th class="px-4 py-3 text-left font-semibold text-gray-300">Tier</th>
+        <th class="px-4 py-3 text-left font-semibold text-gray-300">Best For</th>
+      </tr>
+    </thead>
+    <tbody>
+      {items.map((item, i) => (
+        <tr class="border-t border-gray-700/50 hover:bg-gray-800/50 transition-colors">
+          <td class="px-4 py-3 text-gray-400">{i + 1}</td>
+          <td class="px-4 py-3 font-medium text-gray-100">
+            {item.slug && item.slugPrefix ? (
+              <a href={`/${item.slugPrefix}/${item.slug}/`} class="hover:text-amber-400 transition-colors">
+                {item.name}
+              </a>
+            ) : (
+              item.name
+            )}
+          </td>
+          {showRarity && (
+            <td class="px-4 py-3">
+              {item.rarity && <RarityBadge rarity={item.rarity} />}
+            </td>
+          )}
+          <td class="px-4 py-3">
+            <TierBadge tier={item.tier} />
+          </td>
+          <td class="px-4 py-3 text-gray-300">{item.description}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

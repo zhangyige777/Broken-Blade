@@ -1,0 +1,13 @@
+---
+import { RARITY_COLORS } from '@/lib/data';
+
+interface Props {
+  rarity: string;
+}
+
+const { rarity } = Astro.props;
+const colorClass = RARITY_COLORS[rarity] || 'bg-gray-500 text-white';
+---
+<span class={`inline-flex items-center rounded px-2 py-0.5 text-xs font-semibold ${colorClass}`}>
+  {rarity}
+</span>

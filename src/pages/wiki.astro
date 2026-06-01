@@ -1,0 +1,116 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import { getGameConfig } from '@/lib/data';
+
+const config = getGameConfig();
+
+const title = 'Broken Blade Wiki - Complete Game Database';
+const description = 'Complete Broken Blade wiki covering all races, elements, blessings, weapons, bosses, codes, builds, and progression guides for the Roblox game.';
+const quickAnswer = `This is the most comprehensive Broken Blade wiki. Browse all races, elements, blessings, weapons, and bosses with tier rankings, drop rates, effects, and build recommendations. Current update: ${config.game.currentUpdate}.`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Wiki', url: '/wiki/' },
+];
+
+const faq = [
+  {
+    question: 'What does this Broken Blade wiki cover?',
+    answer: 'This wiki covers all game data including races, elements, blessings, weapons, bosses, codes, builds, forge guides, Dragon Slayer reforge, boss rush strategies, and progression routes.',
+  },
+  {
+    question: 'Is this wiki up to date?',
+    answer: `Yes. This wiki was last reviewed on ${config.game.lastManualDataReview}. The current game version is "${config.game.currentUpdate}". We verify data regularly against in-game values.`,
+  },
+  {
+    question: 'How do I find specific information?',
+    answer: 'Use the category links below to navigate to specific sections. Each category has detailed pages for every item with stats, tier rankings, and build recommendations.',
+  },
+  {
+    question: 'Is this the official Broken Blade wiki?',
+    answer: 'No. This is a fan-made community wiki. It is not affiliated with or endorsed by the Broken Blade development team.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Codes', url: '/codes/', description: 'All active and expired Broken Blade codes.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'How to beat Boss Rush.' },
+  { title: 'Progression Guide', url: '/progression-guide/', description: 'Full progression route.' },
+];
+
+const wikiCategories = [
+  { name: 'Races', url: '/races/', description: 'All races with drop rates, effects, and tier rankings', icon: '&#x1F3F3;&#xFE0F;' },
+  { name: 'Elements', url: '/elements/', description: 'All elements with effects, drop rates, and tier rankings', icon: '&#x26A1;' },
+  { name: 'Blessings', url: '/blessings/', description: 'All blessings with effects, drop rates, and tier rankings', icon: '&#x2728;' },
+  { name: 'Weapons', url: '/weapons/', description: 'All weapons with stats, recommended builds, and tier rankings', icon: '&#x2694;&#xFE0F;' },
+  { name: 'Bosses', url: '/bosses/', description: 'All bosses with strategies, drops, and level requirements', icon: '&#x1F3AF;' },
+  { name: 'Builds', url: '/builds/', description: 'Optimized builds for every playstyle and game stage', icon: '&#x1F4CA;' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+  showDisclaimer={false}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6">Wiki Categories</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {wikiCategories.map((cat) => (
+        <a
+          href={cat.url}
+          class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
+        >
+          <span class="text-2xl mb-3 block" aria-hidden="true" set:html={cat.icon} />
+          <h3 class="font-semibold text-gray-100 mb-1">{cat.name}</h3>
+          <p class="text-sm text-gray-400">{cat.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Game Overview</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+        <div>
+          <p class="text-gray-400">Game</p>
+          <p class="text-gray-100 font-medium">{config.game.name}</p>
+        </div>
+        <div>
+          <p class="text-gray-400">Platform</p>
+          <p class="text-gray-100 font-medium">{config.game.platform}</p>
+        </div>
+        <div>
+          <p class="text-gray-400">Developer</p>
+          <p class="text-gray-100 font-medium">{config.game.developer}</p>
+        </div>
+        <div>
+          <p class="text-gray-400">Genre</p>
+          <p class="text-gray-100 font-medium">{config.game.genre}</p>
+        </div>
+        <div>
+          <p class="text-gray-400">Max Level</p>
+          <p class="text-gray-100 font-medium">{config.game.maxLevel.toLocaleString()}</p>
+        </div>
+        <div>
+          <p class="text-gray-400">Current Update</p>
+          <p class="text-gray-100 font-medium">{config.game.currentUpdate}</p>
+        </div>
+        <div>
+          <p class="text-gray-400">Online</p>
+          <p class="text-gray-100 font-medium">{config.stats.playing}</p>
+        </div>
+        <div>
+          <p class="text-gray-400">Like Ratio</p>
+          <p class="text-gray-100 font-medium">{config.stats.likeRatio}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

@@ -1,0 +1,62 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import RarityBadge from '@/components/RarityBadge.astro';
+import SummaryTable from '@/components/SummaryTable.astro';
+import { getBlessings, getBlessingBySlug } from '@/lib/data';
+
+export function getStaticPaths() {
+  const blessings = getBlessings();
+  return blessings.map(blessing => ({ params: { slug: blessing.slug }, props: { blessing } }));
+}
+
+const { blessing } = Astro.props;
+
+const title = `${blessing.name} Blessing - Broken Blade Blessing Guide`;
+const description = `${blessing.name} blessing guide for Broken Blade Roblox. Tier ${blessing.tier}, ${blessing.rarity} rarity, effects, best builds, and how to unlock.`;
+
+const summaryRows = [
+  { label: 'Rarity', value: blessing.rarity },
+  { label: 'Drop Rate', value: blessing.dropRate },
+  { label: 'Tier', value: blessing.tier },
+  { label: 'Best For', value: blessing.bestFor },
+];
+
+const faq = [
+  { question: `Should I keep ${blessing.name}?`, answer: blessing.tier === 'S' || blessing.tier === 'A' ? `Yes, ${blessing.name} is a ${blessing.tier}-tier blessing and worth keeping for ${blessing.bestFor}.` : `${blessing.name} is a ${blessing.tier}-tier blessing. Consider rerolling if you have a clear build direction, but it is usable for ${blessing.bestFor}.` },
+  { question: `How do I get ${blessing.name}?`, answer: `${blessing.name} can be obtained through blessing rerolls unlocked at level 1000. Defeat the Gelaros boss for reroll chances.` },
+  { question: `What builds work best with ${blessing.name}?`, answer: `${blessing.name} is best for ${blessing.bestFor}. Effects: ${blessing.effects.join(', ')}.` },
+];
+
+const relatedGuides = [
+  { title: 'Blessings Tier List', url: '/blessings-tier-list/', description: 'Complete Broken Blade blessings tier list and rankings.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Find the best weapon for your blessing.' },
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'Best race for your build.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Boss Rush strategies and builds.' },
+];
+---
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={`${blessing.name} is a ${blessing.rarity} ${blessing.tier}-tier blessing in Broken Blade, best for ${blessing.bestFor}.`}
+  breadcrumbItems={[{ name: 'Home', url: '/' }, { name: 'Blessings', url: '/blessings/' }, { name: blessing.name, url: `/blessings/${blessing.slug}/` }]}
+  summaryRows={summaryRows}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">{blessing.name} Effects</h2>
+    <ul class="space-y-2">
+      {blessing.effects.map((effect) => (
+        <li class="flex items-center gap-2 text-gray-200">
+          <span class="text-amber-400">&#x2713;</span> {effect}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-xl font-bold text-white mb-4">Notes</h2>
+    <p class="text-gray-300">{blessing.notes}</p>
+  </section>
+</ArticleLayout>

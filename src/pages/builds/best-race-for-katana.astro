@@ -1,0 +1,120 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getRaces, getWeapons, TIER_ORDER } from '@/lib/data';
+
+const races = getRaces();
+const weapons = getWeapons();
+const katanaRaces = races.filter(r => ['aesir', 'vanir'].includes(r.id));
+
+const title = 'Broken Blade Best Race for Katana - Race Comparison';
+const description = 'Compare the best races for Katana builds in Broken Blade: Vanir vs Aesir. Detailed stats, effects, and recommendations for Katana players.';
+const quickAnswer = 'The best race for Katana in Broken Blade depends on your priorities. Vanir is the dedicated Katana race with +25% Katana Damage. Aesir is the strongest overall race with crit bonuses that scale well with Katana. Both are excellent choices.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Builds', url: '/builds/' },
+  { name: 'Best Race for Katana', url: '/builds/best-race-for-katana/' },
+];
+
+const faq = [
+  {
+    question: 'Is Vanir or Aesir better for Katana?',
+    answer: 'Vanir is the best dedicated Katana race (+75% Damage, +25% Katana Damage). Aesir is the best overall race (+75% Damage, +10% Crit Chance, +100% Crit Damage) that works with every weapon type. If you are committed to Katana, Vanir is slightly better for raw Katana DPS. If you want flexibility, Aesir is the stronger pick.',
+  },
+  {
+    question: 'Can I use other races with Katana?',
+    answer: 'Yes, but Vanir and Aesir are the top picks. Nether and Elf are weapon-specific for Buster and Sword respectively. For Katana, any race with +Damage will work while you hunt for Vanir or Aesir.',
+  },
+  {
+    question: 'How rare is Vanir?',
+    answer: 'Vanir is a Legendary race, which means it comes from the Legendary pool. It is significantly more common than Aesir (Mythical, 0.03% drop rate). If you cannot get Aesir, Vanir is an excellent and more accessible alternative.',
+  },
+  {
+    question: 'Should I reroll for Aesir as a Katana player?',
+    answer: 'Only if you have spare rerolls. Vanir is very close in performance for Katana-specific builds. Spending many rerolls chasing Aesir may not be worth it when Vanir is already an A-tier pick for Katana.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Best Katana Build', url: '/builds/best-katana-build/', description: 'Full Katana build with weapon, element, and blessing.' },
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'All races ranked by tier.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Full weapon tier list for Broken Blade.' },
+];
+
+const summaryRows = [
+  { label: 'Katana Weapon', value: 'Katana (A-tier)' },
+  { label: 'Best Dedicated Race', value: 'Vanir (Legendary, A-tier)' },
+  { label: 'Best Overall Race', value: 'Aesir (Mythical, S-tier)' },
+  { label: 'Recommended Element', value: 'Wind, Fire, or Thunder' },
+  { label: 'Recommended Blessing', value: 'Loki, Jormungandr, or Odin' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  summaryRows={summaryRows}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6">Race Comparison for Katana</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full rounded-lg border border-gray-700 overflow-hidden">
+        <thead>
+          <tr class="bg-gray-800">
+            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-300">Race</th>
+            <th class="px-4 py-3 text-center text-sm font-semibold text-gray-300">Tier</th>
+            <th class="px-4 py-3 text-center text-sm font-semibold text-gray-300">Rarity</th>
+            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-300">Effects</th>
+            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-300">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {katanaRaces.map((race, i) => (
+            <tr class={`${i % 2 === 0 ? 'bg-gray-800/30' : 'bg-gray-800/60'} border-t border-gray-700`}>
+              <td class="px-4 py-3">
+                <a href={`/races/${race.slug}/`} class="text-gray-100 font-medium hover:text-amber-400 transition-colors">{race.name}</a>
+              </td>
+              <td class="px-4 py-3 text-center">
+                <TierBadge tier={race.tier} />
+              </td>
+              <td class="px-4 py-3 text-center text-sm text-gray-300">{race.rarity}</td>
+              <td class="px-4 py-3 text-sm text-gray-200">
+                <ul class="list-disc list-inside space-y-0.5">
+                  {race.effects.map((effect) => (
+                    <li>{effect}</li>
+                  ))}
+                </ul>
+              </td>
+              <td class="px-4 py-3 text-sm text-gray-400">{race.notes}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6">Recommendation</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <h3 class="text-lg font-bold text-amber-400">Vanir</h3>
+          <span class="text-xs text-gray-400">Best for Katana specifically</span>
+        </div>
+        <p class="text-sm text-gray-200">Vanir gives +25% Katana Damage on top of +75% base Damage. It is the dedicated Katana race and is Legendary rarity, making it more accessible than Aesir.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <h3 class="text-lg font-bold text-gray-100">Aesir</h3>
+          <span class="text-xs text-gray-400">Best overall race</span>
+        </div>
+        <p class="text-sm text-gray-200">Aesir provides +75% Damage, +10% Crit Chance, +100% Crit Damage, and +5% Attack Speed. It works with every weapon type but is Mythical (0.03% drop rate), making it much harder to obtain.</p>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

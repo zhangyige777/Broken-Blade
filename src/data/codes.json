@@ -1,0 +1,30 @@
+{
+  "lastChecked": "2026-06-01",
+  "codes": [
+    {
+      "code": "BB5KLIKES",
+      "reward": "8 Beherit",
+      "status": "active",
+      "source": "Public code pages and community reports",
+      "addedDate": "2026-05-29",
+      "notes": "Added around the Excalibur update."
+    },
+    {
+      "code": "BBDC5K",
+      "reward": "3 Holy",
+      "status": "limited",
+      "source": "Public code pages and community reports",
+      "addedDate": "2026-05-29",
+      "notes": "Reported as limited to 5,000 claims."
+    },
+    {
+      "code": "BB1KLIKES",
+      "reward": "10 Thunder",
+      "status": "active",
+      "source": "Public code pages and community reports",
+      "addedDate": "2026-05-25",
+      "notes": "First milestone code widely listed for Broken Blade."
+    }
+  ],
+  "expired": []
+}

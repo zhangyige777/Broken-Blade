@@ -1,0 +1,89 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getBuilds, TIER_ORDER } from '@/lib/data';
+
+const builds = getBuilds().sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+
+const title = 'Broken Blade Builds - Best Build for Every Playstyle';
+const description = 'Complete Broken Blade builds guide: best Katana build, Buster build, Boss Rush build, beginner build, and more with weapon, race, element, and blessing recommendations.';
+const quickAnswer = 'The best overall build in Broken Blade is the Boss Rush Build (S-tier) using Dragon Slayer or Buster with Aesir/Nether race, Thunder/Fire element, and Odin/Jormungandr blessing. For beginners, the Beginner Build with Sword or Katana is the safest starting point.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Builds', url: '/builds/' },
+];
+
+const faq = [
+  {
+    question: 'What is the best build in Broken Blade?',
+    answer: 'The best overall build is the Boss Rush Build (S-tier) using Dragon Slayer or Buster with Aesir or Nether race, Thunder or Fire element, and Odin, Jormungandr, Surtr, or Hel blessing. It is optimized for late-game Boss Rush clears.',
+  },
+  {
+    question: 'What build should beginners use in Broken Blade?',
+    answer: 'Beginners should use the Beginner Build with Sword or Katana, any Legendary or higher race (Flame, Frost, Giant), Fire/Life/Wind/Earth element, and any damage blessing after level 1000. Keep any damage roll while learning, then specialize after level 500.',
+  },
+  {
+    question: 'How do I choose the right build in Broken Blade?',
+    answer: 'Pick a weapon type first (Sword, Katana, or Buster), then match your race and blessing to that weapon. Sword users should aim for Elf race, Katana users for Vanir, and Buster users for Nether. Your element should complement your crit or DPS needs.',
+  },
+  {
+    question: 'Can I change my build later in Broken Blade?',
+    answer: 'Yes. You can reroll races at level 500 (via Nivaron boss), elements at level 500 (via Velik boss), and blessings at level 1000 (via Gelaros boss). Plan your rerolls carefully and do not waste them before committing to a weapon type.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons in Broken Blade.' },
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'All races ranked by tier and best use.' },
+  { title: 'Blessings Tier List', url: '/blessings-tier-list/', description: 'All blessings ranked for every build.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'How to beat Boss Rush with optimal builds.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6">All Builds</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {builds.map((build) => (
+        <a
+          href={`/builds/${build.slug}/`}
+          class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
+        >
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold text-gray-100">{build.name}</h3>
+            <TierBadge tier={build.tier} size="md" />
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <div>
+              <span class="text-gray-400">Weapon:</span>
+              <span class="text-gray-200 ml-1">{build.weapon}</span>
+            </div>
+            <div>
+              <span class="text-gray-400">Race:</span>
+              <span class="text-gray-200 ml-1">{build.race}</span>
+            </div>
+            <div>
+              <span class="text-gray-400">Element:</span>
+              <span class="text-gray-200 ml-1">{build.element}</span>
+            </div>
+            <div>
+              <span class="text-gray-400">Blessing:</span>
+              <span class="text-gray-200 ml-1">{build.blessing}</span>
+            </div>
+          </div>
+          <p class="text-xs text-gray-400 mt-3">
+            <span class="text-amber-400">Best for:</span> {build.useCase}
+          </p>
+        </a>
+      ))}
+    </div>
+  </section>
+</ArticleLayout>

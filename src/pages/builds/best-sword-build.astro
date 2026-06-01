@@ -1,0 +1,119 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getBuilds } from '@/lib/data';
+
+const build = getBuilds().find(b => b.slug === 'best-sword-build')!;
+
+const summaryRows = [
+  { label: 'Tier', value: build.tier },
+  { label: 'Weapon', value: build.weapon },
+  { label: 'Race', value: build.race },
+  { label: 'Element', value: build.element },
+  { label: 'Blessing', value: build.blessing },
+  { label: 'Use Case', value: build.useCase },
+];
+
+const title = 'Broken Blade Best Sword Build - Weapon, Race, Element & Blessing';
+const description = `Best Sword build in Broken Blade: ${build.weapon} with ${build.race} race, ${build.element} element, and ${build.blessing} blessing. Optimized for ${build.useCase}.`;
+const quickAnswer = `The best Sword build in Broken Blade uses ${build.weapon} with ${build.race} race, ${build.element} element, and ${build.blessing} blessing. This A-tier build is the safest path for ${build.useCase} with simple upgrades.`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Builds', url: '/builds/' },
+  { name: 'Best Sword Build', url: '/builds/best-sword-build/' },
+];
+
+const faq = [
+  {
+    question: 'Is the Sword build good for beginners?',
+    answer: 'Yes. The Sword build is the safest and most straightforward path for new players. It offers simple upgrades and works well for general progression without requiring rare rolls.',
+  },
+  {
+    question: 'What is the endgame goal for Sword builds?',
+    answer: 'The endgame goal is to upgrade to Broken Blade or Excalibur through the reforge and update content paths. Both are S-tier Swords that significantly outperform the base Sword.',
+  },
+  {
+    question: 'Elf or Aesir for Sword builds?',
+    answer: 'Elf is the dedicated Sword race (+25% Sword Damage). Aesir is stronger overall with crit bonuses. Pick Elf if you are committed to Swords, Aesir if you want flexibility.',
+  },
+  {
+    question: 'What blessing works best with Sword?',
+    answer: 'Odin is the strongest blessing for any build. Heimdall is a good bridge into crit builds (+7% Crit Chance, +20% Crit Damage). Tyr offers lifesteal for sustained combat.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Best Swords', url: '/best-swords/', description: 'Full weapon tier list for Broken Blade.' },
+  { title: 'Dragon Slayer Reforge', url: '/dragon-slayer-reforge/', description: 'Complete guide to Dragon Slayer Reforge.' },
+  { title: 'Forge Guide', url: '/forge-guide/', description: 'How the forge works and upgrade routes.' },
+  { title: 'Progression Guide', url: '/progression-guide/', description: 'Full progression route from start to endgame.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  summaryRows={summaryRows}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Recommended Setup</h2>
+    <div class="space-y-4">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Weapon</h3>
+        <p class="text-gray-200">{build.weapon} — Start with the base Sword and upgrade through the forge. The endgame targets are Excalibur and Broken Blade, both S-tier Swords.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Race</h3>
+        <p class="text-gray-200">{build.race} — Elf gives +25% Sword Damage with the base +75% Damage. Aesir provides stronger overall stats with crit bonuses for late-game scaling.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Element</h3>
+        <p class="text-gray-200">{build.element} — Fire for reliable damage throughout progression. Thunder for crit-based scaling in late-game content.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Blessing</h3>
+        <p class="text-gray-200">{build.blessing} — Odin for maximum damage output. Heimdall as a crit bridge. Tyr for balanced sustain. Jormungandr for boss rush with safety.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Pros &amp; Cons</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="rounded-lg border border-green-700/50 bg-green-900/20 p-4">
+        <h3 class="font-semibold text-green-400 mb-2">Pros</h3>
+        <ul class="list-disc list-inside text-sm text-gray-200 space-y-1">
+          <li>Safest upgrade path in the game</li>
+          <li>Clear endgame goals (Excalibur, Broken Blade)</li>
+          <li>Works for general progression</li>
+          <li>Straightforward weapon mechanics</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-red-700/50 bg-red-900/20 p-4">
+        <h3 class="font-semibold text-red-400 mb-2">Cons</h3>
+        <ul class="list-disc list-inside text-sm text-gray-200 space-y-1">
+          <li>A-tier, not S-tier without endgame upgrades</li>
+          <li>Less specialized than Katana or Buster</li>
+          <li>Requires reforge investment for top performance</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Progression Notes</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+      <p class="text-gray-200 leading-relaxed">{build.notes}</p>
+      <div class="mt-4 space-y-2 text-sm text-gray-300">
+        <p><span class="text-amber-400 font-medium">Early game:</span> Use base Sword. Focus on leveling to 500. The Sword is the most forgiving starting weapon.</p>
+        <p><span class="text-amber-400 font-medium">Mid game:</span> Reroll to Elf or Aesir. Pick Fire element. Upgrade your Sword through the forge.</p>
+        <p><span class="text-amber-400 font-medium">Late game:</span> Farm Odin or Heimdall blessing. Work toward Excalibur or Broken Blade through the reforge and update paths.</p>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

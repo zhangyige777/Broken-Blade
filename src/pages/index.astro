@@ -1,0 +1,228 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import JsonLd from '@/components/JsonLd.astro';
+import GuideCard from '@/components/GuideCard.astro';
+import FAQItem from '@/components/FAQItem.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import {
+  getGameConfig,
+  getActiveCodes,
+  getRaces,
+  getElements,
+  getBlessings,
+  getWeapons,
+  getBuilds,
+  getGlobalFAQs,
+  generateBreadcrumbSchema,
+  generateFAQSchema,
+  generateVideoGameSchema,
+  TIER_ORDER,
+} from '@/lib/data';
+
+const config = getGameConfig();
+const activeCodes = getActiveCodes();
+const races = getRaces().sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const elements = getElements().sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const blessings = getBlessings().sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const weapons = getWeapons().sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const builds = getBuilds();
+const globalFAQ = getGlobalFAQs().slice(0, 8);
+
+const bestWeapon = weapons[0];
+const bestRace = races[0];
+const bestElement = elements[0];
+const bestBlessing = blessings[0];
+const bestBuild = builds.find(b => b.tier === 'S');
+
+const breadcrumbSchema = generateBreadcrumbSchema([{ name: 'Home', url: '/' }]);
+const videoGameSchema = generateVideoGameSchema();
+const faqSchema = generateFAQSchema(globalFAQ);
+
+const title = 'Broken Blade Wiki: Codes, Best Swords, Races, Blessings, Elements & Progression';
+const description = config.seo.siteDescription;
+---
+
+<BaseLayout title={title} description={description}>
+  <JsonLd schema={[breadcrumbSchema, videoGameSchema, faqSchema]} />
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 border-b border-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-16 md:py-24 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+        Broken Blade Wiki &amp; Guide
+      </h1>
+      <p class="text-lg text-gray-300 max-w-2xl mx-auto mb-8">
+        Codes, best swords, races, elements, blessings, boss rush guides, forge guidance, builds, and progression routes.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/codes/" class="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-6 py-3 font-semibold text-gray-900 transition-colors hover:bg-amber-400">
+          &#x1F3F7;&#xFE0F; Active Codes
+        </a>
+        <a href="/best-swords/" class="inline-flex items-center gap-2 rounded-lg border border-gray-600 px-6 py-3 font-semibold text-gray-200 transition-colors hover:border-amber-500 hover:text-amber-400">
+          &#x2694;&#xFE0F; Best Swords
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Answer -->
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-2xl font-bold text-white mb-6">Quick Answer — Best in Broken Blade</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <p class="text-xs text-gray-400 mb-1">Best Sword</p>
+        <p class="font-bold text-white">{bestWeapon?.name || 'Dragon Slayer'}</p>
+        <TierBadge tier={bestWeapon?.tier || 'S'} />
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <p class="text-xs text-gray-400 mb-1">Best Race</p>
+        <p class="font-bold text-white">{bestRace?.name || 'Aesir'}</p>
+        <TierBadge tier={bestRace?.tier || 'S'} />
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <p class="text-xs text-gray-400 mb-1">Best Element</p>
+        <p class="font-bold text-white">{bestElement?.name || 'Thunder'}</p>
+        <TierBadge tier={bestElement?.tier || 'S'} />
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <p class="text-xs text-gray-400 mb-1">Best Blessing</p>
+        <p class="font-bold text-white">{bestBlessing?.name || 'Odin'}</p>
+        <TierBadge tier={bestBlessing?.tier || 'S'} />
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <p class="text-xs text-gray-400 mb-1">Best Build</p>
+        <p class="font-bold text-white">{bestBuild?.name || 'Boss Rush Build'}</p>
+        <TierBadge tier={bestBuild?.tier || 'S'} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Active Codes -->
+  <section class="max-w-6xl mx-auto px-4 py-8">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold text-white">&#x1F3F7;&#xFE0F; Active Codes</h2>
+      <a href="/codes/" class="text-sm text-amber-400 hover:text-amber-300 transition-colors">View all &rarr;</a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {activeCodes.slice(0, 3).map((code) => (
+        <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+          <p class="font-mono font-bold text-amber-400 text-lg mb-1">{code.code}</p>
+          <p class="text-sm text-gray-300">{code.reward}</p>
+          <p class="text-xs text-gray-500 mt-2">
+            {code.status === 'limited' && <span class="text-yellow-400">&#x26A0; Limited</span>}
+            {code.status === 'active' && <span class="text-green-400">&#x2713; Active</span>}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Tier List Preview -->
+  <section class="max-w-6xl mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold text-white mb-6">Tier List Preview</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Races -->
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold text-white">Races</h3>
+          <a href="/races-tier-list/" class="text-xs text-amber-400 hover:text-amber-300">Full list &rarr;</a>
+        </div>
+        <div class="flex flex-col gap-2">
+          {races.slice(0, 5).map((race) => (
+            <div class="flex items-center justify-between text-sm">
+              <a href={`/races/${race.slug}/`} class="text-gray-200 hover:text-amber-400 transition-colors">{race.name}</a>
+              <TierBadge tier={race.tier} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <!-- Elements -->
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold text-white">Elements</h3>
+          <a href="/elements-tier-list/" class="text-xs text-amber-400 hover:text-amber-300">Full list &rarr;</a>
+        </div>
+        <div class="flex flex-col gap-2">
+          {elements.slice(0, 5).map((el) => (
+            <div class="flex items-center justify-between text-sm">
+              <a href={`/elements/${el.slug}/`} class="text-gray-200 hover:text-amber-400 transition-colors">{el.name}</a>
+              <TierBadge tier={el.tier} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <!-- Blessings -->
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold text-white">Blessings</h3>
+          <a href="/blessings-tier-list/" class="text-xs text-amber-400 hover:text-amber-300">Full list &rarr;</a>
+        </div>
+        <div class="flex flex-col gap-2">
+          {blessings.slice(0, 5).map((bl) => (
+            <div class="flex items-center justify-between text-sm">
+              <a href={`/blessings/${bl.slug}/`} class="text-gray-200 hover:text-amber-400 transition-colors">{bl.name}</a>
+              <TierBadge tier={bl.tier} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Progression Route -->
+  <section class="max-w-6xl mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold text-white mb-6">Progression Route</h2>
+    <div class="flex flex-wrap items-center gap-2 md:gap-4 text-sm md:text-base">
+      <div class="rounded-lg bg-amber-500/10 border border-amber-500/30 px-4 py-2 text-amber-300 font-medium">Start</div>
+      <span class="text-gray-500">&rarr;</span>
+      <div class="rounded-lg bg-gray-800 px-4 py-2 text-gray-200">Level 500</div>
+      <span class="text-gray-500">&rarr;</span>
+      <div class="rounded-lg bg-gray-800 px-4 py-2 text-gray-200">Race/Element Reroll</div>
+      <span class="text-gray-500">&rarr;</span>
+      <div class="rounded-lg bg-gray-800 px-4 py-2 text-gray-200">Level 1000</div>
+      <span class="text-gray-500">&rarr;</span>
+      <div class="rounded-lg bg-gray-800 px-4 py-2 text-gray-200">Blessing</div>
+      <span class="text-gray-500">&rarr;</span>
+      <div class="rounded-lg bg-gray-800 px-4 py-2 text-gray-200">Boss Rush</div>
+      <span class="text-gray-500">&rarr;</span>
+      <div class="rounded-lg bg-gray-800 px-4 py-2 text-gray-200">Reforge</div>
+    </div>
+    <a href="/progression-guide/" class="inline-block mt-4 text-sm text-amber-400 hover:text-amber-300 transition-colors">Full progression guide &rarr;</a>
+  </section>
+
+  <!-- Popular Guides -->
+  <section class="max-w-6xl mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold text-white mb-6">Popular Guides</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <GuideCard title="Best Swords" description="Tier list of all weapons in Broken Blade, including best options for beginners and boss rush." href="/best-swords/" icon="&#x2694;&#xFE0F;" />
+      <GuideCard title="Boss Rush Guide" description="How to beat Boss Rush with recommended builds, weapons, and strategies." href="/boss-rush-guide/" icon="&#x1F3AF;" />
+      <GuideCard title="Dragon Slayer Reforge" description="Complete guide to Dragon Slayer Reforge: requirements, materials, and best builds." href="/dragon-slayer-reforge/" icon="&#x1F409;" />
+      <GuideCard title="Forge Guide" description="How the forge works, upgrade routes, and best items to forge first." href="/forge-guide/" icon="&#x1F525;" />
+      <GuideCard title="Level 15000 Guide" description="Fast leveling route to max level with best farming stages and builds." href="/level-15000-guide/" icon="&#x1F4C8;" />
+      <GuideCard title="Beginner Guide" description="Everything new Broken Blade players need to know to get started." href="/beginner-guide/" icon="&#x1F4DA;" />
+    </div>
+  </section>
+
+  <!-- Latest Updates -->
+  <section class="max-w-6xl mx-auto px-4 py-8">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold text-white">Latest Updates</h2>
+      <a href="/updates/" class="text-sm text-amber-400 hover:text-amber-300 transition-colors">All updates &rarr;</a>
+    </div>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+      <p class="text-sm text-gray-400">Current Update</p>
+      <p class="font-bold text-white text-lg">{config.game.currentUpdate}</p>
+      <p class="text-sm text-gray-400 mt-1">Max Level: {config.game.maxLevel.toLocaleString()} &middot; Online: {config.stats.playing}</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-2xl font-bold text-white mb-6">Frequently Asked Questions</h2>
+    <div class="max-w-4xl flex flex-col gap-3">
+      {globalFAQ.map((faq) => (
+        <FAQItem question={faq.question} answer={faq.answer} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

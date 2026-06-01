@@ -1,0 +1,95 @@
+---
+/**
+ * Header — sticky site header with logo and navigation.
+ * Dark theme with amber accent for Broken Blade.
+ */
+---
+<header class="sticky top-0 z-50 border-b border-gray-800 bg-gray-950/95 backdrop-blur supports-[backdrop-filter]:bg-gray-950/80">
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 text-gray-100" aria-label="Broken Blade Guide home">
+      <span class="text-2xl" aria-hidden="true">&#x2694;&#xFE0F;</span>
+      <div class="flex flex-col leading-tight">
+        <span class="text-lg font-bold tracking-tight">Broken Blade</span>
+        <span class="text-xs font-medium text-amber-400">Guide &amp; Wiki</span>
+      </div>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Main navigation">
+      <a href="/codes/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Codes
+      </a>
+      <a href="/best-swords/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Best Swords
+      </a>
+      <a href="/races-tier-list/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Races
+      </a>
+      <a href="/blessings-tier-list/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Blessings
+      </a>
+      <a href="/builds/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Builds
+      </a>
+      <a href="/wiki/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Wiki
+      </a>
+    </nav>
+
+    <!-- Mobile menu button -->
+    <button
+      type="button"
+      class="inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:bg-gray-800 hover:text-amber-400 md:hidden"
+      aria-label="Toggle navigation menu"
+      id="mobile-menu-btn"
+    >
+      <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile nav -->
+  <nav
+    id="mobile-menu"
+    class="hidden border-t border-gray-800 bg-gray-950 px-4 pb-4 md:hidden"
+    aria-label="Mobile navigation"
+  >
+    <div class="flex flex-col gap-1 pt-2">
+      <a href="/codes/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Codes
+      </a>
+      <a href="/best-swords/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Best Swords
+      </a>
+      <a href="/races-tier-list/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Races
+      </a>
+      <a href="/blessings-tier-list/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Blessings
+      </a>
+      <a href="/elements-tier-list/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Elements
+      </a>
+      <a href="/builds/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Builds
+      </a>
+      <a href="/boss-rush-guide/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Boss Rush
+      </a>
+      <a href="/wiki/" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:bg-gray-800 hover:text-amber-400">
+        Wiki
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script is:inline>
+  document.getElementById('mobile-menu-btn')?.addEventListener('click', function () {
+    var menu = document.getElementById('mobile-menu');
+    if (menu) {
+      menu.classList.toggle('hidden');
+    }
+  });
+</script>

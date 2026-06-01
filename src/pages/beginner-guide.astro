@@ -1,0 +1,240 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import {
+  getWeapons,
+  getRaces,
+  getBuilds,
+  getPageFAQs,
+  TIER_ORDER,
+} from '@/lib/data';
+
+const weapons = getWeapons();
+const races = getRaces();
+const builds = getBuilds();
+const pageFAQ = getPageFAQs('beginner-guide');
+
+const sortedWeapons = [...weapons].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const sortedRaces = [...races].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+
+const beginnerWeapon = sortedWeapons.filter(w => w.tier === 'B' || w.tier === 'C')[0] || sortedWeapons[sortedWeapons.length > 1 ? 1 : 0];
+const bestEarlyBuild = builds.find(b => b.tier === 'B' || b.tier === 'A') || builds[0];
+
+const faq = [
+  ...pageFAQ,
+  {
+    question: 'What should I do first in Broken Blade?',
+    answer: 'Complete the tutorial, redeem all active <a href="/codes/" class="text-amber-400">codes</a> for free rewards, then start farming low-level bosses for weapon drops and XP.',
+  },
+  {
+    question: 'What is the best weapon for beginners?',
+    answer: beginnerWeapon
+      ? `<strong>${beginnerWeapon.name}</strong> (${beginnerWeapon.tier}-Tier) is a great starting weapon. It is relatively easy to obtain and provides solid damage for early progression.`
+      : 'Any weapon you get from early boss drops will work. Focus on upgrading it at the forge.',
+  },
+  {
+    question: 'Should I save my gems or spend them?',
+    answer: 'Save gems for Race Rerolls and Element Rerolls at Level 500. Do not spend gems on cosmetic items early on. Prioritize build optimization.',
+  },
+  {
+    question: 'How do I get stronger quickly?',
+    answer: 'Focus on three things: (1) upgrade your weapon at the forge, (2) level up by farming bosses, and (3) optimize your race and element at Level 500.',
+  },
+].filter(item => !pageFAQ.some(p => p.question === item.question));
+
+const title = 'Broken Blade Beginner Guide - Getting Started';
+const description = 'Everything new Broken Blade players need to know. Getting started guide with tips, progression, and first build recommendations.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Beginner Guide', url: '/beginner-guide/' },
+];
+
+const relatedGuides = [
+  { title: 'Progression Guide', url: '/progression-guide/', description: 'Complete progression route from beginner to endgame.' },
+  { title: 'Codes', url: '/codes/', description: 'All working Broken Blade codes for free rewards.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons in Broken Blade.' },
+  { title: 'Races Tier List', url: '/races-tier-list/', description: 'Best races for every build.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer="Welcome to Broken Blade! Start by completing the tutorial, redeeming all active codes for free rewards, and farming early bosses for weapon drops. Focus on leveling and upgrading your weapon first. At Level 500, reroll your race and element for optimal stats."
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- Getting Started -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Getting Started</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <p class="text-gray-200 leading-relaxed mb-4">
+        Broken Blade is a Roblox action RPG where you collect weapons, optimize your build with race/element/blessing, and progress through increasingly challenging content. Here is everything you need to know to get started.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="rounded-lg bg-gray-900/50 p-4 text-center">
+          <p class="text-3xl mb-2">&#x2694;&#xFE0F;</p>
+          <p class="font-bold text-white text-sm">Collect Weapons</p>
+          <p class="text-xs text-gray-400 mt-1">Farm bosses for powerful swords</p>
+        </div>
+        <div class="rounded-lg bg-gray-900/50 p-4 text-center">
+          <p class="text-3xl mb-2">&#x2728;</p>
+          <p class="font-bold text-white text-sm">Optimize Your Build</p>
+          <p class="text-xs text-gray-400 mt-1">Race, element, and blessing</p>
+        </div>
+        <div class="rounded-lg bg-gray-900/50 p-4 text-center">
+          <p class="text-3xl mb-2">&#x1F3AF;</p>
+          <p class="font-bold text-white text-sm">Beat Boss Rush</p>
+          <p class="text-xs text-gray-400 mt-1">Endgame challenge mode</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- First Steps -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">First Steps</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="space-y-4">
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">1</div>
+          <div>
+            <h3 class="font-bold text-white">Complete the Tutorial</h3>
+            <p class="text-sm text-gray-300">The tutorial teaches you basic combat, movement, and game mechanics. Do not skip it.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">2</div>
+          <div>
+            <h3 class="font-bold text-white">Redeem All Codes</h3>
+            <p class="text-sm text-gray-300">Visit our <a href="/codes/" class="text-amber-400 hover:text-amber-300">codes page</a> and redeem all active codes for free gems, boosts, and items. These give you a huge head start.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">3</div>
+          <div>
+            <h3 class="font-bold text-white">Farm Your First Weapon</h3>
+            <p class="text-sm text-gray-300">Defeat low-level bosses for weapon drops. Any weapon is fine to start with. Upgrade it at the forge as you level.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="rounded-full bg-amber-500/20 border border-amber-500/40 w-8 h-8 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">4</div>
+          <div>
+            <h3 class="font-bold text-white">Start Leveling</h3>
+            <p class="text-sm text-gray-300">Kill enemies and complete quests to level up. Higher levels unlock better gear, abilities, and content.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Early Progression -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Early Progression</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <div class="space-y-4">
+        <div class="flex items-center justify-between p-3 rounded bg-gray-900/50">
+          <div>
+            <p class="font-medium text-white">Level 1 - 100</p>
+            <p class="text-sm text-gray-400">Complete quests and learn the basics</p>
+          </div>
+          <span class="text-amber-400 text-sm font-medium">Tutorial Phase</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded bg-gray-900/50">
+          <div>
+            <p class="font-medium text-white">Level 100 - 300</p>
+            <p class="text-sm text-gray-400">Farm low-level bosses for weapon drops</p>
+          </div>
+          <span class="text-orange-400 text-sm font-medium">Early Farming</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded bg-gray-900/50">
+          <div>
+            <p class="font-medium text-white">Level 300 - 500</p>
+            <p class="text-sm text-gray-400">Upgrade weapon, prepare for rerolls</p>
+          </div>
+          <span class="text-yellow-400 text-sm font-medium">Pre-Reroll</span>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded bg-gray-900/50 border border-amber-500/30">
+          <div>
+            <p class="font-medium text-white">Level 500</p>
+            <p class="text-sm text-gray-400">Reroll race and element for optimal stats</p>
+          </div>
+          <span class="text-amber-400 text-sm font-bold">Key Milestone</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- First Build Recommendation -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">First Build Recommendation</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <p class="text-gray-200 mb-4">
+        For your first build, focus on accessibility and consistency over raw power. You can optimize further as you progress.
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="rounded-lg bg-gray-900/50 p-3 text-center">
+          <p class="text-xs text-gray-400 mb-1">Weapon</p>
+          <p class="font-bold text-white text-sm">{beginnerWeapon?.name || 'Any B-Tier weapon'}</p>
+          <p class="text-xs text-gray-500">{beginnerWeapon?.tier || 'B'}-Tier</p>
+        </div>
+        <div class="rounded-lg bg-gray-900/50 p-3 text-center">
+          <p class="text-xs text-gray-400 mb-1">Race</p>
+          <p class="font-bold text-white text-sm">{bestEarlyBuild?.race || sortedRaces.find(r => r.tier === 'A')?.name || 'Any A-Tier'}</p>
+        </div>
+        <div class="rounded-lg bg-gray-900/50 p-3 text-center">
+          <p class="text-xs text-gray-400 mb-1">Element</p>
+          <p class="font-bold text-white text-sm">{bestEarlyBuild?.element || 'Any A-Tier'}</p>
+        </div>
+        <div class="rounded-lg bg-gray-900/50 p-3 text-center">
+          <p class="text-xs text-gray-400 mb-1">Blessing</p>
+          <p class="font-bold text-white text-sm">{bestEarlyBuild?.blessing || 'Unlock at Lv 1000'}</p>
+        </div>
+      </div>
+      <p class="mt-4 text-sm text-gray-400">This build is easy to obtain and performs well for early-mid game content. Optimize further as you progress through the <a href="/progression-guide/" class="text-amber-400 hover:text-amber-300">Progression Guide</a>.</p>
+    </div>
+  </section>
+
+  <!-- Tips for New Players -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Tips for New Players</h2>
+    <div class="space-y-3">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 flex items-start gap-3">
+        <span class="text-amber-400 font-bold mt-0.5">&#9733;</span>
+        <div>
+          <p class="font-medium text-white">Save your gems for rerolls</p>
+          <p class="text-sm text-gray-400 mt-1">Do not spend gems on cosmetics early on. You will need them for Race and Element rerolls at Level 500.</p>
+        </div>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 flex items-start gap-3">
+        <span class="text-amber-400 font-bold mt-0.5">&#9733;</span>
+        <div>
+          <p class="font-medium text-white">Focus on one weapon</p>
+          <p class="text-sm text-gray-400 mt-1">Put all upgrade materials into one weapon. A single strong weapon is better than several weak ones.</p>
+        </div>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 flex items-start gap-3">
+        <span class="text-amber-400 font-bold mt-0.5">&#9733;</span>
+        <div>
+          <p class="font-medium text-white">Redeem codes regularly</p>
+          <p class="text-sm text-gray-400 mt-1">New codes are released frequently. Bookmark our <a href="/codes/" class="text-amber-400 hover:text-amber-300">codes page</a> and check back often.</p>
+        </div>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 flex items-start gap-3">
+        <span class="text-amber-400 font-bold mt-0.5">&#9733;</span>
+        <div>
+          <p class="font-medium text-white">Join the community</p>
+          <p class="text-sm text-gray-400 mt-1">Join the official Discord for updates, codes, and tips from experienced players.</p>
+        </div>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4 flex items-start gap-3">
+        <span class="text-amber-400 font-bold mt-0.5">&#9733;</span>
+        <div>
+          <p class="font-medium text-white">Do not rush reforging</p>
+          <p class="text-sm text-gray-400 mt-1">Reforge materials are rare. Wait until you have an S-Tier weapon before using them. See the <a href="/forge-guide/" class="text-amber-400 hover:text-amber-300">Forge Guide</a> for details.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

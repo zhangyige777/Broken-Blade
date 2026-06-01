@@ -1,0 +1,168 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierTable from '@/components/TierTable.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import {
+  getWeapons,
+  getWeaponsByType,
+  getBuilds,
+  getGlobalFAQs,
+  getPageFAQs,
+  TIER_ORDER,
+} from '@/lib/data';
+
+const allWeapons = getWeapons();
+const sortedWeapons = [...allWeapons].sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+const busterWeapons = getWeaponsByType('Buster');
+const katanaWeapons = getWeaponsByType('Katana');
+const builds = getBuilds();
+const globalFAQ = getGlobalFAQs();
+const pageFAQ = getPageFAQs('best-swords');
+
+const bestWeapon = sortedWeapons[0];
+const bestBuster = busterWeapons.sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier))[0];
+const bestKatana = katanaWeapons.sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier))[0];
+const bestForBossRush = builds.find(b => b.useCase.toLowerCase().includes('boss rush')) || builds[0];
+
+const faq = [
+  ...pageFAQ,
+  {
+    question: 'What is the best sword in Broken Blade?',
+    answer: `The best sword overall is <strong>${bestWeapon?.name || 'Dragon Slayer'}</strong> (Tier ${bestWeapon?.tier || 'S'}). It offers the highest damage output and versatility across all game modes.`,
+  },
+  {
+    question: 'What is the best sword for beginners?',
+    answer: 'Beginners should focus on weapons that are easy to obtain and provide consistent damage. Check the tier table above and look for high-tier weapons with simple obtain methods.',
+  },
+  {
+    question: 'Should I reforge my sword?',
+    answer: 'Reforge is worth it for top-tier weapons. See our <a href="/dragon-slayer-reforge/" class="text-amber-400">Dragon Slayer Reforge guide</a> for details on whether reforging is right for your weapon.',
+  },
+].filter(item => !pageFAQ.some(p => p.question === item.question));
+
+const title = 'Broken Blade Best Swords Tier List - Best Weapons & Builds';
+const description = 'Find the best swords in Broken Blade Roblox, including the best weapons for Boss Rush, Dragon Slayer Reforge, beginners, Buster builds, and Katana builds.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Best Swords', url: '/best-swords/' },
+];
+
+const relatedGuides = [
+  { title: 'Dragon Slayer Reforge', url: '/dragon-slayer-reforge/', description: 'Complete guide to Dragon Slayer Reforge.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'Best builds and strategies for Boss Rush.' },
+  { title: 'Blessings Tier List', url: '/blessings-tier-list/', description: 'Best blessings for every build.' },
+  { title: 'Forge Guide', url: '/forge-guide/', description: 'How the forge works and upgrade routes.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={`The best sword in Broken Blade is ${bestWeapon?.name || 'Dragon Slayer'} (${bestWeapon?.tier || 'S'} Tier). For Buster builds, ${bestBuster?.name || 'Buster Blade'} is the top pick. For Katana builds, ${bestKatana?.name || 'Shadow Katana'} leads the meta.`}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- All Weapons Tier Table -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">All Weapons Tier List</h2>
+    <TierTable items={sortedWeapons.map(w => ({
+      name: w.name,
+      tier: w.tier,
+      rarity: w.type,
+      description: w.bestFor,
+      slug: w.slug,
+      slugPrefix: 'weapons',
+    }))} />
+  </section>
+
+  <!-- Best Sword for Beginners -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Sword for Beginners</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      {(() => {
+        const beginnerWeapons = sortedWeapons.filter(w =>
+          w.obtainMethod.toLowerCase().includes('boss') ||
+          w.obtainMethod.toLowerCase().includes('drop') ||
+          w.tier === 'B' || w.tier === 'C'
+        );
+        const beginnerPick = beginnerWeapons[0];
+        return beginnerPick ? (
+          <div>
+            <div class="flex items-center gap-3 mb-3">
+              <h3 class="text-lg font-bold text-white">{beginnerPick.name}</h3>
+              <TierBadge tier={beginnerPick.tier} />
+            </div>
+            <p class="text-gray-300 mb-2">{beginnerPick.bestFor}</p>
+            <p class="text-sm text-gray-400">Obtain: {beginnerPick.obtainMethod}</p>
+            <p class="text-sm text-gray-400 mt-1">Notes: {beginnerPick.notes}</p>
+          </div>
+        ) : (
+          <p class="text-gray-300">Check the tier table above for beginner-friendly options in the B-C tier range.</p>
+        );
+      })()}
+    </div>
+  </section>
+
+  <!-- Best for Boss Rush -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Sword for Boss Rush</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      {bestForBossRush ? (
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="text-lg font-bold text-white">{bestForBossRush.weapon}</h3>
+            <TierBadge tier={bestForBossRush.tier} />
+          </div>
+          <p class="text-gray-300 mb-2">{bestForBossRush.notes}</p>
+          <p class="text-sm text-gray-400">Recommended Race: {bestForBossRush.race}</p>
+          <p class="text-sm text-gray-400">Recommended Element: {bestForBossRush.element}</p>
+          <p class="text-sm text-gray-400">Recommended Blessing: {bestForBossRush.blessing}</p>
+        </div>
+      ) : (
+        <p class="text-gray-300">See the <a href="/boss-rush-guide/" class="text-amber-400 hover:text-amber-300">Boss Rush Guide</a> for detailed build recommendations.</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Best Buster -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Buster Sword</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      {bestBuster ? (
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="text-lg font-bold text-white">{bestBuster.name}</h3>
+            <TierBadge tier={bestBuster.tier} />
+          </div>
+          <p class="text-gray-300 mb-2">{bestBuster.bestFor}</p>
+          <p class="text-sm text-gray-400">Obtain: {bestBuster.obtainMethod}</p>
+          <p class="text-sm text-gray-400">Recommended Race: {bestBuster.recommendedRace}</p>
+        </div>
+      ) : (
+        <p class="text-gray-300">No Buster-type weapons found in the current data.</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Best Katana -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Best Katana</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      {bestKatana ? (
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="text-lg font-bold text-white">{bestKatana.name}</h3>
+            <TierBadge tier={bestKatana.tier} />
+          </div>
+          <p class="text-gray-300 mb-2">{bestKatana.bestFor}</p>
+          <p class="text-sm text-gray-400">Obtain: {bestKatana.obtainMethod}</p>
+          <p class="text-sm text-gray-400">Recommended Race: {bestKatana.recommendedRace}</p>
+        </div>
+      ) : (
+        <p class="text-gray-300">No Katana-type weapons found in the current data.</p>
+      )}
+    </div>
+  </section>
+</ArticleLayout>

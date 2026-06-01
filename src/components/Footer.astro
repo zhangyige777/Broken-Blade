@@ -1,0 +1,39 @@
+---
+/**
+ * Footer — site footer with links, disclaimer, and copyright.
+ * Dark theme with amber accent.
+ */
+const currentYear = new Date().getFullYear();
+const { getGameConfig } = await import('@/lib/data');
+const config = getGameConfig();
+---
+<footer class="border-t border-gray-800 bg-gray-950">
+  <div class="mx-auto max-w-6xl px-4 py-10">
+    <!-- Top row: links -->
+    <nav class="mb-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm" aria-label="Footer navigation">
+      <a href="/about/" class="text-gray-400 transition-colors hover:text-amber-400">
+        About
+      </a>
+      <a href="/privacy-policy/" class="text-gray-400 transition-colors hover:text-amber-400">
+        Privacy Policy
+      </a>
+      <a href="/terms/" class="text-gray-400 transition-colors hover:text-amber-400">
+        Terms
+      </a>
+      <a href="/contact/" class="text-gray-400 transition-colors hover:text-amber-400">
+        Contact
+      </a>
+    </nav>
+
+    <!-- Fan-site disclaimer -->
+    <p class="mx-auto mb-6 max-w-2xl text-center text-xs leading-relaxed text-gray-500">
+      &#x2694;&#xFE0F; Broken Blade Guide &amp; Wiki &mdash; Fan-made companion site.
+      Not affiliated with Roblox Corporation or {config.game.developer}.
+    </p>
+
+    <!-- Copyright -->
+    <p class="text-center text-xs text-gray-500">
+      &copy; {currentYear} Broken Blade Guide. All rights reserved.
+    </p>
+  </div>
+</footer>

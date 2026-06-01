@@ -1,0 +1,87 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getBlessings, TIER_ORDER } from '@/lib/data';
+
+const blessings = getBlessings().sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+
+const title = 'Broken Blade Blessings - All Blessings & Effects';
+const description = 'All blessings in Broken Blade ranked by tier with drop rates, effects, and best use cases. Complete blessing guide for builds and reroll decisions.';
+const quickAnswer = `There are ${blessings.length} blessings in Broken Blade. The best blessing is Odin (S-tier, Mythical) with +200% Damage, +75% Crit Damage, +25% Buster Damage, and +12% Attack Speed. Blessings unlock at level 1000.`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Blessings', url: '/blessings/' },
+];
+
+const faq = [
+  {
+    question: 'What is the best blessing in Broken Blade?',
+    answer: 'Odin is the strongest blessing overall (+200% Damage, +75% Crit Damage, +25% Buster Damage, +12% Attack Speed). For Boss Rush, Jormungandr is excellent. For Buster builds, Thor and Surtr are top picks.',
+  },
+  {
+    question: 'When do blessings unlock?',
+    answer: 'Blessings unlock at level 1000. You can reroll blessings by defeating the Gelaros boss and through trading.',
+  },
+  {
+    question: 'When should I start rerolling blessings?',
+    answer: 'Wait until level 1000 when blessings unlock. Do not waste rerolls before you know your weapon type and build direction.',
+  },
+  {
+    question: 'What blessing for Buster builds?',
+    answer: 'Odin, Thor, Surtr, Hel, and Fenrir are the best blessings for Buster. All of them provide Buster Damage bonuses. Odin is the strongest overall, Thor is the best budget option.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Blessings Tier List', url: '/blessings-tier-list/', description: 'All blessings ranked by tier.' },
+  { title: 'Races', url: '/races/', description: 'All races with drop rates and effects.' },
+  { title: 'Elements', url: '/elements/', description: 'All elements with effects and drop rates.' },
+  { title: 'Weapons', url: '/weapons/', description: 'All weapons with stats and recommended builds.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6">All Blessings ({blessings.length})</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {blessings.map((blessing) => (
+        <a
+          href={`/blessings/${blessing.slug}/`}
+          class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
+        >
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold text-gray-100">{blessing.name}</h3>
+            <div class="flex items-center gap-2">
+              <TierBadge tier={blessing.tier} />
+              <span class="text-xs text-gray-400">{blessing.rarity}</span>
+            </div>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">Drop Rate:</span>
+            <span class="text-sm text-gray-200 ml-1">{blessing.dropRate}</span>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-amber-400">Best For:</span>
+            <span class="text-sm text-gray-200 ml-1">{blessing.bestFor}</span>
+          </div>
+          <div>
+            <span class="text-xs text-gray-400">Effects:</span>
+            <div class="flex flex-wrap gap-1 mt-1">
+              {blessing.effects.map((effect) => (
+                <span class="inline-block rounded bg-gray-700 px-2 py-0.5 text-xs text-gray-300">{effect}</span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</ArticleLayout>

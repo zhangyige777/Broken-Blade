@@ -1,0 +1,191 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import SummaryTable from '@/components/SummaryTable.astro';
+import {
+  getWeapons,
+  getBuilds,
+  getBosses,
+  getPageFAQs,
+  TIER_ORDER,
+} from '@/lib/data';
+
+const weapons = getWeapons();
+const builds = getBuilds();
+const bosses = getBosses();
+const pageFAQ = getPageFAQs('boss-rush-guide');
+
+const bestBuild = builds.find(b => b.useCase.toLowerCase().includes('boss rush')) || builds.find(b => b.tier === 'S') || builds[0];
+const bossRushBosses = bosses.filter(b => b.bestFor.toLowerCase().includes('boss rush') || b.bestFor.toLowerCase().includes('rush'));
+
+const recommendedWeapon = weapons.find(w => w.name === bestBuild?.weapon) || weapons.find(w => w.tier === 'S');
+
+const buildSummary = bestBuild ? [
+  { label: 'Weapon', value: bestBuild.weapon },
+  { label: 'Race', value: bestBuild.race },
+  { label: 'Element', value: bestBuild.element },
+  { label: 'Blessing', value: bestBuild.blessing },
+  { label: 'Build Tier', value: bestBuild.tier },
+  { label: 'Use Case', value: bestBuild.useCase },
+] : [
+  { label: 'Weapon', value: recommendedWeapon?.name || 'Best S-Tier Weapon' },
+  { label: 'Race', value: 'Best S-Tier Race' },
+  { label: 'Element', value: 'Best S-Tier Element' },
+  { label: 'Blessing', value: 'Best S-Tier Blessing' },
+];
+
+const faq = [
+  ...pageFAQ,
+  {
+    question: 'What is Boss Rush in Broken Blade?',
+    answer: 'Boss Rush is an endgame challenge mode where you fight a series of bosses in sequence. It requires strong gear, optimized builds, and good strategy to complete.',
+  },
+  {
+    question: 'What level do I need for Boss Rush?',
+    answer: 'You should be at least Level 1000 with a fully upgraded weapon and good race/element/blessing combination before attempting Boss Rush.',
+  },
+  {
+    question: 'What are the Boss Rush rewards?',
+    answer: 'Boss Rush rewards include exclusive weapons, rare materials for reforging, gems, and cosmetic items. The harder the difficulty, the better the rewards.',
+  },
+].filter(item => !pageFAQ.some(p => p.question === item.question));
+
+const title = 'Broken Blade Boss Rush Guide - Best Builds & Strategies';
+const description = 'Complete Broken Blade Boss Rush guide with recommended builds, best weapon, race, element, blessing, rewards, and mistakes to avoid.';
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Boss Rush Guide', url: '/boss-rush-guide/' },
+];
+
+const relatedGuides = [
+  { title: 'Dragon Slayer Reforge', url: '/dragon-slayer-reforge/', description: 'Complete guide to Dragon Slayer Reforge.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Tier list of all weapons in Broken Blade.' },
+  { title: 'Blessings Tier List', url: '/blessings-tier-list/', description: 'Best blessings for every build.' },
+  { title: 'Forge Guide', url: '/forge-guide/', description: 'How the forge works and upgrade routes.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={`The best Boss Rush build uses ${bestBuild?.weapon || 'the top S-Tier weapon'} with ${bestBuild?.race || 'the best race'}, ${bestBuild?.element || 'the best element'}, and ${bestBuild?.blessing || 'the best blessing'}. Focus on burst damage and survivability.`
+  }
+  breadcrumbItems={breadcrumbItems}
+  summaryRows={buildSummary}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <!-- Requirements -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Requirements</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ul class="space-y-3 text-gray-200">
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">&#10003;</span>
+          <span><strong class="text-white">Level:</strong> Minimum Level 1000 recommended for standard Boss Rush. Higher levels required for harder difficulties.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">&#10003;</span>
+          <span><strong class="text-white">Weapon:</strong> A Tier or higher weapon, fully upgraded.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">&#10003;</span>
+          <span><strong class="text-white">Race:</strong> S or A Tier race for optimal stat bonuses.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">&#10003;</span>
+          <span><strong class="text-white">Element &amp; Blessing:</strong> Should complement your weapon type and build strategy.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Recommended Build -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Recommended Build</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <SummaryTable rows={buildSummary} caption="Best Boss Rush Build" />
+      {bestBuild?.notes && (
+        <p class="mt-4 text-sm text-gray-400">Notes: {bestBuild.notes}</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Rewards -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Boss Rush Rewards</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      {bossRushBosses.length > 0 ? (
+        <div class="space-y-4">
+          {bossRushBosses.map(boss => (
+            <div class="border-b border-gray-700/50 pb-4 last:border-0 last:pb-0">
+              <h3 class="font-bold text-white mb-1">{boss.name}</h3>
+              <p class="text-sm text-gray-400 mb-2">Level Requirement: {boss.levelRequirement}</p>
+              <div class="flex flex-wrap gap-2">
+                {boss.drops.map(drop => (
+                  <span class="inline-block rounded bg-amber-500/10 border border-amber-500/30 px-3 py-1 text-xs text-amber-300">
+                    {drop}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p class="text-gray-300">Boss Rush rewards include exclusive weapons, rare materials, gems, and cosmetics. Higher difficulties yield better rewards.</p>
+      )}
+    </div>
+  </section>
+
+  <!-- Strategy Tips -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Strategy Tips</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-6">
+      <ul class="space-y-3 text-gray-200">
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">1.</span>
+          <span><strong class="text-white">Learn boss attack patterns</strong> — memorize when bosses use their strongest attacks so you can dodge them.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">2.</span>
+          <span><strong class="text-white">Maximize burst damage</strong> — use your strongest abilities during boss vulnerability windows.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">3.</span>
+          <span><strong class="text-white">Bring healing items</strong> — always carry potions or recovery items before entering Boss Rush.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">4.</span>
+          <span><strong class="text-white">Optimize your build</strong> — use the recommended weapon, race, element, and blessing combination above.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-amber-400 font-bold mt-0.5">5.</span>
+          <span><strong class="text-white">Upgrade your weapon fully</strong> — a fully upgraded weapon makes a massive difference in Boss Rush.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Mistakes to Avoid -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-bold mb-4 text-white">Common Mistakes to Avoid</h2>
+    <div class="space-y-3">
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <p class="font-medium text-red-300">Entering Boss Rush under-leveled</p>
+        <p class="text-sm text-gray-400 mt-1">Make sure you meet the level requirement. Being under-leveled will waste your attempt and rewards.</p>
+      </div>
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <p class="font-medium text-red-300">Using an unoptimized build</p>
+        <p class="text-sm text-gray-400 mt-1">Random builds will underperform. Use the recommended build above for the best results.</p>
+      </div>
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <p class="font-medium text-red-300">Ignoring boss mechanics</p>
+        <p class="text-sm text-gray-400 mt-1">Each boss has unique attack patterns. Learn them before rushing in.</p>
+      </div>
+      <div class="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
+        <p class="font-medium text-red-300">Forgetting to heal</p>
+        <p class="text-sm text-gray-400 mt-1">Always keep an eye on your health bar and use healing items proactively.</p>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

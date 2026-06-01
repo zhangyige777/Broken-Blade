@@ -1,0 +1,119 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getBuilds } from '@/lib/data';
+
+const build = getBuilds().find(b => b.slug === 'best-buster-build')!;
+
+const summaryRows = [
+  { label: 'Tier', value: build.tier },
+  { label: 'Weapon', value: build.weapon },
+  { label: 'Race', value: build.race },
+  { label: 'Element', value: build.element },
+  { label: 'Blessing', value: build.blessing },
+  { label: 'Use Case', value: build.useCase },
+];
+
+const title = 'Broken Blade Best Buster Build - Weapon, Race, Element & Blessing';
+const description = `Best Buster build in Broken Blade: ${build.weapon} with ${build.race} race, ${build.element} element, and ${build.blessing} blessing. Optimized for ${build.useCase}.`;
+const quickAnswer = `The best Buster build in Broken Blade uses ${build.weapon} with ${build.race} race, ${build.element} element, and ${build.blessing} blessing. This S-tier build is designed for ${build.useCase}. Stack Buster bonuses when you can, but do not ignore survivability.`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Builds', url: '/builds/' },
+  { name: 'Best Buster Build', url: '/builds/best-buster-build/' },
+];
+
+const faq = [
+  {
+    question: 'Is Buster good in Broken Blade?',
+    answer: 'Yes. Buster is one of the strongest weapon types in Broken Blade, especially for boss damage. It pairs exceptionally well with Nether or Aesir race and multiple top-tier blessings.',
+  },
+  {
+    question: 'What race is best for Buster in Broken Blade?',
+    answer: 'Nether is the best dedicated race for Buster builds (+75% Damage, +25% Buster Damage). Aesir is the best overall race for crit-based Buster setups. Both are excellent choices.',
+  },
+  {
+    question: 'What blessing should I use with Buster?',
+    answer: 'Odin is the strongest blessing overall (+200% Damage, +75% Crit Damage, +25% Buster Damage). Thor, Surtr, Hel, and Fenrir are all excellent alternatives for Buster builds.',
+  },
+  {
+    question: 'Buster vs Dragon Slayer — which is better?',
+    answer: 'Dragon Slayer is the upgraded version of the Buster path and is S-tier. Use Buster as your main weapon while working toward the Dragon Slayer Reforge. Both are viable for boss rush content.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Dragon Slayer Reforge', url: '/dragon-slayer-reforge/', description: 'Complete guide to Dragon Slayer Reforge.' },
+  { title: 'Best Swords', url: '/best-swords/', description: 'Full weapon tier list for Broken Blade.' },
+  { title: 'Boss Rush Guide', url: '/boss-rush-guide/', description: 'How to beat Boss Rush with optimal setups.' },
+  { title: 'Forge Guide', url: '/forge-guide/', description: 'How the forge works and upgrade routes.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  summaryRows={summaryRows}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Recommended Setup</h2>
+    <div class="space-y-4">
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Weapon</h3>
+        <p class="text-gray-200">{build.weapon} — Best weapon family for blessing synergy. High damage per hit makes it ideal for boss content.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Race</h3>
+        <p class="text-gray-200">{build.race} — Nether gives +25% Buster Damage on top of the base +75% Damage. Aesir provides the strongest crit scaling for Buster builds.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Element</h3>
+        <p class="text-gray-200">{build.element} — Fire for consistent damage, Thunder for crit-based burst damage against bosses.</p>
+      </div>
+      <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+        <h3 class="font-semibold text-amber-400 mb-2">Blessing</h3>
+        <p class="text-gray-200">{build.blessing} — All of these blessings provide Buster Damage bonuses. Odin is the strongest overall. Hel is the tankiest option. Fenrir adds sustain without sacrificing much damage.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Pros &amp; Cons</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="rounded-lg border border-green-700/50 bg-green-900/20 p-4">
+        <h3 class="font-semibold text-green-400 mb-2">Pros</h3>
+        <ul class="list-disc list-inside text-sm text-gray-200 space-y-1">
+          <li>S-tier for boss damage</li>
+          <li>Multiple viable blessing options</li>
+          <li>Best blessing synergy of any weapon type</li>
+          <li>Dragon Slayer Reforge upgrade path</li>
+        </ul>
+      </div>
+      <div class="rounded-lg border border-red-700/50 bg-red-900/20 p-4">
+        <h3 class="font-semibold text-red-400 mb-2">Cons</h3>
+        <ul class="list-disc list-inside text-sm text-gray-200 space-y-1">
+          <li>Slower attack speed than Katana</li>
+          <li>Requires good survivability stats</li>
+          <li>Less effective for early farming</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-4">Progression Notes</h2>
+    <div class="rounded-lg border border-gray-700 bg-gray-800/50 p-4">
+      <p class="text-gray-200 leading-relaxed">{build.notes}</p>
+      <div class="mt-4 space-y-2 text-sm text-gray-300">
+        <p><span class="text-amber-400 font-medium">Early game:</span> Use Buster from the forge. Focus on leveling to 500.</p>
+        <p><span class="text-amber-400 font-medium">Mid game:</span> Reroll race to Nether or Aesir. Pick Fire or Thunder element.</p>
+        <p><span class="text-amber-400 font-medium">Late game:</span> Farm for Odin, Thor, Surtr, or Hel blessing. Work toward Dragon Slayer Reforge for maximum boss damage.</p>
+      </div>
+    </div>
+  </section>
+</ArticleLayout>

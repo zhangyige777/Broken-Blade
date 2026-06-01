@@ -1,0 +1,11 @@
+{
+  "lastChecked": "2026-06-01",
+  "items": [
+    { "id": "broken-blade", "slug": "broken-blade", "name": "Broken Blade", "type": "Sword", "tier": "S", "bestFor": "Endgame identity weapon and reforge route", "obtainMethod": "Reforge path and late-game materials", "recommendedRace": "Elf or Aesir", "recommendedElement": "Fire or Thunder", "recommendedBlessing": "Odin or Jormungandr", "notes": "The namesake weapon should be treated as a long-term reforge goal." },
+    { "id": "dragon-slayer", "slug": "dragon-slayer", "name": "Dragon Slayer", "type": "Buster", "tier": "S", "bestFor": "Dragon Slayer reforge, boss rush, heavy DPS", "obtainMethod": "Eclipse / reforge event route", "recommendedRace": "Nether or Aesir", "recommendedElement": "Fire or Thunder", "recommendedBlessing": "Odin, Thor, Surtr, Hel, or Fenrir", "notes": "Best content cluster for low-competition SEO." },
+    { "id": "excalibur", "slug": "excalibur", "name": "Excalibur", "type": "Sword", "tier": "S", "bestFor": "Excalibur update route and late-game sword builds", "obtainMethod": "Excalibur update content", "recommendedRace": "Elf or Aesir", "recommendedElement": "Thunder", "recommendedBlessing": "Odin or Heimdall", "notes": "Use an update-specific page if more data is confirmed." },
+    { "id": "katana", "slug": "katana", "name": "Katana", "type": "Katana", "tier": "A", "bestFor": "Fast leveling and mobile-friendly combat", "obtainMethod": "Forge and weapon progression", "recommendedRace": "Vanir or Aesir", "recommendedElement": "Wind, Fire, or Thunder", "recommendedBlessing": "Loki, Jormungandr, or Odin", "notes": "Fast and forgiving for active grinding." },
+    { "id": "buster", "slug": "buster", "name": "Buster", "type": "Buster", "tier": "A", "bestFor": "High damage bossing", "obtainMethod": "Forge and weapon progression", "recommendedRace": "Nether or Aesir", "recommendedElement": "Fire or Thunder", "recommendedBlessing": "Thor, Surtr, Hel, Fenrir, or Odin", "notes": "Best weapon family for blessing synergy." },
+    { "id": "sword", "slug": "sword", "name": "Sword", "type": "Sword", "tier": "A", "bestFor": "Beginner progression", "obtainMethod": "Starter and forge route", "recommendedRace": "Elf or Aesir", "recommendedElement": "Fire", "recommendedBlessing": "Tyr, Heimdall, or Odin", "notes": "Most straightforward route for new players." }
+  ]
+}

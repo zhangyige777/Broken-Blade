@@ -1,0 +1,87 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import TierBadge from '@/components/TierBadge.astro';
+import { getElements, TIER_ORDER } from '@/lib/data';
+
+const elements = getElements().sort((a, b) => TIER_ORDER.indexOf(a.tier) - TIER_ORDER.indexOf(b.tier));
+
+const title = 'Broken Blade Elements - All Elements & Effects';
+const description = 'All elements in Broken Blade ranked by tier with drop rates, effects, and best use cases. Complete element guide for builds and reroll decisions.';
+const quickAnswer = `There are ${elements.length} elements in Broken Blade. The best element is Thunder (S-tier, Mythical) with +50% Crit Damage for crit builds. Fire is the most reliable damage element (+50% Damage). Wind is great for fast weapons like Katana.`;
+
+const breadcrumbItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Elements', url: '/elements/' },
+];
+
+const faq = [
+  {
+    question: 'What is the best element in Broken Blade?',
+    answer: 'Thunder is the best element overall (S-tier) with +50% Crit Damage, ideal for crit builds. Fire is the most reliable damage element (+50% Damage) and works with any build.',
+  },
+  {
+    question: 'When do elements unlock?',
+    answer: 'Elements unlock at level 500. You can reroll elements by defeating the Velik boss and through trading.',
+  },
+  {
+    question: 'Can I change my element?',
+    answer: 'Yes. You can reroll elements by defeating the Velik boss and through trading. Target Fire or Thunder for most builds.',
+  },
+  {
+    question: 'Which element for Katana?',
+    answer: 'Wind (+15% Attack Speed) feels the best with Katana. Fire (+50% Damage) is the most reliable. Thunder (+50% Crit Damage) scales best in late-game with crit builds.',
+  },
+];
+
+const relatedGuides = [
+  { title: 'Elements Tier List', url: '/elements-tier-list/', description: 'All elements ranked by tier.' },
+  { title: 'Races', url: '/races/', description: 'All races with drop rates and effects.' },
+  { title: 'Blessings', url: '/blessings/', description: 'All blessings with effects and drop rates.' },
+  { title: 'Weapons', url: '/weapons/', description: 'All weapons with stats and recommended builds.' },
+];
+---
+
+<ArticleLayout
+  title={title}
+  description={description}
+  quickAnswer={quickAnswer}
+  breadcrumbItems={breadcrumbItems}
+  faq={faq}
+  relatedGuides={relatedGuides}
+>
+  <section class="mb-8">
+    <h2 class="text-2xl font-bold text-white mb-6">All Elements ({elements.length})</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {elements.map((element) => (
+        <a
+          href={`/elements/${element.slug}/`}
+          class="rounded-lg border border-gray-700 bg-gray-800/50 p-5 transition-colors hover:border-amber-500/50 hover:bg-gray-800 block"
+        >
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-semibold text-gray-100">{element.name}</h3>
+            <div class="flex items-center gap-2">
+              <TierBadge tier={element.tier} />
+              <span class="text-xs text-gray-400">{element.rarity}</span>
+            </div>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">Drop Rate:</span>
+            <span class="text-sm text-gray-200 ml-1">{element.dropRate}</span>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-amber-400">Best For:</span>
+            <span class="text-sm text-gray-200 ml-1">{element.bestFor}</span>
+          </div>
+          <div>
+            <span class="text-xs text-gray-400">Effects:</span>
+            <div class="flex flex-wrap gap-1 mt-1">
+              {element.effects.map((effect) => (
+                <span class="inline-block rounded bg-gray-700 px-2 py-0.5 text-xs text-gray-300">{effect}</span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</ArticleLayout>
