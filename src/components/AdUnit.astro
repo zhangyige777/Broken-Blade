@@ -1,0 +1,90 @@
+---
+/**
+ * AdUnit — Reusable ad wrapper with responsive layout.
+ * Slots: "header-banner", "sidebar", "native-content", "content-bottom", "social-bar"
+ */
+interface Props {
+  slot: 'header-banner' | 'sidebar' | 'native-content' | 'content-bottom' | 'social-bar';
+  class?: string;
+}
+
+const { slot: adSlot, class: className = '' } = Astro.props;
+---
+
+{adSlot === 'header-banner' && (
+  <div class={`w-full flex justify-center py-3 bg-gray-900/50 border-b border-gray-800 ${className}`}>
+    <div class="ad-container">
+      <!-- Banner 728x90 (desktop) -->
+      <div class="hidden md:block">
+        <script is:inline>
+          atOptions = {
+            'key' : 'ec4017c926401038a58776391662548f',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script is:inline src="https://tolerateshyrenamed.com/ec4017c926401038a58776391662548f/invoke.js"></script>
+      </div>
+      <!-- Social Bar 320x50 (mobile) -->
+      <div class="block md:hidden">
+        <script is:inline>
+          atOptions = {
+            'key' : '40b6c3e1e2cce3008a48cd49f6e4ed43',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script is:inline src="https://tolerateshyrenamed.com/40b6c3e1e2cce3008a48cd49f6e4ed43/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+)}
+
+{adSlot === 'sidebar' && (
+  <div class={`hidden lg:block ${className}`}>
+    <div class="sticky top-20 rounded-lg border border-gray-800 bg-gray-900/50 overflow-hidden flex items-center justify-center">
+      <!-- Banner 300x250 -->
+      <script is:inline>
+        atOptions = {
+          'key' : '5226e973bf091c409ed633dcd6cdbe1e',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script is:inline src="https://tolerateshyrenamed.com/5226e973bf091c409ed633dcd6cdbe1e/invoke.js"></script>
+    </div>
+  </div>
+)}
+
+{adSlot === 'native-content' && (
+  <div class={`w-full flex justify-center my-8 ${className}`}>
+    <div class="rounded-lg border border-gray-800 bg-gray-900/30 overflow-hidden">
+      <script is:inline async="async" data-cfasync="false" src="https://tolerateshyrenamed.com/4c915c83b0f28876744520d6f8763426/invoke.js"></script>
+      <div id="container-4c915c83b0f28876744520d6f8763426"></div>
+    </div>
+  </div>
+)}
+
+{adSlot === 'content-bottom' && (
+  <div class={`w-full flex justify-center my-8 ${className}`}>
+    <div class="ad-container">
+      <!-- Banner 300x250 at bottom of content -->
+      <script is:inline>
+        atOptions = {
+          'key' : '5226e973bf091c409ed633dcd6cdbe1e',
+          'format' : 'iframe',
+          'height' : 250,
+          'width' : 300,
+          'params' : {}
+        };
+      </script>
+      <script is:inline src="https://tolerateshyrenamed.com/5226e973bf091c409ed633dcd6cdbe1e/invoke.js"></script>
+    </div>
+  </div>
+)}

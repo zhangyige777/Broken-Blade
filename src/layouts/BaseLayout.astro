@@ -1,6 +1,7 @@
 ---
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
+import AdUnit from '@/components/AdUnit.astro';
 import { getGameConfig } from '@/lib/data';
 import '@/styles/global.css';
 
@@ -55,9 +56,13 @@ const hasGA = gaMeasurementId && !gaMeasurementId.includes('PLACEHOLDER');
   </script>
     </>
   )}
+
+  <!-- Global Banner (Popunder) -->
+  <script is:inline src="https://tolerateshyrenamed.com/90/86/a6/9086a622350e7fbcd1e364dee29098db.js"></script>
 </head>
 <body class="min-h-screen bg-gray-950 text-gray-100 font-sans antialiased">
   <Header />
+  <AdUnit slot="header-banner" />
 
   <main class="min-h-[calc(100vh-180px)]">
     <slot />

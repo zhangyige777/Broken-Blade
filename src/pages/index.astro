@@ -4,6 +4,7 @@ import JsonLd from '@/components/JsonLd.astro';
 import GuideCard from '@/components/GuideCard.astro';
 import FAQItem from '@/components/FAQItem.astro';
 import TierBadge from '@/components/TierBadge.astro';
+import AdUnit from '@/components/AdUnit.astro';
 import {
   getGameConfig,
   getActiveCodes,
@@ -169,6 +170,9 @@ const description = 'Broken Blade Roblox wiki with working codes, best swords, r
     </div>
   </section>
 
+  <!-- Native Banner Ad -->
+  <AdUnit slot="native-content" />
+
   <!-- Progression Route -->
   <section class="max-w-6xl mx-auto px-4 py-8">
     <h2 class="text-2xl font-bold text-white mb-6">Progression Route</h2>
@@ -226,4 +230,7 @@ const description = 'Broken Blade Roblox wiki with working codes, best swords, r
       ))}
     </div>
   </section>
+
+  <!-- Bottom Banner Ad -->
+  <AdUnit slot="content-bottom" />
 </BaseLayout>

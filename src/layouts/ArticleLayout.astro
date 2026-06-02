@@ -5,6 +5,7 @@ import DataDisclaimer from '@/components/DataDisclaimer.astro';
 import RelatedGuides from '@/components/RelatedGuides.astro';
 import SummaryTable from '@/components/SummaryTable.astro';
 import FAQItem from '@/components/FAQItem.astro';
+import AdUnit from '@/components/AdUnit.astro';
 import { generateBreadcrumbSchema, generateFAQSchema } from '@/lib/data';
 
 interface Props {
@@ -51,63 +52,79 @@ if (faq && faq.length >= 3) {
 <BaseLayout title={title} description={description} canonical={canonical} ogImage={ogImage}>
   <JsonLd schema={schemas} />
 
-  <article class="max-w-4xl mx-auto px-4 py-12">
-    <!-- Breadcrumb nav -->
-    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-gray-400">
-      <ol class="flex flex-wrap items-center gap-1">
-        {breadcrumbItems.map((item, i) => (
-          <li class="flex items-center gap-1">
-            {i > 0 && <span class="text-gray-600">/</span>}
-            {i < breadcrumbItems.length - 1 ? (
-              <a href={item.url} class="hover:text-amber-400 transition-colors">{item.name}</a>
-            ) : (
-              <span class="text-gray-200 font-medium">{item.name}</span>
-            )}
-          </li>
-        ))}
-      </ol>
-    </nav>
-
-    <!-- H1 -->
-    <h1 class="text-3xl md:text-4xl font-bold mb-4 text-white">{title}</h1>
-
-    <!-- Quick Answer -->
-    {quickAnswer && (
-      <div class="mb-8 p-4 rounded-lg bg-gray-800/50 border border-amber-500/20">
-        <p class="text-gray-200 leading-relaxed">{quickAnswer}</p>
-      </div>
-    )}
-
-    <!-- Optional summary table -->
-    {summaryRows && summaryRows.length > 0 && (
-      <div class="mb-8">
-        <SummaryTable rows={summaryRows} />
-      </div>
-    )}
-
-    <!-- Optional data disclaimer -->
-    {showDisclaimer && <DataDisclaimer />}
-
-    <!-- Custom content via slot -->
-    <slot />
-
-    <!-- FAQ -->
-    {faq && faq.length > 0 && (
-      <section class="mt-12">
-        <h2 class="text-2xl font-bold mb-6 text-white">Frequently Asked Questions</h2>
-        <div class="flex flex-col gap-3">
-          {faq.map((item) => (
-            <FAQItem question={item.question} answer={item.answer} />
+  <div class="max-w-6xl mx-auto px-4 py-12 flex flex-col lg:flex-row gap-8">
+    <!-- Main article content -->
+    <article class="flex-1 min-w-0">
+      <!-- Breadcrumb nav -->
+      <nav aria-label="Breadcrumb" class="mb-6 text-sm text-gray-400">
+        <ol class="flex flex-wrap items-center gap-1">
+          {breadcrumbItems.map((item, i) => (
+            <li class="flex items-center gap-1">
+              {i > 0 && <span class="text-gray-600">/</span>}
+              {i < breadcrumbItems.length - 1 ? (
+                <a href={item.url} class="hover:text-amber-400 transition-colors">{item.name}</a>
+              ) : (
+                <span class="text-gray-200 font-medium">{item.name}</span>
+              )}
+            </li>
           ))}
-        </div>
-      </section>
-    )}
+        </ol>
+      </nav>
 
-    <!-- Optional related guides -->
-    {relatedGuides && relatedGuides.length > 0 && (
-      <div class="mt-12">
-        <RelatedGuides links={relatedGuides} />
+      <!-- H1 -->
+      <h1 class="text-3xl md:text-4xl font-bold mb-4 text-white">{title}</h1>
+
+      <!-- Quick Answer -->
+      {quickAnswer && (
+        <div class="mb-8 p-4 rounded-lg bg-gray-800/50 border border-amber-500/20">
+          <p class="text-gray-200 leading-relaxed">{quickAnswer}</p>
+        </div>
+      )}
+
+      <!-- Optional summary table -->
+      {summaryRows && summaryRows.length > 0 && (
+        <div class="mb-8">
+          <SummaryTable rows={summaryRows} />
+        </div>
+      )}
+
+      <!-- Optional data disclaimer -->
+      {showDisclaimer && <DataDisclaimer />}
+
+      <!-- Custom content via slot -->
+      <slot />
+
+      <!-- Native Banner ad (after content, before FAQ) -->
+      <AdUnit slot="native-content" />
+
+      <!-- FAQ -->
+      {faq && faq.length > 0 && (
+        <section class="mt-12">
+          <h2 class="text-2xl font-bold mb-6 text-white">Frequently Asked Questions</h2>
+          <div class="flex flex-col gap-3">
+            {faq.map((item) => (
+              <FAQItem question={item.question} answer={item.answer} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Optional related guides -->
+      {relatedGuides && relatedGuides.length > 0 && (
+        <div class="mt-12">
+          <RelatedGuides links={relatedGuides} />
+        </div>
+      )}
+
+      <!-- Banner ad at bottom of article -->
+      <AdUnit slot="content-bottom" />
+    </article>
+
+    <!-- Sidebar ad (desktop only) -->
+    <aside class="hidden lg:block w-[300px] flex-shrink-0">
+      <div class="sticky top-20">
+        <AdUnit slot="sidebar" />
       </div>
-    )}
-  </article>
+    </aside>
+  </div>
 </BaseLayout>
